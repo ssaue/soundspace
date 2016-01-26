@@ -27,6 +27,8 @@ $RECYCLE.BIN/
 *.suo
 *.old
 *.scc
+debug
+release
 
 # =========================
 # Operating System Files
