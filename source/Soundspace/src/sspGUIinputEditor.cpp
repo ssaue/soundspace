@@ -49,7 +49,7 @@ BOOL CInputICPanalogDialog::OnInitDialog()
 	if (m_pInput) {
 		sspICPanalogInput* pInput = dynamic_cast<sspICPanalogInput*>(m_pInput);
 		if (!pInput) {
-			AfxMessageBox("Unable to assign input.");
+			AfxMessageBox(L"Unable to assign input.");
 			EndDialog(IDCANCEL);
 		}
 		m_editInput = *pInput;
@@ -79,19 +79,19 @@ void CInputICPanalogDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_editInput.getValue() < 0 || m_editInput.getValue() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid input value selection.");
+		AfxMessageBox(L"Invalid input value selection.");
 		return;
 	}
 	else if (sspPool::Instance().values.getValue(m_editInput.getValue())->getType() != SSP_VALUE_SINGLE) {
-		AfxMessageBox("Value must be of basic type.");
+		AfxMessageBox(L"Value must be of basic type.");
 		return;
 	}
 	if (m_fUpdateInterval <= 0) {
-		AfxMessageBox("Update interval is too short.");
+		AfxMessageBox(L"Update interval is too short.");
 		return;
 	}
 
@@ -147,7 +147,7 @@ BOOL CInputICPdigitalDialog::OnInitDialog()
 	if (m_pInput) {
 		sspICPdigitalInput* pInput = dynamic_cast<sspICPdigitalInput*>(m_pInput);
 		if (!pInput) {
-			AfxMessageBox("Unable to assign input.");
+			AfxMessageBox(L"Unable to assign input.");
 			EndDialog(IDCANCEL);
 		}
 		m_editInput = *pInput;
@@ -177,19 +177,19 @@ void CInputICPdigitalDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_editInput.getConditional() < 0 || m_editInput.getConditional() > (int) sspPool::Instance().conditionals.GetSize()) {
-		AfxMessageBox("Invalid input conditional selection.");
+		AfxMessageBox(L"Invalid input conditional selection.");
 		return;
 	}
 	else if (sspPool::Instance().conditionals.GetConditional(m_editInput.getConditional())->getType() != SSP_COND_BOOLEAN) {
-		AfxMessageBox("Conditional must be of basic boolean type.");
+		AfxMessageBox(L"Conditional must be of basic boolean type.");
 		return;
 	}
 	if (m_fUpdateInterval <= 0) {
-		AfxMessageBox("Update interval is too short.");
+		AfxMessageBox(L"Update interval is too short.");
 		return;
 	}
 	m_editInput.setName((LPCTSTR) m_strName);
@@ -235,7 +235,7 @@ BOOL CInputParallelDialog::OnInitDialog()
 	if (m_pInput) {
 		sspParallelInput* pInput = dynamic_cast<sspParallelInput*>(m_pInput);
 		if (!pInput) {
-			AfxMessageBox("Unable to assign input.");
+			AfxMessageBox(L"Unable to assign input.");
 			EndDialog(IDCANCEL);
 		}
 		m_editInput = *pInput;
@@ -296,21 +296,21 @@ void CInputParallelDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	for (int i=0; i<sspParallelInput::PARALLEL_INPUTS; ++i) {
 		if (m_editInput.getConditional(i) > (int) sspPool::Instance().conditionals.GetSize()) {
-			AfxMessageBox("Invalid input conditional selection.");
+			AfxMessageBox(L"Invalid input conditional selection.");
 			return;
 		}
 		else if (m_editInput.getConditional(i) >= 0 && sspPool::Instance().conditionals.GetConditional(m_editInput.getConditional(i))->getType() != SSP_COND_BOOLEAN) {
-			AfxMessageBox("Conditional must be of basic boolean type.");
+			AfxMessageBox(L"Conditional must be of basic boolean type.");
 			return;
 		}
 	}
 	if (m_fUpdateInterval <= 0) {
-		AfxMessageBox("Update interval is too short.");
+		AfxMessageBox(L"Update interval is too short.");
 		return;
 	}
 	m_editInput.setName((LPCTSTR) m_strName);
@@ -393,7 +393,7 @@ BOOL CInputMIDIeventDialog::OnInitDialog()
 	if (m_pInput) {
 		sspMIDIeventInput* pInput = dynamic_cast<sspMIDIeventInput*>(m_pInput);
 		if (!pInput) {
-			AfxMessageBox("Unable to assign input.");
+			AfxMessageBox(L"Unable to assign input.");
 			EndDialog(IDCANCEL);
 		}
 		m_editInput = *pInput;
@@ -503,23 +503,23 @@ void CInputMIDIeventDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_editInput.getConditional() < 0 || m_editInput.getConditional() > (int) sspPool::Instance().conditionals.GetSize()) {
-		AfxMessageBox("Invalid input conditional selection.");
+		AfxMessageBox(L"Invalid input conditional selection.");
 		return;
 	}
 	else if (sspPool::Instance().conditionals.GetConditional(m_editInput.getConditional())->getType() != SSP_COND_BOOLEAN) {
-		AfxMessageBox("Conditional must be of basic boolean type.");
+		AfxMessageBox(L"Conditional must be of basic boolean type.");
 		return;
 	}
 	if (m_nDevice < 0 || m_nDevice > (int)sspDeviceManager::Instance()[SSP_DEVICE_MIDIIN]->getSubsetSize()) {
-		AfxMessageBox("Invalid MIDI device selection.");
+		AfxMessageBox(L"Invalid MIDI device selection.");
 		return;
 	}
 	if (m_fUpdateInterval <= 0) {
-		AfxMessageBox("Update interval is too short.");
+		AfxMessageBox(L"Update interval is too short.");
 		return;
 	}
 	m_editInput.setName((LPCTSTR) m_strName);

@@ -50,7 +50,7 @@ BOOL CCondBooleanDialog::OnInitDialog()
 	if (m_pCond) {
 		SSpBoolean* pCond = dynamic_cast<SSpBoolean*>(m_pCond);
 		if (!pCond) {
-			AfxMessageBox("Unable to assign conditional.");
+			AfxMessageBox(L"Unable to assign conditional.");
 			EndDialog(IDCANCEL);
 		}
 		m_editCond = *pCond;
@@ -72,11 +72,11 @@ void CCondBooleanDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nBool < 0) {
-		AfxMessageBox("Please make a selection.");
+		AfxMessageBox(L"Please make a selection.");
 		return;
 	}
 	CDialog::OnOK();
@@ -123,7 +123,7 @@ BOOL CCondRelationDialog::OnInitDialog()
 	if (m_pCond) {
 		SSpValueRelation* pCond = dynamic_cast<SSpValueRelation*>(m_pCond);
 		if (!pCond) {
-			AfxMessageBox("Unable to assign conditional.");
+			AfxMessageBox(L"Unable to assign conditional.");
 			EndDialog(IDCANCEL);
 		}
 		m_editCond = *pCond;
@@ -160,19 +160,19 @@ void CCondRelationDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nRelation < 0) {
-		AfxMessageBox("Please select a relation.");
+		AfxMessageBox(L"Please select a relation.");
 		return;
 	}
 	if (m_editCond.getTestValue() < 0 || m_editCond.getTestValue() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid test value selection.");
+		AfxMessageBox(L"Invalid test value selection.");
 		return;
 	}
 	if (m_editCond.getThresholdValue() < 0 || m_editCond.getThresholdValue() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid threshold value selection.");
+		AfxMessageBox(L"Invalid threshold value selection.");
 		return;
 	}
 	CDialog::OnOK();
@@ -218,7 +218,7 @@ BOOL CCondRangeDialog::OnInitDialog()
 	if (m_pCond) {
 		SSpInRange* pCond = dynamic_cast<SSpInRange*>(m_pCond);
 		if (!pCond) {
-			AfxMessageBox("Unable to assign conditional.");
+			AfxMessageBox(L"Unable to assign conditional.");
 			EndDialog(IDCANCEL);
 		}
 		m_editCond = *pCond;
@@ -265,19 +265,19 @@ void CCondRangeDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_editCond.getTestValue() < 0 || m_editCond.getTestValue() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid test value selection.");
+		AfxMessageBox(L"Invalid test value selection.");
 		return;
 	}
 	if (m_editCond.getRangeMin() < 0 || m_editCond.getRangeMin() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid lower threshold value selection.");
+		AfxMessageBox(L"Invalid lower threshold value selection.");
 		return;
 	}
 	if (m_editCond.getRangeMax() < 0 || m_editCond.getRangeMax() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid upper threshold value selection.");
+		AfxMessageBox(L"Invalid upper threshold value selection.");
 		return;
 	}
 	CDialog::OnOK();
@@ -337,7 +337,7 @@ BOOL CCondTimeIntervalDialog::OnInitDialog()
 	if (m_pCond) {
 		SSpTimeInterval* pCond = dynamic_cast<SSpTimeInterval*>(m_pCond);
 		if (!pCond) {
-			AfxMessageBox("Unable to assign conditional.");
+			AfxMessageBox(L"Unable to assign conditional.");
 			EndDialog(IDCANCEL);
 		}
 		m_editCond = *pCond;
@@ -357,7 +357,7 @@ void CCondTimeIntervalDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	CDialog::OnOK();
@@ -412,7 +412,7 @@ BOOL CCondTimeRelationDialog::OnInitDialog()
 	if (m_pCond) {
 		SSpTimeRelation* pCond = dynamic_cast<SSpTimeRelation*>(m_pCond);
 		if (!pCond) {
-			AfxMessageBox("Unable to assign conditional.");
+			AfxMessageBox(L"Unable to assign conditional.");
 			EndDialog(IDCANCEL);
 		}
 		m_editCond = *pCond;
@@ -430,11 +430,11 @@ void CCondTimeRelationDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nRelation < 0) {
-		AfxMessageBox("Please select a relation.");
+		AfxMessageBox(L"Please select a relation.");
 		return;
 	}
 	CDialog::OnOK();
@@ -484,7 +484,7 @@ BOOL CCondMinuteRelationDialog::OnInitDialog()
 	if (m_pCond) {
 		SSpMinuteRelation* pCond = dynamic_cast<SSpMinuteRelation*>(m_pCond);
 		if (!pCond) {
-			AfxMessageBox("Unable to assign conditional.");
+			AfxMessageBox(L"Unable to assign conditional.");
 			EndDialog(IDCANCEL);
 		}
 		m_editCond = *pCond;
@@ -500,11 +500,11 @@ void CCondMinuteRelationDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nRelation < 0) {
-		AfxMessageBox("Please select a relation.");
+		AfxMessageBox(L"Please select a relation.");
 		return;
 	}
 	CDialog::OnOK();
@@ -560,7 +560,7 @@ BOOL CCondDateIntervalDialog::OnInitDialog()
 	if (m_pCond) {
 		SSpDateInterval* pCond = dynamic_cast<SSpDateInterval*>(m_pCond);
 		if (!pCond) {
-			AfxMessageBox("Unable to assign conditional.");
+			AfxMessageBox(L"Unable to assign conditional.");
 			EndDialog(IDCANCEL);
 		}
 		m_editCond = *pCond;
@@ -578,7 +578,7 @@ void CCondDateIntervalDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	CDialog::OnOK();
@@ -622,7 +622,7 @@ BOOL CCondDayOfWeekDialog::OnInitDialog()
 	if (m_pCond) {
 		SSpDayOfWeek* pCond = dynamic_cast<SSpDayOfWeek*>(m_pCond);
 		if (!pCond) {
-			AfxMessageBox("Unable to assign conditional.");
+			AfxMessageBox(L"Unable to assign conditional.");
 			EndDialog(IDCANCEL);
 		}
 		m_editCond = *pCond;
@@ -670,11 +670,11 @@ void CCondDayOfWeekDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nSelectCount < 1) {
-		AfxMessageBox("Please select at least one day.");
+		AfxMessageBox(L"Please select at least one day.");
 		return;
 	}
 	CDialog::OnOK();
@@ -724,7 +724,7 @@ BOOL CCondAndDialog::OnInitDialog()
 	if (m_pCond) {
 		SSpAnd* pCond = dynamic_cast<SSpAnd*>(m_pCond);
 		if (!pCond) {
-			AfxMessageBox("Unable to assign conditional.");
+			AfxMessageBox(L"Unable to assign conditional.");
 			EndDialog(IDCANCEL);
 		}
 		m_editCond = *pCond;
@@ -771,11 +771,11 @@ void CCondAndDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nOperands.size() < 2) {
-		AfxMessageBox("Please select at least two conditionals.");
+		AfxMessageBox(L"Please select at least two conditionals.");
 		return;
 	}
 	CDialog::OnOK();
@@ -826,7 +826,7 @@ BOOL CCondOrDialog::OnInitDialog()
 	if (m_pCond) {
 		SSpOr* pCond = dynamic_cast<SSpOr*>(m_pCond);
 		if (!pCond) {
-			AfxMessageBox("Unable to assign conditional.");
+			AfxMessageBox(L"Unable to assign conditional.");
 			EndDialog(IDCANCEL);
 		}
 		m_editCond = *pCond;
@@ -873,11 +873,11 @@ void CCondOrDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nOperands.size() < 2) {
-		AfxMessageBox("Please select at least two conditionals.");
+		AfxMessageBox(L"Please select at least two conditionals.");
 		return;
 	}
 	CDialog::OnOK();
@@ -921,7 +921,7 @@ BOOL CCondNotDialog::OnInitDialog()
 	if (m_pCond) {
 		SSpNot* pCond = dynamic_cast<SSpNot*>(m_pCond);
 		if (!pCond) {
-			AfxMessageBox("Unable to assign conditional.");
+			AfxMessageBox(L"Unable to assign conditional.");
 			EndDialog(IDCANCEL);
 		}
 		m_editCond = *pCond;
@@ -946,11 +946,11 @@ void CCondNotDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_editCond.getConditional() < 0 || m_editCond.getConditional() > (int) sspPool::Instance().conditionals.GetSize()) {
-		AfxMessageBox("Invalid conditional selection.");
+		AfxMessageBox(L"Invalid conditional selection.");
 		return;
 	}
 	CDialog::OnOK();
@@ -1000,7 +1000,7 @@ BOOL CCondPlayingDialog::OnInitDialog()
 	if (m_pCond) {
 		SSpIsPlaying* pCond = dynamic_cast<SSpIsPlaying*>(m_pCond);
 		if (!pCond) {
-			AfxMessageBox("Unable to assign conditional.");
+			AfxMessageBox(L"Unable to assign conditional.");
 			EndDialog(IDCANCEL);
 		}
 		m_editCond = *pCond;
@@ -1047,11 +1047,11 @@ void CCondPlayingDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nOperands.size() < 1) {
-		AfxMessageBox("Please select at least one play object.");
+		AfxMessageBox(L"Please select at least one play object.");
 		return;
 	}
 	CDialog::OnOK();

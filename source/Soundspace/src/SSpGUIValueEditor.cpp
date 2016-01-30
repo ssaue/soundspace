@@ -52,7 +52,7 @@ BOOL CValueFloatDialog::OnInitDialog()
 	if (m_pVal) {
 		SSpBasicValue* pVal = dynamic_cast<SSpBasicValue*>(m_pVal);
 		if (!pVal) {
-			AfxMessageBox("Unable to assign value.");
+			AfxMessageBox(L"Unable to assign value.");
 			EndDialog(IDCANCEL);
 		}
 		m_editVal = *pVal;
@@ -84,7 +84,7 @@ void CValueFloatDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	CDialog::OnOK();
@@ -130,7 +130,7 @@ BOOL CValueInputRangeDialog::OnInitDialog()
 	if (m_pVal) {
 		SSpInputValueRange* pVal = dynamic_cast<SSpInputValueRange*>(m_pVal);
 		if (!pVal) {
-			AfxMessageBox("Unable to assign value.");
+			AfxMessageBox(L"Unable to assign value.");
 			EndDialog(IDCANCEL);
 		}
 		m_editVal = *pVal;
@@ -146,7 +146,7 @@ void CValueInputRangeDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	CDialog::OnOK();
@@ -211,7 +211,7 @@ BOOL CValueClockDialog::OnInitDialog()
 	if (m_pVal) {
 		SSpTimeMap* pVal = dynamic_cast<SSpTimeMap*>(m_pVal);
 		if (!pVal) {
-			AfxMessageBox("Unable to assign value.");
+			AfxMessageBox(L"Unable to assign value.");
 			EndDialog(IDCANCEL);
 		}
 		m_editVal = *pVal;
@@ -233,7 +233,7 @@ void CValueClockDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	CDialog::OnOK();
@@ -297,7 +297,7 @@ BOOL CValueDateDialog::OnInitDialog()
 	if (m_pVal) {
 		SSpDateMap* pVal = dynamic_cast<SSpDateMap*>(m_pVal);
 		if (!pVal) {
-			AfxMessageBox("Unable to assign value.");
+			AfxMessageBox(L"Unable to assign value.");
 			EndDialog(IDCANCEL);
 		}
 		m_editVal = *pVal;
@@ -317,7 +317,7 @@ void CValueDateDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	CDialog::OnOK();
@@ -374,7 +374,7 @@ BOOL CValueMapDialog::OnInitDialog()
 	if (m_pVal) {
 		SSpLinearMap* pVal = dynamic_cast<SSpLinearMap*>(m_pVal);
 		if (!pVal) {
-			AfxMessageBox("Unable to assign value.");
+			AfxMessageBox(L"Unable to assign value.");
 			EndDialog(IDCANCEL);
 		}
 		m_editVal = *pVal;
@@ -403,11 +403,11 @@ void CValueMapDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_editVal.getValueIndex() < 0 || m_editVal.getValueIndex() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid value selection.");
+		AfxMessageBox(L"Invalid value selection.");
 		return;
 	}
 	CDialog::OnOK();
@@ -457,7 +457,7 @@ BOOL CValueSumDialog::OnInitDialog()
 	if (m_pVal) {
 		SSpAddValue* pVal = dynamic_cast<SSpAddValue*>(m_pVal);
 		if (!pVal) {
-			AfxMessageBox("Unable to assign value.");
+			AfxMessageBox(L"Unable to assign value.");
 			EndDialog(IDCANCEL);
 		}
 		m_editVal = *pVal;
@@ -504,11 +504,11 @@ void CValueSumDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nOperands.size() < 2) {
-		AfxMessageBox("Please select at least two values.");
+		AfxMessageBox(L"Please select at least two values.");
 		return;
 	}
 	CDialog::OnOK();
@@ -555,7 +555,7 @@ BOOL CValueProductDialog::OnInitDialog()
 	if (m_pVal) {
 		SSpProductValue* pVal = dynamic_cast<SSpProductValue*>(m_pVal);
 		if (!pVal) {
-			AfxMessageBox("Unable to assign value.");
+			AfxMessageBox(L"Unable to assign value.");
 			EndDialog(IDCANCEL);
 		}
 		m_editVal = *pVal;
@@ -602,11 +602,11 @@ void CValueProductDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nOperands.size() < 2) {
-		AfxMessageBox("Please select at least two values.");
+		AfxMessageBox(L"Please select at least two values.");
 		return;
 	}
 	CDialog::OnOK();
@@ -658,7 +658,7 @@ BOOL CValueConditionalDialog::OnInitDialog()
 	if (m_pVal) {
 		SSpConditionalValue* pVal = dynamic_cast<SSpConditionalValue*>(m_pVal);
 		if (!pVal) {
-			AfxMessageBox("Unable to assign value.");
+			AfxMessageBox(L"Unable to assign value.");
 			EndDialog(IDCANCEL);
 		}
 		m_editVal = *pVal;
@@ -837,20 +837,20 @@ void CValueConditionalDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_editVal.getDefaultValue() < 0 || m_editVal.getDefaultValue() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Please enter a default value.");
+		AfxMessageBox(L"Please enter a default value.");
 		return;
 	}
 	for (int i=0; i<m_nSize; i++) {
 		if (m_nConditionals[i] == -1) {
-			AfxMessageBox("Missing conditional in list.");
+			AfxMessageBox(L"Missing conditional in list.");
 			return;
 		}
 		if (m_nValues[i] == -1) {
-			AfxMessageBox("Missing value in list.");
+			AfxMessageBox(L"Missing value in list.");
 			return;
 		}
 	}
@@ -905,7 +905,7 @@ BOOL CValueRandomDialog::OnInitDialog()
 	if (m_pVal) {
 		SSpRandomValue* pVal = dynamic_cast<SSpRandomValue*>(m_pVal);
 		if (!pVal) {
-			AfxMessageBox("Unable to assign value.");
+			AfxMessageBox(L"Unable to assign value.");
 			EndDialog(IDCANCEL);
 		}
 		m_editVal = *pVal;
@@ -943,15 +943,15 @@ void CValueRandomDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_editVal.getValueLow() < 0 || m_editVal.getValueLow() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid lower value selection.");
+		AfxMessageBox(L"Invalid lower value selection.");
 		return;
 	}
 	if (m_editVal.getValueHigh() < 0 || m_editVal.getValueHigh() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid upper value selection.");
+		AfxMessageBox(L"Invalid upper value selection.");
 		return;
 	}
 

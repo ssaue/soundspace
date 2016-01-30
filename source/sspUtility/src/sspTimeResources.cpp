@@ -14,6 +14,7 @@
 #include <iostream>
 #include <limits>
 #include <algorithm>
+
 using namespace std;
 
 sspTimeResources* sspTimeResources::m_pInstance = NULL;
@@ -58,7 +59,7 @@ bool sspTimeResources::initialize()
     if (!m_bResolution)
       return false;
     m_nMinResolution = std::max(timeCaps.wPeriodMin, m_nMinResolution);
-	  m_nMaxResolution = timeCaps.wPeriodMax;
+	m_nMaxResolution = timeCaps.wPeriodMax;
   	timeBeginPeriod(m_nMinResolution);
 
   #else

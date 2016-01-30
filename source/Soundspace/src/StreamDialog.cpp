@@ -308,7 +308,7 @@ void CStreamBasicDialog::UpdateButtons()
 void CStreamBasicDialog::OnOK() 
 {
 	if (m_nFactor < 0 || m_nFactor > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid time factor selection.");
+		AfxMessageBox(L"Invalid time factor selection.");
 		return;
 	}
 	CDialog::OnOK();

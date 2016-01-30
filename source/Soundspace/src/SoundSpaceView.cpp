@@ -319,10 +319,10 @@ void CSoundSpaceView::OnExportAsciidump()
     bSuccess = GetDocument()->exportAscii(filename);
   }
   if (bSuccess) {
-	  AfxMessageBox("Configuration is written to file " + filename);
+	  AfxMessageBox(L"Configuration is written to file " + filename);
 	}
   else {
-	  AfxMessageBox("Unable to write to " + filename);
+	  AfxMessageBox(L"Unable to write to " + filename);
   }
 }
 
@@ -339,10 +339,10 @@ void CSoundSpaceView::OnExportConfigerrors()
     bSuccess = GetDocument()->exportErrors(filename, nErrors, nWarnings);
 	}
   if (bSuccess) {
-	  AfxMessageBox("Success! No errors or warnings.");
+	  AfxMessageBox(L"Success! No errors or warnings.");
 	}
   else if (nErrors == 0 && nWarnings == 0) {
-	  AfxMessageBox("Unable to write to " + filename);
+	  AfxMessageBox(L"Unable to write to " + filename);
   }
   else {
 	  CString strMessage;

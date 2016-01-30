@@ -146,23 +146,23 @@ void CSoundSpaceDoc::Serialize(CArchive& ar)
 bool CSoundSpaceDoc::initialize(LPVOID hWnd)
 {
 	if (!sspDeviceManager::Instance().initialize(hWnd)) {
-    AfxMessageBox("Error in initializing devices");
+    AfxMessageBox(L"Error in initializing devices");
 		return false;
 	}
 	if (!sspInputManager::Instance().initialize(hWnd)) {
-    AfxMessageBox("Error in initializing inputs");
+    AfxMessageBox(L"Error in initializing inputs");
 		return false;
 	}
 	if (!sspResetManager::Instance().initialize()) {
-    AfxMessageBox("Error in initializing watchdog");
+    AfxMessageBox(L"Error in initializing watchdog");
 		return false;
 	}
   if (!sspPlayManager::Instance().initialize()) {
-    AfxMessageBox("Error in initializing play objects");
+    AfxMessageBox(L"Error in initializing play objects");
     return false;
   }
 	if (!sspExecutiveManager::Instance().initialize(hWnd)) {
-    AfxMessageBox("Error in initializing execution loop");
+    AfxMessageBox(L"Error in initializing execution loop");
 		return false;
 	}
   return true;

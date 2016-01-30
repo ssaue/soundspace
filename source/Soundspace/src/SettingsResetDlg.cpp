@@ -96,7 +96,7 @@ void CSettingsResetDlg::OnOK()
     if (bOK) pDog->terminate();
     delete pDog;
     if (!bOK) {
-      AfxMessageBox("The selected watchdog is not accessible. Please disable or try another type!");
+      AfxMessageBox(L"The selected watchdog is not accessible. Please disable or try another type!");
       return;
     }
   }
@@ -105,7 +105,7 @@ void CSettingsResetDlg::OnOK()
 
 void CSettingsResetDlg::OnSoftReboot()
 {
-  if (IDYES == AfxMessageBox("This operation will reboot your computer! Are you sure you want to continue?", MB_YESNO|MB_ICONEXCLAMATION))
+  if (IDYES == AfxMessageBox(L"This operation will reboot your computer! Are you sure you want to continue?", MB_YESNO|MB_ICONEXCLAMATION))
     sspResetManager::softReboot();
 }
 
@@ -115,7 +115,7 @@ void CSettingsResetDlg::OnHardReboot()
   if (m_bEnable) {
     sspWatchdog* pDog = sspWatchdog::create(m_nWatchdogType);
     if (pDog && pDog->initialize(m_nTimeout)) {
-      if (IDYES == AfxMessageBox("This operation will reboot your computer! Are you sure you want to continue?", MB_YESNO|MB_ICONEXCLAMATION) && pDog->enable())
+      if (IDYES == AfxMessageBox(L"This operation will reboot your computer! Are you sure you want to continue?", MB_YESNO|MB_ICONEXCLAMATION) && pDog->enable())
       {
         bool bRefresh = true;
         while (bRefresh) {
@@ -142,7 +142,7 @@ void CSettingsResetDlg::OnHardReboot()
         pDog->terminate();
     }
     else {
-      AfxMessageBox("The selected watchdog is not accessible. Please disable or try another type!");
+      AfxMessageBox(L"The selected watchdog is not accessible. Please disable or try another type!");
     }
     delete pDog;
     return;

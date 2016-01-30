@@ -242,15 +242,15 @@ void sspGUITaskEditor::OnSelectMessageType()
 void sspGUITaskEditor::OnOK() 
 {
 	if (m_task.getObjectIndex() < 0 || m_task.getObjectIndex() > (int) sspPool::Instance().objects.GetSize()) {
-		AfxMessageBox("Please select a play object.");
+		AfxMessageBox(L"Please select a play object.");
 		return;
 	}
 	if (m_task.getVolumeFactor() < 0 || m_task.getVolumeFactor() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Please select a volume factor.");
+		AfxMessageBox(L"Please select a volume factor.");
 		return;
 	}
 	if (m_task.getPlayCondition() < 0 || m_task.getPlayCondition() > (int) sspPool::Instance().conditionals.GetSize()) {
-		AfxMessageBox("Please select a play condition.");
+		AfxMessageBox(L"Please select a play condition.");
 		return;
 	}
 	CDialog::OnOK();

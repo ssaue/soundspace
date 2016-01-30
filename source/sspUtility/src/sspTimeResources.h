@@ -33,7 +33,7 @@ public:
 	static sspTimeResources& Instance();
 
   bool initialize();
-	void terminate();
+  void terminate();
 
 #if !defined (WIN32)
   bool createTimer(timer_t nID, struct sigevent& event, sspTimerType nResolution);

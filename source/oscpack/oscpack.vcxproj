@@ -64,16 +64,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\..\build\vs2010\debug\lib\</OutDir>
+    <OutDir>..\..\build\win-x86\debug\lib\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IntDir>..\..\build\vs2010\debug\obj\oscpack\</IntDir>
+    <IntDir>..\..\build\win-x86\debug\obj\oscpack\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>..\..\build\vs2010\release\lib\</OutDir>
+    <OutDir>..\..\build\win-x86\release\lib\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IntDir>..\..\build\vs2010\release\obj\oscpack\</IntDir>
+    <IntDir>..\..\build\win-x86\release\obj\oscpack\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

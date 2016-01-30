@@ -868,27 +868,27 @@ void sspPool::clearContents()
 bool sspPool::initialize()
 {
 	if (!streams.initialize()) {
-		AfxMessageBox("Error in initializing streams.");
+		AfxMessageBox(L"Error in initializing streams.");
 		return false;
 	}
 	if (!objects.initialize()) {
-		AfxMessageBox("Error in initializing objects.");
+		AfxMessageBox(L"Error in initializing objects.");
 		return false;
 	}
 	if (!tasks.initialize()) {
-		AfxMessageBox("Error in initializing tasks.");
+		AfxMessageBox(L"Error in initializing tasks.");
 		return false;
 	}
 	if (!values.initialize()) {
-		AfxMessageBox("Error in initializing values.");
+		AfxMessageBox(L"Error in initializing values.");
 		return false;
 	}
 	if (!conditionals.initialize()) {
-		AfxMessageBox("Error in initializing conditionals.");
+		AfxMessageBox(L"Error in initializing conditionals.");
 		return false;
 	}
 	if (!strings.initialize()) {
-		AfxMessageBox("Error in initializing string objects.");
+		AfxMessageBox(L"Error in initializing string objects.");
 		return false;
 	}
 	return true;

@@ -139,15 +139,15 @@ void CLoadMessageDialog::OnSelectTask()
 void CLoadMessageDialog::OnOK() 
 {
 	if (m_nCurStream == SPECIFY && (m_msg.GetStream() < 0 || m_msg.GetStream() > (int) sspPool::Instance().streams.GetSize())) {
-		AfxMessageBox("Invalid stream selection.");
+		AfxMessageBox(L"Invalid stream selection.");
 		return;
 	}
 	if (m_msg.GetMsgPara(0).iVal < 0 || m_msg.GetMsgPara(0).iVal > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid time value selection.");
+		AfxMessageBox(L"Invalid time value selection.");
 		return;
 	}
 	if (m_nCurTask == SPECIFY && (m_msg.GetMsgPara(1).iVal < 0 || m_msg.GetMsgPara(1).iVal > (int) sspPool::Instance().tasks.GetSize())) {
-		AfxMessageBox("Invalid task selection.");
+		AfxMessageBox(L"Invalid task selection.");
 		return;
 	}
 	CDialog::OnOK();
@@ -230,7 +230,7 @@ void CSoloMessageDialog::OnSelectStream()
 void CSoloMessageDialog::OnOK() 
 {
 	if (m_nCurStream == SPECIFY && (m_msg.GetStream() < 0 || m_msg.GetStream() > (int) sspPool::Instance().streams.GetSize())) {
-		AfxMessageBox("Invalid stream selection.");
+		AfxMessageBox(L"Invalid stream selection.");
 		return;
 	}
 	CDialog::OnOK();
@@ -311,7 +311,7 @@ void CStartMessageDialog::OnSelectStream()
 void CStartMessageDialog::OnOK() 
 {
 	if (m_nCurStream == SPECIFY && (m_msg.GetStream() < 0 || m_msg.GetStream() > (int) sspPool::Instance().streams.GetSize())) {
-		AfxMessageBox("Invalid stream selection.");
+		AfxMessageBox(L"Invalid stream selection.");
 		return;
 	}
 	CDialog::OnOK();
@@ -407,11 +407,11 @@ void CVolumeMessageDialog::OnSelectVolume()
 void CVolumeMessageDialog::OnOK() 
 {
 	if (m_nCurStream == SPECIFY && (m_msg.GetStream() < 0 || m_msg.GetStream() > (int) sspPool::Instance().streams.GetSize())) {
-		AfxMessageBox("Invalid stream selection.");
+		AfxMessageBox(L"Invalid stream selection.");
 		return;
 	}
 	if (m_msg.GetMsgPara(0).iVal < 0 || m_msg.GetMsgPara(0).iVal > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid volume value selection.");
+		AfxMessageBox(L"Invalid volume value selection.");
 		return;
 	}
 	CDialog::OnOK();

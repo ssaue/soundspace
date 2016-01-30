@@ -38,7 +38,7 @@ BOOL sspSimpleStringEditor::OnInitDialog()
 	if (m_pString) {
 		sspSimpleString* pString = dynamic_cast<sspSimpleString*>(m_pString);
 		if (!pString) {
-			AfxMessageBox("Unable to assign string.");
+			AfxMessageBox(L"Unable to assign string.");
 			EndDialog(IDCANCEL);
 		}
 		m_editString = *pString;
@@ -52,7 +52,7 @@ void sspSimpleStringEditor::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	CDialog::OnOK();
@@ -100,7 +100,7 @@ BOOL sspConcatStringEditor::OnInitDialog()
 	if (m_pString) {
 		sspConcatString* pString = dynamic_cast<sspConcatString*>(m_pString);
 		if (!pString) {
-			AfxMessageBox("Unable to assign string.");
+			AfxMessageBox(L"Unable to assign string.");
 			EndDialog(IDCANCEL);
 		}
 		m_editString = *pString;
@@ -189,11 +189,11 @@ void sspConcatStringEditor::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nStrings.size() < 2) {
-		AfxMessageBox("Please select at least two strings.");
+		AfxMessageBox(L"Please select at least two strings.");
 		return;
 	}
 	CDialog::OnOK();
@@ -236,7 +236,7 @@ BOOL sspAlphabetEditor::OnInitDialog()
 	if (m_pString) {
 		sspAlphabetString* pString = dynamic_cast<sspAlphabetString*>(m_pString);
 		if (!pString) {
-			AfxMessageBox("Unable to assign string.");
+			AfxMessageBox(L"Unable to assign string.");
 			EndDialog(IDCANCEL);
 		}
 		m_editString = *pString;
@@ -262,16 +262,16 @@ void sspAlphabetEditor::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_editString.getValueIndex() < 0 || m_editString.getValueIndex() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid value selection.");
+		AfxMessageBox(L"Invalid value selection.");
 		return;
 	}
   std::vector<std::string> strVec;
   if (!convert(m_alphabet, strVec)) {
-		AfxMessageBox("Unable to parse the alphabet, or too few elements.");
+		AfxMessageBox(L"Unable to parse the alphabet, or too few elements.");
 		return;
 	}
 

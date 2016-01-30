@@ -29,6 +29,7 @@ $RECYCLE.BIN/
 *.scc
 debug
 release
+ipch
 
 # =========================
 # Operating System Files

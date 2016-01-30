@@ -2238,7 +2238,7 @@ bool SSpStateObject::initialize()
 {
   SSpBasicValue* pState = dynamic_cast<SSpBasicValue*>(sspPool::Instance().values.getValue(m_nGlobalState));
   if (!pState) {
-		AfxMessageBox("The state variable must be a simple value.");
+		AfxMessageBox(L"The state variable must be a simple value.");
 		return false;
 	}
 	else

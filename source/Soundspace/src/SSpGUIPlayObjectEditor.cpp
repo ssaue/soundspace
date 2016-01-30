@@ -52,7 +52,7 @@ BOOL CObjectWavDialog::OnInitDialog()
 	if (!m_pObjs.empty()) {
 		SSpWavFile* pObj = dynamic_cast<SSpWavFile*>(m_pObjs[0]->pObj);
 		if (!pObj) {
-			AfxMessageBox("Unable to assign object.");
+			AfxMessageBox(L"Unable to assign object.");
 			EndDialog(IDCANCEL);
 		}
 		m_editObj = *pObj;
@@ -145,7 +145,7 @@ void CObjectWavDialog::OnBrowse()
 void CObjectWavDialog::OnOK()
 {
 	if (m_strFileName.IsEmpty()) {
-		AfxMessageBox("Please select at least one file or folder.");
+		AfxMessageBox(L"Please select at least one file or folder.");
 		return;
 	}
 	CDialog::OnOK();
@@ -211,7 +211,7 @@ BOOL CObjectMidiDialog::OnInitDialog()
 	if (!m_pObjs.empty()) {
 		SSpMidiFile* pObj = dynamic_cast<SSpMidiFile*>(m_pObjs[0]->pObj);
 		if (!pObj) {
-			AfxMessageBox("Unable to assign object.");
+			AfxMessageBox(L"Unable to assign object.");
 			EndDialog(IDCANCEL);
 		}
 		m_editObj = *pObj;
@@ -311,15 +311,15 @@ void CObjectMidiDialog::OnOK()
 	UpdateData(TRUE);
 	m_editObj.setMidiDevice(m_nDevice);
 	if (m_strFileName.IsEmpty()) {
-		AfxMessageBox("Please select at least one file.");
+		AfxMessageBox(L"Please select at least one file.");
 		return;
 	}
 	if (m_editObj.getTempoFactor() < 0 || m_editObj.getTempoFactor() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid tempo factor selection.");
+		AfxMessageBox(L"Invalid tempo factor selection.");
 		return;
 	}
 	if (m_editObj.getMidiDevice() < 0 || m_editObj.getMidiDevice() > (int)sspDeviceManager::Instance()[SSP_DEVICE_MIDIOUT]->getSubsetSize()) {
-		AfxMessageBox("Invalid MIDI device selection.");
+		AfxMessageBox(L"Invalid MIDI device selection.");
 		return;
 	}
 	CDialog::OnOK();
@@ -379,7 +379,7 @@ BOOL CObjectDSControlDialog::OnInitDialog()
 	if (!m_pObjs.empty()) {
 		SSpDSFile* pObj = dynamic_cast<SSpDSFile*>(m_pObjs[0]->pObj);
 		if (!pObj) {
-			AfxMessageBox("Unable to assign object.");
+			AfxMessageBox(L"Unable to assign object.");
 			EndDialog(IDCANCEL);
 		}
 		m_editObj = *pObj;
@@ -459,7 +459,7 @@ void CObjectDSControlDialog::OnBrowse()
 void CObjectDSControlDialog::OnOK()
 {
 	if (m_strFileName.IsEmpty()) {
-		AfxMessageBox("Please select at least one file.");
+		AfxMessageBox(L"Please select at least one file.");
 		return;
 	}
 	CDialog::OnOK();
@@ -523,7 +523,7 @@ BOOL CObjectMidiListDialog::OnInitDialog()
 	if (!m_pObjs.empty()) {
 		SSpMidiEventList* pObj = dynamic_cast<SSpMidiEventList*>(m_pObjs[0]->pObj);
 		if (!pObj) {
-			AfxMessageBox("Unable to assign object.");
+			AfxMessageBox(L"Unable to assign object.");
 			EndDialog(IDCANCEL);
 		}
 		m_editObj = *pObj;
@@ -611,11 +611,11 @@ void CObjectMidiListDialog::OnOK()
 	UpdateData(TRUE);
 	m_editObj.setMidiDevice(m_nDevice);
 	if (m_strFileName.IsEmpty()) {
-		AfxMessageBox("Please select at least one file.");
+		AfxMessageBox(L"Please select at least one file.");
 		return;
 	}
 	if (m_editObj.getMidiDevice() < 0 || m_editObj.getMidiDevice() > (int)sspDeviceManager::Instance()[SSP_DEVICE_MIDIOUT]->getSubsetSize()) {
-		AfxMessageBox("Invalid MIDI device selection.");
+		AfxMessageBox(L"Invalid MIDI device selection.");
 		return;
 	}
 	CDialog::OnOK();
@@ -684,7 +684,7 @@ BOOL CObjectDMXDialog::OnInitDialog()
 	if (!m_pObjs.empty()) {
 		SSpDmxLivePlayer* pObj = dynamic_cast<SSpDmxLivePlayer*>(m_pObjs[0]->pObj);
 		if (!pObj) {
-			AfxMessageBox("Unable to assign object.");
+			AfxMessageBox(L"Unable to assign object.");
 			EndDialog(IDCANCEL);
 		}
 		m_editObj = *pObj;
@@ -801,19 +801,19 @@ void CObjectDMXDialog::OnOK()
 	m_editObj.setDmxDevice(m_nDevice);
 	m_editObj.setRefreshRate(m_nRefreshInterval);
 	if (m_strFileName.IsEmpty()) {
-		AfxMessageBox("Please select at least one file.");
+		AfxMessageBox(L"Please select at least one file.");
 		return;
 	}
 	if (m_editObj.getDuration() < 0 || m_editObj.getDuration() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid duration selection.");
+		AfxMessageBox(L"Invalid duration selection.");
 		return;
 	}
 	if (m_editObj.getSelector() < 0 || m_editObj.getSelector() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid index selection.");
+		AfxMessageBox(L"Invalid index selection.");
 		return;
 	}
 	if (m_editObj.getDevice() < 0 || m_editObj.getDevice() > (int)sspDeviceManager::Instance()[SSP_DEVICE_DMX]->getSubsetSize()) {
-		AfxMessageBox("Invalid DMX device selection.");
+		AfxMessageBox(L"Invalid DMX device selection.");
 		return;
 	}
 	CDialog::OnOK();
@@ -868,7 +868,7 @@ BOOL CObjectSilenceDialog::OnInitDialog()
 	if (!m_pObjs.empty()) {
 		SSpSilence* pObj = dynamic_cast<SSpSilence*>(m_pObjs[0]->pObj);
 		if (!pObj) {
-			AfxMessageBox("Unable to assign object.");
+			AfxMessageBox(L"Unable to assign object.");
 			EndDialog(IDCANCEL);
 		}
 		m_editObj = *pObj;
@@ -895,11 +895,11 @@ void CObjectSilenceDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_editObj.getLengthValue() < 0 || m_editObj.getLengthValue() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid duration selection.");
+		AfxMessageBox(L"Invalid duration selection.");
 		return;
 	}
 	CDialog::OnOK();
@@ -957,7 +957,7 @@ BOOL CObjectSimultaneousDialog::OnInitDialog()
 	if (!m_pObjs.empty()) {
 		SSpSimultaneousGroup* pObj = dynamic_cast<SSpSimultaneousGroup*>(m_pObjs[0]->pObj);
 		if (!pObj) {
-			AfxMessageBox("Unable to assign object.");
+			AfxMessageBox(L"Unable to assign object.");
 			EndDialog(IDCANCEL);
 		}
 		m_editObj = *pObj;
@@ -1013,11 +1013,11 @@ void CObjectSimultaneousDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nObjects.size() < 2) {
-		AfxMessageBox("Please select at least two objects.");
+		AfxMessageBox(L"Please select at least two objects.");
 		return;
 	}
 	CDialog::OnOK();
@@ -1075,7 +1075,7 @@ BOOL CObjectSequentialDialog::OnInitDialog()
 	if (!m_pObjs.empty()) {
 		SSpSequentialGroup* pObj = dynamic_cast<SSpSequentialGroup*>(m_pObjs[0]->pObj);
 		if (!pObj) {
-			AfxMessageBox("Unable to assign object.");
+			AfxMessageBox(L"Unable to assign object.");
 			EndDialog(IDCANCEL);
 		}
 		m_editObj = *pObj;
@@ -1165,11 +1165,11 @@ void CObjectSequentialDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nObjects.size() < 2) {
-		AfxMessageBox("Please select at least two objects.");
+		AfxMessageBox(L"Please select at least two objects.");
 		return;
 	}
 	CDialog::OnOK();
@@ -1228,7 +1228,7 @@ BOOL CObjectLinearSelectDialog::OnInitDialog()
 	if (!m_pObjs.empty()) {
 		SSpLinearSelectGroup* pObj = dynamic_cast<SSpLinearSelectGroup*>(m_pObjs[0]->pObj);
 		if (!pObj) {
-			AfxMessageBox("Unable to assign object.");
+			AfxMessageBox(L"Unable to assign object.");
 			EndDialog(IDCANCEL);
 		}
 		m_editObj = *pObj;
@@ -1330,15 +1330,15 @@ void CObjectLinearSelectDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nObjects.size() < 2) {
-		AfxMessageBox("Please select at least two objects.");
+		AfxMessageBox(L"Please select at least two objects.");
 		return;
 	}
 	if (m_editObj.getValue() < 0 || m_editObj.getValue() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid value selection.");
+		AfxMessageBox(L"Invalid value selection.");
 		return;
 	}
 	CDialog::OnOK();
@@ -1390,7 +1390,7 @@ BOOL CObjectRandomDialog::OnInitDialog()
 	if (!m_pObjs.empty()) {
 		SSpRandomGroup* pObj = dynamic_cast<SSpRandomGroup*>(m_pObjs[0]->pObj);
 		if (!pObj) {
-			AfxMessageBox("Unable to assign object.");
+			AfxMessageBox(L"Unable to assign object.");
 			EndDialog(IDCANCEL);
 		}
 		m_editObj = *pObj;
@@ -1542,11 +1542,11 @@ void CObjectRandomDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nObjects.size() < 2) {
-		AfxMessageBox("Please select at least two objects.");
+		AfxMessageBox(L"Please select at least two objects.");
 		return;
 	}
 	CDialog::OnOK();
@@ -1604,7 +1604,7 @@ BOOL CObjectChainDialog::OnInitDialog()
 	if (!m_pObjs.empty()) {
 		SSpChainGroup* pObj = dynamic_cast<SSpChainGroup*>(m_pObjs[0]->pObj);
 		if (!pObj) {
-			AfxMessageBox("Unable to assign object.");
+			AfxMessageBox(L"Unable to assign object.");
 			EndDialog(IDCANCEL);
 		}
 		m_editObj = *pObj;
@@ -1728,11 +1728,11 @@ void CObjectChainDialog::OnOK()
 	UpdateData(TRUE);
 	m_editObj.setChainLength(m_nChainLength);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nObjects.size() < 2) {
-		AfxMessageBox("Please select at least two objects.");
+		AfxMessageBox(L"Please select at least two objects.");
 		return;
 	}
 	CDialog::OnOK();
@@ -1794,7 +1794,7 @@ BOOL CObjectConditionalDialog::OnInitDialog()
 	if (!m_pObjs.empty()) {
 		SSpConditionalGroup* pObj = dynamic_cast<SSpConditionalGroup*>(m_pObjs[0]->pObj);
 		if (!pObj) {
-			AfxMessageBox("Unable to assign object.");
+			AfxMessageBox(L"Unable to assign object.");
 			EndDialog(IDCANCEL);
 		}
 		m_editObj = *pObj;
@@ -1980,19 +1980,19 @@ void CObjectConditionalDialog::OnOK()
 {
 	UpdateData(TRUE);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_nObjects.size() < 2 && m_editObj.getDefaultObject() < 0) {
-		AfxMessageBox("Please select at least two objects.");
+		AfxMessageBox(L"Please select at least two objects.");
 		return;
 	}
 	if (m_nObjects.size() == 0) {
-		AfxMessageBox("Please select at least two objects.");
+		AfxMessageBox(L"Please select at least two objects.");
 		return;
 	}
 	if (m_editObj.getDefaultObject() > (int) sspPool::Instance().objects.GetSize()) {
-		AfxMessageBox("Invalid default object selection.");
+		AfxMessageBox(L"Invalid default object selection.");
 		return;
 	}
 	CDialog::OnOK();
@@ -2060,7 +2060,7 @@ BOOL CObjectDistributionDialog::OnInitDialog()
 	if (!m_pObjs.empty()) {
 		SSpDistributionObject* pObj = dynamic_cast<SSpDistributionObject*>(m_pObjs[0]->pObj);
 		if (!pObj) {
-			AfxMessageBox("Unable to assign object.");
+			AfxMessageBox(L"Unable to assign object.");
 			EndDialog(IDCANCEL);
 		}
 		m_editObj = *pObj;
@@ -2188,33 +2188,33 @@ void CObjectDistributionDialog::OnOK()
 	UpdateData(TRUE);
 	m_editObj.SetLoopMode(m_nLoopMode);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_editObj.getPlayObject() < 0 || m_editObj.getPlayObject() > (int) sspPool::Instance().objects.GetSize()) {
-		AfxMessageBox("Invalid play object selection.");
+		AfxMessageBox(L"Invalid play object selection.");
 		return;
 	}
 	if (m_editObj.getLoopCondition() < 0 || m_editObj.getLoopCondition() > (int) sspPool::Instance().conditionals.GetSize()) {
-		AfxMessageBox("Invalid play object selection.");
+		AfxMessageBox(L"Invalid play object selection.");
 		return;
 	}
 	if (m_editObj.getStartInterval() < 0 || m_editObj.getStartInterval() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid play object selection.");
+		AfxMessageBox(L"Invalid play object selection.");
 		return;
 	}
 	if (m_editObj.getEndInterval() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid play object selection.");
+		AfxMessageBox(L"Invalid play object selection.");
 		return;
 	}
 	if (m_editObj.getLoopDuration() < 0 || m_editObj.getLoopDuration() > (int) sspPool::Instance().values.GetSize()) {
 		switch (m_nLoopMode) {
 		case SSpDistributionObject::LOOP_DURATION:
-			AfxMessageBox("Invalid loop duration selection.");
+			AfxMessageBox(L"Invalid loop duration selection.");
 			return;
 			break;
 		case SSpDistributionObject::LOOP_COUNT:
-			AfxMessageBox("Invalid loop count selection.");
+			AfxMessageBox(L"Invalid loop count selection.");
 			return;
 			break;
 		default:
@@ -2268,7 +2268,7 @@ BOOL CObjectSetState::OnInitDialog()
 	if (!m_pObjs.empty()) {
 		SSpStateObject* pObj = dynamic_cast<SSpStateObject*>(m_pObjs[0]->pObj);
 		if (!pObj) {
-			AfxMessageBox("Unable to assign object.");
+			AfxMessageBox(L"Unable to assign object.");
 			EndDialog(IDCANCEL);
 		}
 		m_editObj = *pObj;
@@ -2312,16 +2312,16 @@ void CObjectSetState::OnOK()
 	UpdateData(TRUE);
   m_editObj.setMode(m_nMode);
 	if (m_strName.IsEmpty()) {
-		AfxMessageBox("Please specify a name.");
+		AfxMessageBox(L"Please specify a name.");
 		return;
 	}
 	if (m_editObj.getGlobalState() < 0 || m_editObj.getGlobalState() > (int) sspPool::Instance().values.GetSize()) {
-		AfxMessageBox("Invalid state value selection.");
+		AfxMessageBox(L"Invalid state value selection.");
 		return;
 	}
   if (m_nMode == SSpStateObject::STATE_TYPE_SETVALUE 
     && (m_editObj.getInputValue() < 0 || m_editObj.getInputValue() > (int) sspPool::Instance().values.GetSize())) {
-		AfxMessageBox("Invalid input value selection.");
+		AfxMessageBox(L"Invalid input value selection.");
 		return;
 	}
 	CDialog::OnOK();
