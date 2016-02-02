@@ -10,7 +10,7 @@
 class sspSimpleString : public sspStringObject  
 {
 protected:
-  std::string	m_str;
+	sspString	m_str;
   DECLARE_SERIAL( sspSimpleString )
 
 public:
@@ -22,18 +22,18 @@ public:
 	void Serialize(CArchive& ar);
 
 	// Virtual methods
-  std::string	getString() {return m_str;}
+	sspString	getString() { return m_str; }
 	void	printASCII(std::ofstream& outStr);
   bool	verify(std::ofstream& outStr, int& nErrors, int& nWarnings) {return true;}
 
 	// Accessors
-	void setString(const std::string& str) {m_str = str;}
+	void setString(const sspString& str) { m_str = str; }
 };
 
 class sspAlphabetString : public sspStringObject  
 {
 protected:
-  std::vector<std::string> m_strVec;
+	sspStrVec m_strVec;
   int m_nValueIndex;
   DECLARE_SERIAL( sspAlphabetString )
 
@@ -46,13 +46,13 @@ public:
 	void Serialize(CArchive& ar);
 
 	// Virtual methods
-  std::string	getString();
+	sspString	getString();
 	void	printASCII(std::ofstream& outStr);
 	bool	verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
-	void setStrings(const std::vector<std::string>& strVec) {m_strVec = strVec;}
-  const std::vector<std::string>& getStrings() const {return m_strVec;}
+	void setStrings(const sspStrVec& strVec) { m_strVec = strVec; }
+	const sspStrVec& getStrings() const { return m_strVec; }
 
   void setValueIndex(int nIndex) {m_nValueIndex = nIndex;}
   int getValueIndex() const {return m_nValueIndex;}
@@ -73,7 +73,7 @@ public:
 	void Serialize(CArchive& ar);
 
 	// Virtual methods
-  std::string	getString();
+	sspString	getString();
 	void	printASCII(std::ofstream& outStr);
 	bool	verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
 

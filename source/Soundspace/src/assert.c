@@ -8,11 +8,11 @@
 #include "assert.h"
 
 #ifdef _DEBUG
-CHAR szText [256];
+wchar_t szText [256];
 
 void AssertFailedLine(LPCSTR lpszFilename, int nLine)
 {
-    wsprintf (szText, "File: %s, Line: %d", lpszFilename, nLine);
-    MessageBox (NULL, szText, "ASSERT", MB_APPLMODAL | MB_ICONERROR);
+    wsprintf (szText, L"File: %s, Line: %d", lpszFilename, nLine);
+    MessageBox (NULL, szText, L"ASSERT", MB_APPLMODAL | MB_ICONERROR);
 }
 #endif // DEBUG

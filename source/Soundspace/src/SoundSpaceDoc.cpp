@@ -277,7 +277,7 @@ void CSoundSpaceDoc::OnClockEvents()
 
 void CSoundSpaceDoc::OnPreferences() 
 {
-	sspGUIPreferences sheet("Preferences");
+	sspGUIPreferences sheet(_T("Preferences"));
 
   sheet.m_pageAudio.m_nFrequency = sspSetting::audio.freq;
   sheet.m_pageAudio.m_nBufferLength = sspSetting::audio.bufSize;

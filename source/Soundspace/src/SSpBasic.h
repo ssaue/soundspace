@@ -31,7 +31,7 @@ class sspStringObject : public sspObject
 {
 public:
 	sspStringObject(short nType) : sspObject(SSP_CLASS_STRING, nType) {}
-  virtual std::string getString() = 0;
+	virtual sspString getString() = 0;
 };
 
 #endif

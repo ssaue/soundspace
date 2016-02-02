@@ -6,7 +6,7 @@
 
 sspWavOutDeviceGroup::sspWavOutDeviceGroup()
 {
-	m_strName = "MME wav";
+	m_strName = _T("MME wav");
 }
 
 sspWavOutDeviceGroup::~sspWavOutDeviceGroup()
@@ -20,5 +20,5 @@ sspString sspWavOutDeviceGroup::getDeviceName(int nDevice)
 	if (waveOutGetDevCaps(nDevice, (LPWAVEOUTCAPS) &waveDevice, sizeof(WAVEOUTCAPS)) == MMSYSERR_NOERROR)
 		return waveDevice.szPname;
 	else
-		return "";
+		return _T("");
 }

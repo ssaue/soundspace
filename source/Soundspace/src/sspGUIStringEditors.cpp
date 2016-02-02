@@ -269,7 +269,7 @@ void sspAlphabetEditor::OnOK()
 		AfxMessageBox(L"Invalid value selection.");
 		return;
 	}
-  std::vector<std::string> strVec;
+	sspStrVec strVec;
   if (!convert(m_alphabet, strVec)) {
 		AfxMessageBox(L"Unable to parse the alphabet, or too few elements.");
 		return;
@@ -283,7 +283,7 @@ void sspAlphabetEditor::OnOK()
 		m_pString = new sspAlphabetString(m_editString);
 }
 
-bool sspAlphabetEditor::convert(const CString& cstr, std::vector<std::string>& strVec)
+bool sspAlphabetEditor::convert(const CString& cstr, sspStrVec& strVec)
 {
   CString strTemp = cstr;
   strTemp.Remove(' ');
@@ -293,31 +293,31 @@ bool sspAlphabetEditor::convert(const CString& cstr, std::vector<std::string>& s
   }
   else {
     int nCurPos = 0;
-    CString resToken = strTemp.Tokenize(",",nCurPos);
+    CString resToken = strTemp.Tokenize(_T(","), nCurPos);
     while (resToken != "") {
       if (resToken.GetLength() == 3 && resToken.Find('-',0) == 1) {
-        char first = resToken[0];
-        char last = resToken[2];
+        wchar_t first = resToken[0];
+				wchar_t last = resToken[2];
         if (last < first || (last - first) > 26) {
           // Illegal format
           strVec.clear();
           return false;
         }
         else {
-          for (char ch=first; ch<=last; ++ch)
-            strVec.push_back(std::string(1,ch));
+					for (wchar_t ch = first; ch <= last; ++ch)
+						strVec.push_back(sspString(1, ch));
         }
       }
       else {
         strVec.push_back(resToken.GetBuffer());
       }
-      resToken= strTemp.Tokenize(",",nCurPos);
+      resToken= strTemp.Tokenize(_T(","),nCurPos);
     }
   }
   return strVec.size() > 1;
 };
 
-void sspAlphabetEditor::convert(const std::vector<std::string>& strVec, CString& cstr)
+void sspAlphabetEditor::convert(const sspStrVec& strVec, CString& cstr)
 {
   if (strVec.empty()) {
     cstr.Empty();

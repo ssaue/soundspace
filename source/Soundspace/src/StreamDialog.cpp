@@ -448,15 +448,15 @@ void CStreamDeviceDialog::displayMono()
 	sspDeviceGroup* pGroup = sspDeviceManager::Instance()[SSP_DEVICE_DIRECTSOUND];
 	for (i=0; i<pGroup->getSubsetSize(); i++) {
 		CString txt = pGroup->getSubsetName(i).c_str();
-		m_lbDSlist.InsertString(-1, txt + " - L");
-		m_lbDSlist.InsertString(-1, txt + " - R");
+		m_lbDSlist.InsertString(-1, txt + _T(" - L"));
+		m_lbDSlist.InsertString(-1, txt + _T(" - R"));
 	}
 	m_lbWAVlist.ResetContent();
 	pGroup = sspDeviceManager::Instance()[SSP_DEVICE_WAV];
 	for (i=0; i<pGroup->getSubsetSize(); i++) {
 		CString txt = pGroup->getSubsetName(i).c_str();
-		m_lbWAVlist.InsertString(-1, txt + " - L");
-		m_lbWAVlist.InsertString(-1, txt + " - R");
+		m_lbWAVlist.InsertString(-1, txt + _T(" - L"));
+		m_lbWAVlist.InsertString(-1, txt + _T(" - R"));
 	}
 }
 

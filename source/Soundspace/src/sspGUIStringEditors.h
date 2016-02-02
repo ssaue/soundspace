@@ -85,8 +85,8 @@ protected:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSourceValue();
 
-  bool convert(const CString& cstr, std::vector<std::string>& strVec);
-  void convert(const std::vector<std::string>& strVec, CString& cstr);
+	bool convert(const CString& cstr, sspStrVec& strVec);
+	void convert(const sspStrVec& strVec, CString& cstr);
 };
 
 #endif

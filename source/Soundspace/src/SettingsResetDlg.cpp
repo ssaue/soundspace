@@ -119,8 +119,8 @@ void CSettingsResetDlg::OnHardReboot()
       {
         bool bRefresh = true;
         while (bRefresh) {
-          char warning[80];
-          sprintf_s(warning, 80, "Reboot in %d seconds! Press ABORT to disable or RETRY to refresh.", static_cast<int>(pDog->counter()) / 2);
+          wchar_t warning[80];
+          swprintf_s(warning, 80, _T("Reboot in %d seconds! Press ABORT to disable or RETRY to refresh."), static_cast<int>(pDog->counter()) / 2);
           int nResponse = AfxMessageBox(warning, MB_ABORTRETRYIGNORE|MB_ICONEXCLAMATION);
           switch (nResponse) {
             case IDABORT: 
