@@ -29,8 +29,8 @@ public:
 
 	// Virtual methods
 	bool isTrue();
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings) {return true;}
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings) {return true;}
 
 	// Accessors
 	void setValue(bool bVal) {m_bValue = bVal;}
@@ -55,8 +55,8 @@ public:
 
 	// Virtual methods
 	bool isTrue();
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setTestValue(int nTestInd) {m_nTestIndex = nTestInd;}
@@ -86,8 +86,8 @@ public:
 
 	// Virtual methods
 	bool isTrue();
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setRangeMin(int nRange) {m_nRangeMin = nRange;}
@@ -116,8 +116,8 @@ public:
 
 	// Virtual methods
 	bool isTrue();
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setStartClock(const SSpClock& clock) {m_clockStart = clock;}
@@ -146,8 +146,8 @@ public:
 
 	// Virtual methods
 	bool isTrue();
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setClock(SSpClock& clock) {m_clock = clock;}
@@ -176,8 +176,8 @@ public:
 
 	// Virtual methods
 	bool isTrue();
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setMinute(int nMinute) {m_nMinute = nMinute;}
@@ -204,8 +204,8 @@ public:
 
 	// Virtual methods
 	bool isTrue();
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setStartDate(const SSpDate& date) {m_dateStart = date;}
@@ -234,8 +234,8 @@ public:
 
 	// Virtual methods
 	bool isTrue();
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setDayCheck(int nDay, bool bTrue) {m_bDayCheck[nDay] = bTrue;}
@@ -258,8 +258,8 @@ public:
 
 	// Virtual methods
 	bool isTrue();
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setObjects(const sspIntVec& nObjects) {m_nObjects = nObjects;}
@@ -282,8 +282,8 @@ public:
 
 	// Virtual methods
 	bool isTrue();
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setConditionals(const sspIntVec& nConditionals) {m_nConditionals = nConditionals;}
@@ -306,8 +306,8 @@ public:
 
 	// Virtual methods
 	bool isTrue();
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setConditionals(const sspIntVec& nConditionals) {m_nConditionals = nConditionals;}
@@ -330,8 +330,8 @@ public:
 
 	// Virtual methods
 	bool isTrue();
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setConditional(int nCondIndex) {m_nCondIndex = nCondIndex;}
@@ -358,8 +358,8 @@ public:
 	void Serialize(CArchive& ar);
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	bool isTrue();
 	
 	// Local methods

@@ -11,7 +11,7 @@
 extern "C"
 {
 #endif
-    extern char szDebug [];
+    extern wchar_t szDebug [];
 #ifdef __cplusplus
 }
 #endif

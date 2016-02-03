@@ -29,8 +29,8 @@ public:
 	virtual ~SSpValuePool();
 	void Serialize(CArchive& ar);
 
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	void initContents();
 	void clearContents();
 	bool initialize();
@@ -54,8 +54,8 @@ public:
 	virtual ~SSpConditionalPool();
 	void Serialize(CArchive& ar);
 
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	void initContents();
 	void clearContents();
 	bool initialize();
@@ -79,8 +79,8 @@ public:
 	virtual ~sspStringPool();
 	void Serialize(CArchive& ar);
 
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	void initContents();
 	void clearContents();
 	bool initialize();
@@ -104,8 +104,8 @@ public:
 	virtual ~SSpPlayObjectPool();
 	void Serialize(CArchive& ar);
 
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	void initContents();
 	void clearContents();
 	bool initialize();
@@ -129,8 +129,8 @@ public:
 	virtual ~SSpPlayTaskPool();
 	void Serialize(CArchive& ar);
 
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	void initContents();
 	void clearContents();
 	bool initialize();
@@ -154,8 +154,8 @@ public:
 	virtual ~SSpStreamPool();
 	void Serialize(CArchive& ar);
 
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	void initContents();
 	void clearContents();
 	bool initialize();
@@ -189,8 +189,8 @@ public:
 
 	void Serialize(CArchive& ar);
 
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	void initContents();
 	void clearContents();
 	bool initialize();

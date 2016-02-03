@@ -82,8 +82,8 @@ public:
 	void clearBuffer() {m_pBuffer = NULL;}
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	void handleMessage(const SSpMessage& msg);
 
 	unsigned int getDuration();

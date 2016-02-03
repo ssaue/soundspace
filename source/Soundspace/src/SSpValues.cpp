@@ -63,7 +63,7 @@ void SSpBasicValue::Serialize(CArchive& ar)
 		ar >> m_fVal;
 }
 
-void SSpBasicValue::printASCII(std::ofstream& outStr)
+void SSpBasicValue::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpBasicValue " << m_strName;
 	outStr << endl << "   - m_fVal: " << m_fVal;
@@ -109,27 +109,27 @@ void SSpInputValueRange::Serialize(CArchive& ar)
 		ar >> m_fVal >> m_fMin >> m_fMax;;
 }
 
-void SSpInputValueRange::printASCII(std::ofstream& outStr)
+void SSpInputValueRange::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpInputValueRange " << m_strName;
 	outStr << endl << "   - m_fMin: " << m_fMin << ", m_fMax: " << m_fMax;
 	outStr << endl << "   - (default m_fVal: " << m_fVal << ")";
 }
 
-bool SSpInputValueRange::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpInputValueRange::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (m_fMin > m_fMax) {
-		printError(outStr, "(SSpInputValueRange): m_fMin is larger than m_fMax", nErrors);
+		printError(outStr, _T("(SSpInputValueRange): m_fMin is larger than m_fMax"), nErrors);
 		bRet = false;
 	}
 	if (m_fMin == m_fMax) {
-		printWarning(outStr, "(SSpInputValueRange): m_fMin is equal to m_fMax", nWarnings);
+		printWarning(outStr, _T("(SSpInputValueRange): m_fMin is equal to m_fMax"), nWarnings);
 		bRet = false;
 	}
 	if (m_fVal < m_fMin || m_fVal > m_fMax) {
-		printError(outStr, "(SSpInputValueRange): m_fVal is out of range", nErrors);
+		printError(outStr, _T("(SSpInputValueRange): m_fVal is out of range"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -220,7 +220,7 @@ void SSpTimeMap::Serialize(CArchive& ar)
 	}
 }
 
-void SSpTimeMap::printASCII(std::ofstream& outStr)
+void SSpTimeMap::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpTimeMap " << m_strName;
 	outStr << endl << "   - m_clockStart: " << m_clockStart.hour() << ":" << m_clockStart.min() << ":" << m_clockStart.sec();
@@ -228,24 +228,24 @@ void SSpTimeMap::printASCII(std::ofstream& outStr)
 	outStr << endl << "   - m_fValStart: " << m_fValStart << ", m_fValEnd: " << m_fValEnd;
 }
 
-bool SSpTimeMap::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpTimeMap::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (m_fSeconds < 0.0f) {
-		printError(outStr, "(SSpTimeMap): m_clockStart is after m_clockEnd", nErrors);
+		printError(outStr, _T("(SSpTimeMap): m_clockStart is after m_clockEnd"), nErrors);
 		bRet = false;
 	}
 	if (m_fSeconds == 0.0f) {
-		printWarning(outStr, "(SSpTimeMap): m_clockStart is equal to m_clockEnd", nWarnings);
+		printWarning(outStr, _T("(SSpTimeMap): m_clockStart is equal to m_clockEnd"), nWarnings);
 		bRet = false;
 	}
 	if (!m_clockStart.isValid()) {
-		printError(outStr, "(SSpTimeMap): m_clockStart is not valid", nErrors);
+		printError(outStr, _T("(SSpTimeMap): m_clockStart is not valid"), nErrors);
 		bRet = false;
 	}
 	if (!m_clockEnd.isValid()) {
-		printError(outStr, "(SSpTimeMap): m_clockEnd is not valid", nErrors);
+		printError(outStr, _T("(SSpTimeMap): m_clockEnd is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -335,7 +335,7 @@ void SSpDateMap::Serialize(CArchive& ar)
 	}
 }
 
-void SSpDateMap::printASCII(std::ofstream& outStr)
+void SSpDateMap::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpDateMap " << m_strName;
   outStr << endl << "   - m_dateStart: " << m_dateStart.month() << "//" << m_dateStart.day();
@@ -343,24 +343,24 @@ void SSpDateMap::printASCII(std::ofstream& outStr)
 	outStr << endl << "   - m_fValStart: " << m_fValStart << ", m_fValEnd: " << m_fValEnd;
 }
 
-bool SSpDateMap::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpDateMap::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (m_fDays < 0.0f) {
-		printError(outStr, "(SSpDateMap): m_dateStart is after m_dateEnd", nErrors);
+		printError(outStr, _T("(SSpDateMap): m_dateStart is after m_dateEnd"), nErrors);
 		bRet = false;
 	}
 	if (m_fDays == 0.0f) {
-		printWarning(outStr, "(SSpDateMap): m_dateStart is equal to m_dateEnd", nWarnings);
+		printWarning(outStr, _T("(SSpDateMap): m_dateStart is equal to m_dateEnd"), nWarnings);
 		bRet = false;
 	}
 	if (!m_dateStart.isValid()) {
-		printError(outStr, "(SSpDateMap): m_dateStart is not valid", nErrors);
+		printError(outStr, _T("(SSpDateMap): m_dateStart is not valid"), nErrors);
 		bRet = false;
 	}
 	if (!m_dateEnd.isValid()) {
-		printError(outStr, "(SSpDateMap): m_dateEnd is not valid", nErrors);
+		printError(outStr, _T("(SSpDateMap): m_dateEnd is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -441,7 +441,7 @@ void SSpLinearMap::Serialize(CArchive& ar)
 	}
 }
 
-void SSpLinearMap::printASCII(std::ofstream& outStr)
+void SSpLinearMap::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpLinearMap " << m_strName;
 	outStr << endl << "   - m_fInputStart: " << m_fInputStart << ", m_fInputEnd: " << m_fInputEnd;
@@ -449,21 +449,21 @@ void SSpLinearMap::printASCII(std::ofstream& outStr)
 	outStr << endl << "   - m_nValueIndex: " << sspPool::Instance().values.GetName(m_nValueIndex);
 }
 
-bool SSpLinearMap::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpLinearMap::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (m_nValueIndex == m_nIndex || m_nValueIndex < 0 
 		|| m_nValueIndex > (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(SSpLinearMap): m_nValueIndex is not valid", nErrors);
+		printError(outStr, _T("(SSpLinearMap): m_nValueIndex is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_fInputStart == m_fInputEnd) {
-		printError(outStr, "(SSpLinearMap): m_fInputStart is equal to m_fInputEnd", nErrors);
+		printError(outStr, _T("(SSpLinearMap): m_fInputStart is equal to m_fInputEnd"), nErrors);
 		bRet = false;
 	}
 	if (m_fOutputStart == m_fOutputEnd) {
-		printWarning(outStr, "(SSpLinearMap): m_fInputStart is equal to m_fInputEnd", nWarnings);
+		printWarning(outStr, _T("(SSpLinearMap): m_fInputStart is equal to m_fInputEnd"), nWarnings);
 		bRet = false;
 	}
 	return bRet;
@@ -528,7 +528,7 @@ void SSpAddValue::Serialize(CArchive& ar)
 	}
 }
 
-void SSpAddValue::printASCII(std::ofstream& outStr)
+void SSpAddValue::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpAddValue " << m_strName;
 	for (unsigned int i=0; i<m_nValues.size(); ++i) {
@@ -536,23 +536,23 @@ void SSpAddValue::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpAddValue::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpAddValue::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	for (unsigned int i=0; i<m_nValues.size(); ++i) {
 		if (m_nValues[i] == m_nIndex || m_nValues[i] < 0 
 			|| m_nValues[i] > (int) sspPool::Instance().values.GetSize()) {
-			printError(outStr, "(SSpAddValue): a value index is not valid", nErrors);
+			printError(outStr, _T("(SSpAddValue): a value index is not valid"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nValues.size() == 0) {
-		printError(outStr, "(SSpAddValue): there are no values", nErrors);
+		printError(outStr, _T("(SSpAddValue): there are no values"), nErrors);
 		bRet = false;
 	}
 	if (m_nValues.size() == 1) {
-		printWarning(outStr, "(SSpAddValue): there is only a single value", nWarnings);
+		printWarning(outStr, _T("(SSpAddValue): there is only a single value"), nWarnings);
 		bRet = false;
 	}
 	return bRet;
@@ -608,7 +608,7 @@ void SSpProductValue::Serialize(CArchive& ar)
 	}
 }
 
-void SSpProductValue::printASCII(std::ofstream& outStr)
+void SSpProductValue::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpProductValue " << m_strName;
 	for (unsigned int i=0; i<m_nValues.size(); ++i) {
@@ -616,23 +616,23 @@ void SSpProductValue::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpProductValue::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpProductValue::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	for (unsigned int i=0; i<m_nValues.size(); ++i) {
 		if (m_nValues[i] == m_nIndex || m_nValues[i] < 0 
 			|| m_nValues[i] > (int) sspPool::Instance().values.GetSize()) {
-			printError(outStr, "(SSpProductValue): a value index is not valid", nErrors);
+			printError(outStr, _T("(SSpProductValue): a value index is not valid"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nValues.size() == 0) {
-		printError(outStr, "(SSpProductValue): there are no values", nErrors);
+		printError(outStr, _T("(SSpProductValue): there are no values"), nErrors);
 		bRet = false;
 	}
 	if (m_nValues.size() == 1) {
-		printWarning(outStr, "(SSpProductValue): there is only a single value", nWarnings);
+		printWarning(outStr, _T("(SSpProductValue): there is only a single value"), nWarnings);
 		bRet = false;
 	}
 	return bRet;
@@ -697,7 +697,7 @@ void SSpConditionalValue::Serialize(CArchive& ar)
 	}
 }
 
-void SSpConditionalValue::printASCII(std::ofstream& outStr)
+void SSpConditionalValue::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpConditionalValue " << m_strName;
 	for (unsigned int i=0; i<m_nValues.size(); ++i) {
@@ -707,36 +707,36 @@ void SSpConditionalValue::printASCII(std::ofstream& outStr)
 	outStr << endl << "   - default value: " << sspPool::Instance().values.GetName(m_nDefaultValue);
 }
 
-bool SSpConditionalValue::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpConditionalValue::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	for (unsigned int i=0; i<m_nValues.size(); ++i) {
 		if (m_nValues[i] == m_nIndex || m_nValues[i] < 0 
 			|| m_nValues[i] > (int) sspPool::Instance().values.GetSize()) {
-			printError(outStr, "(SSpConditionalValue): a value index is not valid", nErrors);
+			printError(outStr, _T("(SSpConditionalValue): a value index is not valid"), nErrors);
 			bRet = false;
 		}
 		if (m_nConditionals[i] < 0 || m_nConditionals[i] > (int) sspPool::Instance().conditionals.GetSize()) {
-			printError(outStr, "(SSpConditionalValue): a conditional index is not valid", nErrors);
+			printError(outStr, _T("(SSpConditionalValue): a conditional index is not valid"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nValues.size() != m_nConditionals.size()) {
-		printError(outStr, "(SSpConditionalValue): the number of values and conditionals do not match", nErrors);
+		printError(outStr, _T("(SSpConditionalValue): the number of values and conditionals do not match"), nErrors);
 		bRet = false;
 	}
 	if (m_nValues.size() == 0) {
-		printError(outStr, "(SSpConditionalValue): there are no values", nErrors);
+		printError(outStr, _T("(SSpConditionalValue): there are no values"), nErrors);
 		bRet = false;
 	}
 	if (m_nValues.size() == 1) {
-		printWarning(outStr, "(SSpConditionalValue): there is only a single value", nWarnings);
+		printWarning(outStr, _T("(SSpConditionalValue): there is only a single value"), nWarnings);
 		bRet = false;
 	}
 	if (m_nDefaultValue == m_nIndex || m_nDefaultValue < 0 
 		|| m_nDefaultValue > (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(SSpConditionalValue): m_nDefaultValue is not valid", nErrors);
+		printError(outStr, _T("(SSpConditionalValue): m_nDefaultValue is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -789,22 +789,22 @@ void SSpRandomValue::Serialize(CArchive& ar)
 		ar >> m_nValueLow >> m_nValueHigh;
 }
 
-void SSpRandomValue::printASCII(std::ofstream& outStr)
+void SSpRandomValue::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpRandomValue " << m_strName;
 	outStr << endl << "   - m_nValueLow: " << m_nValueLow << ", m_nValueHigh: " << m_nValueHigh;
 }
 
-bool SSpRandomValue::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpRandomValue::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (sspPool::Instance().values.getValue(m_nValueLow)->getValue() > sspPool::Instance().values.getValue(m_nValueHigh)->getValue()) {
-		printError(outStr, "(SSpRandomValue): m_nValueLow is larger than m_nValueHigh", nErrors);
+		printError(outStr, _T("(SSpRandomValue): m_nValueLow is larger than m_nValueHigh"), nErrors);
 		bRet = false;
 	}
 	if (sspPool::Instance().values.getValue(m_nValueLow)->getValue() == sspPool::Instance().values.getValue(m_nValueHigh)->getValue()) {
-		printWarning(outStr, "(SSpRandomValue): m_nValueLow is equal to m_nValueHigh", nWarnings);
+		printWarning(outStr, _T("(SSpRandomValue): m_nValueLow is equal to m_nValueHigh"), nWarnings);
 		bRet = false;
 	}
 	return bRet;
@@ -850,7 +850,7 @@ float sspSecondsRun::getValue()
   return (float) sspPlayManager::Instance().secondsRunning();
 }
 
-void sspSecondsRun::printASCII(std::ofstream& outStr)
+void sspSecondsRun::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": sspSecondsRun " << m_strName;
 }

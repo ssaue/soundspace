@@ -67,14 +67,14 @@ void sspDeviceManager::Serialize(CArchive& ar)
 	m_pGroups[SSP_DEVICE_DMX]->Serialize(ar);
 }
 
-void sspDeviceManager::printASCII(std::ofstream& outStr)
+void sspDeviceManager::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << "sspDeviceManager";
 	for (unsigned int i=0; i<m_pGroups.size(); ++i)
 		m_pGroups[i]->printASCII(outStr);
 }
 
-bool sspDeviceManager::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspDeviceManager::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -91,7 +91,7 @@ bool sspDeviceManager::initialize(LPVOID hWnd)
 	for (unsigned int i=0; i<m_pGroups.size(); ++i) {
 		if (!m_pGroups[i]->initialize(hWnd)) {
 			CString txt;
-			txt.Format("sspDeviceManager::Error in initializing device group %d", i);
+			txt.Format(_T("sspDeviceManager::Error in initializing device group %d"), i);
 			AfxMessageBox(txt);
 			return false;
 		}

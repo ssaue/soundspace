@@ -57,7 +57,7 @@ void sspPlayManager::Serialize(CArchive& ar)
 	m_listClock.Serialize(ar);
 }
 
-void sspPlayManager::printASCII(std::ofstream& outStr)
+void sspPlayManager::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << "sspPlayManager";
 	if (m_listStart.size() > 0) {
@@ -77,7 +77,7 @@ void sspPlayManager::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool sspPlayManager::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspPlayManager::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 	if (!m_listStart.verify(outStr, nErrors, nWarnings))

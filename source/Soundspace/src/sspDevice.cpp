@@ -37,7 +37,7 @@ void sspDeviceGroup::Serialize(CArchive& ar)
 	}
 }
 
-void sspDeviceGroup::printASCII(std::ofstream& outStr)
+void sspDeviceGroup::printASCII(sspOutStream& outStr)
 {
 	getAllDevices();
 	outStr << endl << "- sspDeviceGroup " << m_strName;
@@ -45,17 +45,17 @@ void sspDeviceGroup::printASCII(std::ofstream& outStr)
 		outStr << endl << "  - " << getSubsetName(i);
 }
 
-bool sspDeviceGroup::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspDeviceGroup::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	getAllDevices();
 	if (getAllDevices() < m_nDevices.size()) {
-		printError(outStr, "(sspDeviceGroup): device does not exist", nErrors);
+		printError(outStr, _T("(sspDeviceGroup): device does not exist"), nErrors);
 		bRet = false;
 	}
 	if (m_nDevices.size() == 0) {
-		printWarning(outStr, "(sspDeviceGroup): no devices selected", nWarnings);
+		printWarning(outStr, _T("(sspDeviceGroup): no devices selected"), nWarnings);
 		bRet = false;
 	}
 	return bRet;
@@ -78,5 +78,5 @@ sspString sspDeviceGroup::getSubsetName(int nSubsetIndex)
 	if (nSubsetIndex < (int) m_nDevices.size())
 		return getDeviceName(m_nDevices[nSubsetIndex]);
 	else 
-		return "";
+		return _T("");
 }

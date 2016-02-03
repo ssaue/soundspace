@@ -48,7 +48,7 @@ void SSpValuePool::Serialize(CArchive& ar)
 	}
 }
 
-void SSpValuePool::printASCII(std::ofstream& outStr)
+void SSpValuePool::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << "SSpValuePool";
 	for (int i=0; i<m_arValues.GetSize(); ++i) {
@@ -56,7 +56,7 @@ void SSpValuePool::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpValuePool::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpValuePool::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -66,7 +66,7 @@ bool SSpValuePool::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
 		}
 	}
 	if (m_arValues.GetSize() == 0) {
-		printError(outStr, "(SSpValuePool): no values defined", nErrors);
+		printError(outStr, _T("(SSpValuePool): no values defined"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -81,10 +81,10 @@ void SSpValuePool::initContents()
 {
 	SSpBasicValue* pVal = new SSpBasicValue;
 	pVal->setValue(0.0f);
-	LoadValue(pVal, "0");
+	LoadValue(pVal, _T("0"));
 	pVal = new SSpBasicValue;
 	pVal->setValue(1.0f);
-	LoadValue(pVal, "1");
+	LoadValue(pVal, _T("1"));
 }
 
 void SSpValuePool::clearContents()
@@ -168,7 +168,7 @@ void SSpConditionalPool::Serialize(CArchive& ar)
 	}
 }
 
-void SSpConditionalPool::printASCII(std::ofstream& outStr)
+void SSpConditionalPool::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << "SSpConditionalPool";
 	for (int i=0; i<m_arConditionals.GetSize(); ++i) {
@@ -176,7 +176,7 @@ void SSpConditionalPool::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpConditionalPool::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpConditionalPool::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -186,7 +186,7 @@ bool SSpConditionalPool::verify(std::ofstream& outStr, int& nErrors, int& nWarni
 		}
 	}
 	if (m_arConditionals.GetSize() == 0) {
-		printError(outStr, "(SSpConditionalPool): no conditionals defined", nErrors);
+		printError(outStr, _T("(SSpConditionalPool): no conditionals defined"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -201,10 +201,10 @@ void SSpConditionalPool::initContents()
 {
 	SSpBoolean* pBool = new SSpBoolean;
 	pBool->setValue(FALSE);
-	LoadConditional(pBool, "False");
+	LoadConditional(pBool, _T("False"));
 	pBool = new SSpBoolean;
 	pBool->setValue(TRUE);
-	LoadConditional(pBool, "True");
+	LoadConditional(pBool, _T("True"));
 }
 
 void SSpConditionalPool::clearContents()
@@ -288,7 +288,7 @@ void sspStringPool::Serialize(CArchive& ar)
 	}
 }
 
-void sspStringPool::printASCII(std::ofstream& outStr)
+void sspStringPool::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << "sspStringPool";
 	for (int i=0; i<m_arStrings.GetSize(); ++i) {
@@ -296,7 +296,7 @@ void sspStringPool::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool sspStringPool::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspStringPool::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -306,7 +306,7 @@ bool sspStringPool::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
 		}
 	}
 	if (m_arStrings.GetSize() == 0) {
-		printError(outStr, "(sspStringPool): no values defined", nErrors);
+		printError(outStr, _T("(sspStringPool): no values defined"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -320,8 +320,8 @@ bool sspStringPool::initialize()
 void sspStringPool::initContents()
 {
 	sspSimpleString* pString = new sspSimpleString;
-  pString->setString("*.*");
-	LoadString(pString, "*.*");
+	pString->setString(_T("*.*"));
+	LoadString(pString, _T("*.*"));
 }
 
 void sspStringPool::clearContents()
@@ -405,7 +405,7 @@ void SSpPlayObjectPool::Serialize(CArchive& ar)
 	}
 }
 
-void SSpPlayObjectPool::printASCII(std::ofstream& outStr)
+void SSpPlayObjectPool::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << "SSpPlayObjectPool";
 	for (int i=0; i<m_arPlayObjects.GetSize(); ++i) {
@@ -413,7 +413,7 @@ void SSpPlayObjectPool::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpPlayObjectPool::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpPlayObjectPool::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -423,7 +423,7 @@ bool SSpPlayObjectPool::verify(std::ofstream& outStr, int& nErrors, int& nWarnin
 		}
 	}
 	if (m_arPlayObjects.GetSize() == 0) {
-		printError(outStr, "(SSpPlayObjectPool): no play objects defined", nErrors);
+		printError(outStr, _T("(SSpPlayObjectPool): no play objects defined"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -523,7 +523,7 @@ void SSpPlayTaskPool::Serialize(CArchive& ar)
 	}
 }
 
-void SSpPlayTaskPool::printASCII(std::ofstream& outStr)
+void SSpPlayTaskPool::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << "SSpPlayTaskPool";
 	for (int i=0; i<m_arPlayTasks.GetSize(); ++i) {
@@ -531,7 +531,7 @@ void SSpPlayTaskPool::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpPlayTaskPool::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpPlayTaskPool::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -541,7 +541,7 @@ bool SSpPlayTaskPool::verify(std::ofstream& outStr, int& nErrors, int& nWarnings
 		}
 	}
 	if (m_arPlayTasks.GetSize() == 0) {
-		printError(outStr, "(SSpPlayTaskPool): no tasks defined", nErrors);
+		printError(outStr, _T("(SSpPlayTaskPool): no tasks defined"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -641,7 +641,7 @@ void SSpStreamPool::Serialize(CArchive& ar)
 	}
 }
 
-void SSpStreamPool::printASCII(std::ofstream& outStr)
+void SSpStreamPool::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << "SSpStreamPool";
 	for (int i=0; i<m_arStreams.GetSize(); ++i) {
@@ -649,7 +649,7 @@ void SSpStreamPool::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpStreamPool::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpStreamPool::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -659,7 +659,7 @@ bool SSpStreamPool::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
 		}
 	}
 	if (m_arStreams.GetSize() < 2) {
-		printError(outStr, "(SSpStreamPool): not enough streams", nErrors);
+		printError(outStr, _T("(SSpStreamPool): not enough streams"), nErrors);
 		bRet = false;
 	}
 	else {
@@ -673,16 +673,16 @@ bool SSpStreamPool::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
 			}
 		}
 		if (nSubCount[0] != 0) {
-			printError(outStr, "(SSpStreamPool): appstream cannot be a substream", nErrors);
+			printError(outStr, _T("(SSpStreamPool): appstream cannot be a substream"), nErrors);
 			bRet = false;
 		}
 		for (unsigned int i=1; i<nSubCount.size(); ++i) {
 			if (nSubCount[i] == 0) {
-				printError(outStr, "(SSpStreamPool): substream never accessed", nErrors);
+				printError(outStr, _T("(SSpStreamPool): substream never accessed"), nErrors);
 				bRet = false;
 			}
 			if (nSubCount[i] > 1) {
-				printError(outStr, "(SSpStreamPool): substream accessed more than once", nErrors);
+				printError(outStr, _T("(SSpStreamPool): substream accessed more than once"), nErrors);
 				bRet = false;
 			}
 		}
@@ -693,7 +693,7 @@ bool SSpStreamPool::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
 void SSpStreamPool::initContents()
 {
 	SSpStream* pNew = new SSpStream;
-	sspPool::Instance().streams.LoadStream(pNew, "MainStream");
+	sspPool::Instance().streams.LoadStream(pNew, _T("MainStream"));
 }
 
 void SSpStreamPool::clearContents()
@@ -817,7 +817,7 @@ void sspPool::Serialize(CArchive& ar)
 	tasks.Serialize(ar);
 }
 
-void sspPool::printASCII(std::ofstream& outStr)
+void sspPool::printASCII(sspOutStream& outStr)
 {
 	values.printASCII(outStr);
 	outStr << endl;
@@ -832,7 +832,7 @@ void sspPool::printASCII(std::ofstream& outStr)
 	tasks.printASCII(outStr);
 }
 
-bool sspPool::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspPool::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 

@@ -69,8 +69,8 @@ public:
   virtual bool isEmpty();
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
   void handleMessage(const SSpMessage& msg) {}
 
 	void setTimeFactor(int nTimeFacIndex) {m_nTimeFacIndex = nTimeFacIndex;}
@@ -148,8 +148,8 @@ public:
 	int	 getFaderValue() const {return m_nFaderValue;}
 	void updateVolumeFader();
 
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	void handleMessage(const SSpMessage& msg);
 	const SSpStreamMixer* getMixer() const {return m_pMixer;}
 

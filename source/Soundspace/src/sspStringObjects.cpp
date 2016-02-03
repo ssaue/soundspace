@@ -18,7 +18,7 @@ IMPLEMENT_SERIAL( sspConcatString, CObject, 1 )
 //////////////////////////////////////////////////////////////////////
 
 sspSimpleString::sspSimpleString() 
-: sspStringObject(SSP_SIMPLE_STRING), m_str("")
+: sspStringObject(SSP_SIMPLE_STRING), m_str(_T(""))
 {
 }
 
@@ -50,7 +50,7 @@ void sspSimpleString::Serialize(CArchive& ar)
   }
 }
 
-void sspSimpleString::printASCII(std::ofstream& outStr)
+void sspSimpleString::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": sspSimpleString " << m_strName;
 	outStr << endl << "   - " << m_str;
@@ -102,7 +102,7 @@ void sspAlphabetString::Serialize(CArchive& ar)
   }
 }
 
-void sspAlphabetString::printASCII(std::ofstream& outStr)
+void sspAlphabetString::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": sspAlphabetString " << m_strName;
   outStr << endl << "   - value index: " << sspPool::Instance().values.GetName(m_nValueIndex);
@@ -110,32 +110,32 @@ void sspAlphabetString::printASCII(std::ofstream& outStr)
     outStr << endl << "   - string ( " << i << "): " << m_strVec[i]; 
 }
 
-bool sspAlphabetString::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspAlphabetString::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	for (size_t i=0; i<m_strVec.size(); ++i) {
     if (m_strVec[i].empty()) {
-			printWarning(outStr, "(sspAlphabetString): these is an empty string", nWarnings);
+			printWarning(outStr, _T("(sspAlphabetString): these is an empty string"), nWarnings);
 			bRet = false;
 		}
 	}
 	if (m_strVec.size() == 0) {
-		printError(outStr, "(sspAlphabetString): there are no strings", nErrors);
+		printError(outStr, _T("(sspAlphabetString): there are no strings"), nErrors);
 		bRet = false;
 	}
 	if (m_strVec.size() == 1) {
-		printWarning(outStr, "(sspAlphabetString): there is only one string", nWarnings);
+		printWarning(outStr, _T("(sspAlphabetString): there is only one string"), nWarnings);
 		bRet = false;
 	}
 	if (m_nValueIndex < 0 || m_nValueIndex >= (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(sspAlphabetString): m_nValueIndex is not valid", nErrors);
+		printError(outStr, _T("(sspAlphabetString): m_nValueIndex is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;
 }
 
-std::string	sspAlphabetString::getString()
+sspString	sspAlphabetString::getString()
 {
 	float fVal = sspPool::Instance().values.getValue(m_nValueIndex)->getValue();
 	size_t nIndex = fVal < 0 ? 0 : static_cast<size_t>(fVal + 0.5f);  	// rounding
@@ -186,37 +186,37 @@ void sspConcatString::Serialize(CArchive& ar)
   }
 }
 
-void sspConcatString::printASCII(std::ofstream& outStr)
+void sspConcatString::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": sspConcatString " << m_strName;
   for (size_t i=0; i<m_strIndices.size(); ++i)
     outStr << endl << "   - string ( " << i << "): " << sspPool::Instance().strings.GetName(m_strIndices[i]); 
 }
 
-bool sspConcatString::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspConcatString::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	for (unsigned int i=0; i<m_strIndices.size(); ++i) {
 		if (m_strIndices[i] < 0 || m_strIndices[i] >= (int) sspPool::Instance().strings.GetSize()) {
-			printError(outStr, "(sspConcatString): a string object index is not valid", nErrors);
+			printError(outStr, _T("(sspConcatString): a string object index is not valid"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_strIndices.size() == 0) {
-		printError(outStr, "(sspConcatString): there are no string objects", nErrors);
+		printError(outStr, _T("(sspConcatString): there are no string objects"), nErrors);
 		bRet = false;
 	}
 	if (m_strIndices.size() == 1) {
-		printWarning(outStr, "(sspConcatString): there is only a single string object", nWarnings);
+		printWarning(outStr, _T("(sspConcatString): there is only a single string object"), nWarnings);
 		bRet = false;
 	}
 	return bRet;
 }
 
-std::string	sspConcatString::getString()
+sspString	sspConcatString::getString()
 {
-  std::string strCat("");
+	sspString strCat(_T(""));
   for (size_t i=0; i<m_strIndices.size(); ++i)
     strCat += sspPool::Instance().strings.getString(m_strIndices[i])->getString();
   return strCat;

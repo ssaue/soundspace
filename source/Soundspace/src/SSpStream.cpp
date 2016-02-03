@@ -160,7 +160,7 @@ void SSpStream::Serialize(CArchive& ar)
 	}
 }
 
-void SSpStream::printASCII(std::ofstream& outStr)
+void SSpStream::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpStream " << m_strName;
 	outStr << endl << "   - m_nTimeFacIndex: " << sspPool::Instance().values.GetName(m_nTimeFacIndex);
@@ -169,18 +169,18 @@ void SSpStream::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpStream::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpStream::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 	for (unsigned int i=0; i<m_nSubStream.size(); ++i) {
 		if (m_nSubStream[i] == m_nIndex || m_nSubStream[i] <= 0 
 			|| m_nSubStream[i] > (int) sspPool::Instance().streams.GetSize()) {
-			printError(outStr, "(SSpStream): a substream index is not valid", nErrors);
+			printError(outStr, _T("(SSpStream): a substream index is not valid"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nTimeFacIndex < 0 || m_nTimeFacIndex >= (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(SSpStream): m_nTimeFacIndex is not valid", nErrors);
+		printError(outStr, _T("(SSpStream): m_nTimeFacIndex is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -347,7 +347,7 @@ void SSpAudioStream::Serialize(CArchive& ar)
 	}
 }
 
-void SSpAudioStream::printASCII(std::ofstream& outStr)
+void SSpAudioStream::printASCII(sspOutStream& outStr)
 {
 	SSpStream::printASCII(outStr);
 	outStr << " , m_nBufCount: " << m_nBufCount;
@@ -361,33 +361,33 @@ void SSpAudioStream::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpAudioStream::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpAudioStream::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 	if (!SSpStream::verify(outStr, nErrors, nWarnings))
 		bRet = false;
 	for (unsigned int i=0; i<m_nDSDevices.size(); ++i) {
 		if (m_nDSDevices[i] < 0 || m_nDSDevices[i] >=  2 * (int) sspDeviceManager::Instance()[SSP_DEVICE_DIRECTSOUND]->getSubsetSize()) {
-			printError(outStr, "(SSpAudioStream): a DS device is not valid", nErrors);
+			printError(outStr, _T("(SSpAudioStream): a DS device is not valid"), nErrors);
 			bRet = false;
 		}
 	}
 	for (unsigned int i=0; i<m_nWavDevices.size(); ++i) {
 		if (m_nWavDevices[i] < 0 || m_nWavDevices[i] >= 2 * (int) sspDeviceManager::Instance()[SSP_DEVICE_WAV]->getSubsetSize()) {
-			printError(outStr, "(SSpAudioStream): a Wav device is not valid", nErrors);
+			printError(outStr, _T("(SSpAudioStream): a Wav device is not valid"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nFaderValue >= (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(SSpAudioStream): m_nFaderValue is not valid", nErrors);
+		printError(outStr, _T("(SSpAudioStream): m_nFaderValue is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nBufCount < 1) {
-		printError(outStr, "(SSpAudioStream): m_nBufCount is not valid", nErrors);
+		printError(outStr, _T("(SSpAudioStream): m_nBufCount is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nWaitCount < 0) {
-		printError(outStr, "(SSpAudioStream): m_nWaitCount is not valid", nErrors);
+		printError(outStr, _T("(SSpAudioStream): m_nWaitCount is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -437,13 +437,13 @@ void SSpAudioStream::handleMessage(const SSpMessage& msg)
 	case SSP_IS_DONE: {
 		m_pMixer->end();
 		SSpPlayTask* pTask = sspPool::Instance().tasks.GetPlayTask(msg.GetMsgPara(0).iVal);
-    DOUT1 ("SSpAudioStream - done task %s\n", pTask->getName().c_str());
+		DOUT1(_T("SSpAudioStream - done task %s\n"), pTask->getName().c_str());
     if (pTask->isPlaying()) return;   // The task has been reassigned
 		m_pScheduler->removeTask(pTask);
 		if (m_bStopped) break;
 		pTask = m_pScheduler->nextTask();
 		while (pTask != NULL) {
-      DOUT1 ("SSpAudioStream - next task %s\n", pTask->getName().c_str());
+			DOUT1(_T("SSpAudioStream - next task %s\n"), pTask->getName().c_str());
 			if (m_pMixer->begin(pTask))
 				break;
 			else
@@ -499,9 +499,9 @@ void SSpAudioStream::handleMessage(const SSpMessage& msg)
 inline void SSpAudioStream::playTask(SSpPlayTask* pTask)
 {
 	SSpPlayTask* pFadeTask = NULL;
-  DOUT1 ("\nSSpAudioStream - enter task %s\n", pTask->getName().c_str());
+	DOUT1(_T("\nSSpAudioStream - enter task %s\n"), pTask->getName().c_str());
 	if (m_pScheduler->loadTask(pTask, this, pFadeTask)) {
-    DOUT ("SSpAudioStream - play task\n");
+		DOUT(_T("SSpAudioStream - play task\n"));
 		if (pFadeTask == NULL) {
 			m_pMixer->begin(pTask);
 		}

@@ -5,6 +5,8 @@
 #include "SoundSpace.h"
 #include "debug.h"
 
+#include <algorithm>
+
 #include "SoundSpaceDoc.h"
 #include "SoundSpaceView.h"
 #include "sspSetting.h"
@@ -313,7 +315,7 @@ void CSoundSpaceView::OnExportAsciidump()
   bool bSuccess = false;
 
   sspSaveDialog fdlg(filename);
- 	fdlg.m_ofn.lpstrTitle = "Select ASCII dump file";
+	fdlg.m_ofn.lpstrTitle = _T("Select ASCII dump file");
 	if (fdlg.DoModal() == IDOK) {
 		filename = fdlg.GetPathName();
     bSuccess = GetDocument()->exportAscii(filename);
@@ -333,7 +335,7 @@ void CSoundSpaceView::OnExportConfigerrors()
   bool bSuccess = false;
 
   sspSaveDialog fdlg(filename);
- 	fdlg.m_ofn.lpstrTitle = "Select configuration error file";
+	fdlg.m_ofn.lpstrTitle = _T("Select configuration error file");
 	if (fdlg.DoModal() == IDOK) {
 		filename = fdlg.GetPathName();
     bSuccess = GetDocument()->exportErrors(filename, nErrors, nWarnings);
@@ -346,7 +348,7 @@ void CSoundSpaceView::OnExportConfigerrors()
   }
   else {
 	  CString strMessage;
-		strMessage.Format("There are %d errors and %d warnings", nErrors, nWarnings);
+		strMessage.Format(_T("There are %d errors and %d warnings"), nErrors, nWarnings);
 		AfxMessageBox(strMessage);
   }
 }

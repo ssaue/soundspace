@@ -70,7 +70,7 @@ void SSpBoolean::Serialize(CArchive& ar)
 	}
 }
 
-void SSpBoolean::printASCII(std::ofstream& outStr)
+void SSpBoolean::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpBoolean " << m_strName;
 	outStr << endl << boolalpha << "   - m_bValue: " << m_bValue << noboolalpha;
@@ -120,7 +120,7 @@ void SSpValueRelation::Serialize(CArchive& ar)
 		ar >> m_nTestIndex >> m_nThresholdIndex >> m_nRelation;
 }
 
-void SSpValueRelation::printASCII(std::ofstream& outStr)
+void SSpValueRelation::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpValueRelation " << m_strName;
 	switch (m_nRelation) {
@@ -150,20 +150,20 @@ void SSpValueRelation::printASCII(std::ofstream& outStr)
 	outStr << endl << "   - m_nThresholdIndex: " << sspPool::Instance().values.GetName(m_nThresholdIndex);
 }
 
-bool SSpValueRelation::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpValueRelation::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (m_nTestIndex < 0 || m_nTestIndex >= (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(SSpValueRelation): m_nTestIndex is not valid", nErrors);
+		printError(outStr, _T("(SSpValueRelation): m_nTestIndex is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nThresholdIndex < 0 || m_nThresholdIndex >= (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(SSpValueRelation): m_nThresholdIndex is not valid", nErrors);
+		printError(outStr, _T("(SSpValueRelation): m_nThresholdIndex is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nRelation < 0 || m_nRelation > LARGE_EQ) {
-		printError(outStr, "(SSpValueRelation): m_nRelation is not valid", nErrors);
+		printError(outStr, _T("(SSpValueRelation): m_nRelation is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -230,27 +230,27 @@ void SSpInRange::Serialize(CArchive& ar)
 		ar >> m_nRangeMin >> m_nRangeMax >> m_nValueIndex;
 }
 
-void SSpInRange::printASCII(std::ofstream& outStr)
+void SSpInRange::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpInRange " << m_strName;
 	outStr << endl << "   - m_nRangeMin: " << m_nRangeMin << ", m_nRangeMax: " << m_nRangeMax;
 	outStr << endl << "   - m_nValueIndex: " << sspPool::Instance().values.GetName(m_nValueIndex);
 }
 
-bool SSpInRange::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpInRange::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (m_nValueIndex < 0 || m_nValueIndex >= (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(SSpInRange): m_nValueIndex is not valid", nErrors);
+		printError(outStr, _T("(SSpInRange): m_nValueIndex is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nRangeMin > m_nRangeMax) {
-		printError(outStr, "(SSpInRange): m_nRangeMin is larger than m_nRangeMax", nErrors);
+		printError(outStr, _T("(SSpInRange): m_nRangeMin is larger than m_nRangeMax"), nErrors);
 		bRet = false;
 	}
 	if (m_nRangeMin == m_nRangeMax) {
-		printWarning(outStr, "(SSpInRange): m_nRangeMin is larger than m_nRangeMax", nWarnings);
+		printWarning(outStr, _T("(SSpInRange): m_nRangeMin is larger than m_nRangeMax"), nWarnings);
 		bRet = false;
 	}
 	return bRet;
@@ -298,27 +298,27 @@ void SSpTimeInterval::Serialize(CArchive& ar)
 	m_clockEnd.Serialize(ar);
 }
 
-void SSpTimeInterval::printASCII(std::ofstream& outStr)
+void SSpTimeInterval::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpTimeInterval " << m_strName;
 	outStr << endl << "   - m_clockStart: " << m_clockStart.hour() << ":" << m_clockStart.min() << ":" << m_clockStart.sec();
 	outStr << endl << "   - m_clockEnd: " << m_clockEnd.hour() << ":" << m_clockEnd.min() << ":" << m_clockEnd.sec();
 }
 
-bool SSpTimeInterval::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpTimeInterval::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (!m_clockStart.isValid()) {
-		printError(outStr, "(SSpTimeInterval): m_clockStart is not valid", nErrors);
+		printError(outStr, _T("(SSpTimeInterval): m_clockStart is not valid"), nErrors);
 		bRet = false;
 	}
 	if (!m_clockEnd.isValid()) {
-		printError(outStr, "(SSpTimeInterval): m_clockEnd is not valid", nErrors);
+		printError(outStr, _T("(SSpTimeInterval): m_clockEnd is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_clockStart == m_clockEnd) {
-		printWarning(outStr, "(SSpTimeInterval): m_clockStart is equal to m_clockEnd", nWarnings);
+		printWarning(outStr, _T("(SSpTimeInterval): m_clockStart is equal to m_clockEnd"), nWarnings);
 		bRet = false;
 	}
 	return bRet;
@@ -369,7 +369,7 @@ void SSpTimeRelation::Serialize(CArchive& ar)
 		ar >> m_nRelation;
 }
 
-void SSpTimeRelation::printASCII(std::ofstream& outStr)
+void SSpTimeRelation::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpTimeRelation " << m_strName;
 	outStr << endl << "   - m_clock: " << m_clock.hour() << ":" << m_clock.min() << ":" << m_clock.sec();
@@ -386,16 +386,16 @@ void SSpTimeRelation::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpTimeRelation::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpTimeRelation::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (!m_clock.isValid()) {
-		printError(outStr, "(SSpTimeRelation): m_clock is not valid", nErrors);
+		printError(outStr, _T("(SSpTimeRelation): m_clock is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nRelation != BEFORE && m_nRelation != AFTER) {
-		printError(outStr, "(SSpTimeRelation): m_nRelation is not valid", nErrors);
+		printError(outStr, _T("(SSpTimeRelation): m_nRelation is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -450,7 +450,7 @@ void SSpMinuteRelation::Serialize(CArchive& ar)
 		ar >> m_nMinute >> m_nRelation;
 }
 
-void SSpMinuteRelation::printASCII(std::ofstream& outStr)
+void SSpMinuteRelation::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpMinuteRelation " << m_strName;
 	outStr << endl << "   - m_nMinute: " << m_nMinute;
@@ -470,16 +470,16 @@ void SSpMinuteRelation::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpMinuteRelation::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpMinuteRelation::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (m_nMinute < 0 || m_nMinute >= 60) {
-		printError(outStr, "(SSpMinuteRelation): m_nMinute is not valid", nErrors);
+		printError(outStr, _T("(SSpMinuteRelation): m_nMinute is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nRelation != BEFORE && m_nRelation != AFTER && m_nRelation != EQUAL) {
-		printError(outStr, "(SSpMinuteRelation): m_nRelation is not valid", nErrors);
+		printError(outStr, _T("(SSpMinuteRelation): m_nRelation is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -532,27 +532,27 @@ void SSpDateInterval::Serialize(CArchive& ar)
 	m_dateEnd.Serialize(ar);
 }
 
-void SSpDateInterval::printASCII(std::ofstream& outStr)
+void SSpDateInterval::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpDateInterval " << m_strName;
 	outStr << endl << "   - m_dateStart: " << m_dateStart.month() << "//" << m_dateStart.day();
 	outStr << endl << "   - m_dateEnd: " << m_dateEnd.month() << "//" << m_dateEnd.day();
 }
 
-bool SSpDateInterval::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpDateInterval::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (!m_dateStart.isValid()) {
-		printError(outStr, "(SSpDateInterval): m_dateStart is not valid", nErrors);
+		printError(outStr, _T("(SSpDateInterval): m_dateStart is not valid"), nErrors);
 		bRet = false;
 	}
 	if (!m_dateEnd.isValid()) {
-		printError(outStr, "(SSpDateInterval): m_dateEnd is not valid", nErrors);
+		printError(outStr, _T("(SSpDateInterval): m_dateEnd is not valid"), nErrors);
 		bRet = false;
 	}
   if (m_dateStart == m_dateEnd) {
-		printWarning(outStr, "(SSpDateInterval): m_dateStart is equal to m_dateEnd", nWarnings);
+		printWarning(outStr, _T("(SSpDateInterval): m_dateStart is equal to m_dateEnd"), nWarnings);
 		bRet = false;
 	}
 	return bRet;
@@ -606,19 +606,19 @@ void SSpDayOfWeek::Serialize(CArchive& ar)
 	}
 }
 
-void SSpDayOfWeek::printASCII(std::ofstream& outStr)
+void SSpDayOfWeek::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpDayOfWeek " << m_strName;
 	for (int i=0; i < sspLocalTime::WEEKDAYS; ++i)
 		if (m_bDayCheck[i])	outStr << endl << "   - " << sspLocalTime::s_dayNames[i];
 }
 
-bool SSpDayOfWeek::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpDayOfWeek::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = false;
 	for (int i=0; i < sspLocalTime::WEEKDAYS; ++i)
 		if (m_bDayCheck[i]) bRet = true;
-	if (!bRet) printError(outStr, "(SSpDayOfWeek): no days are selected", nErrors);
+		if (!bRet) printError(outStr, _T("(SSpDayOfWeek): no days are selected"), nErrors);
 	return bRet;
 }
 
@@ -669,7 +669,7 @@ void SSpIsPlaying::Serialize(CArchive& ar)
 	}
 }
 
-void SSpIsPlaying::printASCII(std::ofstream& outStr)
+void SSpIsPlaying::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpIsPlaying " << m_strName;
 	for (unsigned int i=0; i<m_nObjects.size(); ++i) {
@@ -677,18 +677,18 @@ void SSpIsPlaying::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpIsPlaying::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpIsPlaying::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	for (unsigned int i=0; i<m_nObjects.size(); ++i) {
 		if (m_nObjects[i] < 0 || m_nObjects[i] >= (int) sspPool::Instance().objects.GetSize()) {
-			printError(outStr, "(SSpIsPlaying): a play object index is not valid", nErrors);
+			printError(outStr, _T("(SSpIsPlaying): a play object index is not valid"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nObjects.size() == 0) {
-		printError(outStr, "(SSpIsPlaying): there are no play objects", nErrors);
+		printError(outStr, _T("(SSpIsPlaying): there are no play objects"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -745,7 +745,7 @@ void SSpAnd::Serialize(CArchive& ar)
 	}
 }
 
-void SSpAnd::printASCII(std::ofstream& outStr)
+void SSpAnd::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpAnd " << m_strName;
 	for (unsigned int i=0; i<m_nConditionals.size(); ++i) {
@@ -753,23 +753,23 @@ void SSpAnd::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpAnd::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpAnd::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	for (unsigned int i=0; i<m_nConditionals.size(); ++i) {
 		if (m_nConditionals[i] == m_nIndex || m_nConditionals[i] < 0 
 			|| m_nConditionals[i] >= (int) sspPool::Instance().conditionals.GetSize()) {
-			printError(outStr, "(SSpAnd): a conditional index is not valid", nErrors);
+			printError(outStr, _T("(SSpAnd): a conditional index is not valid"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nConditionals.size() == 0) {
-		printError(outStr, "(SSpAnd): there are no conditionals", nErrors);
+		printError(outStr, _T("(SSpAnd): there are no conditionals"), nErrors);
 		bRet = false;
 	}
 	if (m_nConditionals.size() == 1) {
-		printWarning(outStr, "(SSpAnd): there is only a single conditional", nWarnings);
+		printWarning(outStr, _T("(SSpAnd): there is only a single conditional"), nWarnings);
 		bRet = false;
 	}
 	return bRet;
@@ -826,7 +826,7 @@ void SSpOr::Serialize(CArchive& ar)
 	}
 }
 
-void SSpOr::printASCII(std::ofstream& outStr)
+void SSpOr::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpOr " << m_strName;
 	for (unsigned int i=0; i<m_nConditionals.size(); ++i) {
@@ -834,23 +834,23 @@ void SSpOr::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpOr::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpOr::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	for (unsigned int i=0; i<m_nConditionals.size(); ++i) {
 		if (m_nConditionals[i] == m_nIndex || m_nConditionals[i] < 0 
 			|| m_nConditionals[i] >= (int) sspPool::Instance().conditionals.GetSize()) {
-			printError(outStr, "(SSpOr): a conditional index is not valid", nErrors);
+			printError(outStr, _T("(SSpOr): a conditional index is not valid"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nConditionals.size() == 0) {
-		printError(outStr, "(SSpOr): there are no conditionals", nErrors);
+		printError(outStr, _T("(SSpOr): there are no conditionals"), nErrors);
 		bRet = false;
 	}
 	if (m_nConditionals.size() == 1) {
-		printWarning(outStr, "(SSpOr): there is only a single conditional", nWarnings);
+		printWarning(outStr, _T("(SSpOr): there is only a single conditional"), nWarnings);
 		bRet = false;
 	}
 	return bRet;
@@ -899,19 +899,19 @@ void SSpNot::Serialize(CArchive& ar)
 		ar >> m_nCondIndex;
 }
 
-void SSpNot::printASCII(std::ofstream& outStr)
+void SSpNot::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpNot " << m_strName;
 	outStr << endl << "   - m_nCondIndex: " << sspPool::Instance().conditionals.GetName(m_nCondIndex);
 }
 
-bool SSpNot::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpNot::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (m_nCondIndex == m_nIndex || m_nCondIndex < 0 
 		|| m_nCondIndex >= (int) sspPool::Instance().conditionals.GetSize()) {
-		printError(outStr, "(SSpNot): m_nCondIndex is not valid", nErrors);
+		printError(outStr, _T("(SSpNot): m_nCondIndex is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -962,7 +962,7 @@ void SSpTrigger::Serialize(CArchive& ar)
 		ar >> m_nCondIndex >> m_nMode;
 }
 
-void SSpTrigger::printASCII(std::ofstream& outStr)
+void SSpTrigger::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << "  - trigger " << sspPool::Instance().conditionals.GetName(m_nCondIndex);
   switch (m_nMode) {
@@ -978,12 +978,12 @@ void SSpTrigger::printASCII(std::ofstream& outStr)
   }
 }
 
-bool SSpTrigger::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpTrigger::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (m_nCondIndex < 0 || m_nCondIndex > (int) sspPool::Instance().conditionals.GetSize()) {
-		printError(outStr, "(SSpTrigger): m_nCondIndex is not valid", nErrors);
+		printError(outStr, _T("(SSpTrigger): m_nCondIndex is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;

@@ -10,7 +10,6 @@
 #endif // _MSC_VER > 1000
 
 #include "sspDefines.h"
-#include <fstream>
 
 /************************************************************************
 **
@@ -37,21 +36,21 @@ public:
 	void			 setName(const sspString& strName) {m_strName = strName;}
 
 	// Load from binary file (will substitute serialize)
-	virtual void load(std::ifstream& outStr) {}
+	virtual void load(const sspInStream& outStr) {}
 
 	// Save to binary file (will substitute serialize)
-	virtual void save(std::ofstream& outStr) {}
+	virtual void save(sspOutStream& outStr) {}
 
 	// Print to ASCII file
-	virtual void printASCII(std::ofstream& outStr) = 0;
+	virtual void printASCII(sspOutStream& outStr) = 0;
 
 	// Verify correctness and write errors and warnings to ASCII file 
 	// - returns false if there are errors or warnings
-	virtual bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings) = 0;
+	virtual bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings) = 0;
 
 protected:
-	void printError(std::ofstream& outStr, const sspString& txt, int& nCount);
-	void printWarning(std::ofstream& outStr, const sspString& txt, int& nCount);
+	void printError(sspOutStream& outStr, const sspString& txt, int& nCount);
+	void printWarning(sspOutStream& outStr, const sspString& txt, int& nCount);
 };
 
 /************************************************************************

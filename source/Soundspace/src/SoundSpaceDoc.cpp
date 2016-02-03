@@ -462,7 +462,7 @@ void CSoundSpaceDoc::OnUpdateDevicesDmx(CCmdUI *pCmdUI)
 
 bool CSoundSpaceDoc::exportAscii(const CString& strFile)
 {
-  ofstream file(strFile);
+  sspOutStream file(strFile);
   if (!file) return false;
 
 	file << "Document: " << (LPCTSTR)GetTitle() << setprecision(6) << endl;
@@ -477,7 +477,7 @@ bool CSoundSpaceDoc::exportAscii(const CString& strFile)
 
 bool CSoundSpaceDoc::exportErrors(const CString& strFile, int& nErrors, int& nWarnings)
 {
-  ofstream file(strFile);
+	sspOutStream file(strFile);
   if (!file) return false;
 
 	nErrors = 0; nWarnings = 0;

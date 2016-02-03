@@ -11,7 +11,7 @@
 
 sspMidiOutDeviceGroup::sspMidiOutDeviceGroup()
 {
-	m_strName = "MidiOut";
+	m_strName = _T("MidiOut");
 }
 
 sspMidiOutDeviceGroup::~sspMidiOutDeviceGroup()
@@ -66,7 +66,7 @@ sspMidiOutDevice* sspMidiOutDeviceGroup::getDevice(int nSubsetIndex)
 
 sspMidiInDeviceGroup::sspMidiInDeviceGroup()
 {
-	m_strName = "MidiIn";
+	m_strName = _T("MidiIn");
 }
 
 sspMidiInDeviceGroup::~sspMidiInDeviceGroup()

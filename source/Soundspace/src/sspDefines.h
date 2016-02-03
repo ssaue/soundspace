@@ -5,11 +5,15 @@
 
 #include <string>
 #include <vector>
+#include <fstream>
 
 typedef __int64 sspInt64; 
 typedef std::wstring sspString;
 typedef std::vector<int> sspIntVec;
 typedef std::vector<sspString> sspStrVec;
+
+typedef std::wifstream sspInStream;
+typedef std::wofstream sspOutStream;
 
 /************************************************************************
 **

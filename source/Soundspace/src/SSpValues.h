@@ -29,8 +29,8 @@ public:
 
 	// Virtual methods
 	float	getValue() {return m_fVal;}
-	void	printASCII(std::ofstream& outStr);
-	bool	verify(std::ofstream& outStr, int& nErrors, int& nWarnings) {return true;}
+	void	printASCII(sspOutStream& outStr);
+	bool	verify(sspOutStream& outStr, int& nErrors, int& nWarnings) { return true; }
 
 	// Accessors
 	void setValue(float fVal) {m_fVal = fVal;}
@@ -54,8 +54,8 @@ public:
 
 	// Virtual methods
 	float	getValue() {return m_fVal;}
-	void	printASCII(std::ofstream& outStr);
-	bool	verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void	printASCII(sspOutStream& outStr);
+	bool	verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setValue(float fVal);          // Value between m_fMin and m_fMax
@@ -87,8 +87,8 @@ public:
 
 	// Virtual methods
 	float	getValue();
-	void	printASCII(std::ofstream& outStr);
-	bool	verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void	printASCII(sspOutStream& outStr);
+	bool	verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setStartClock(SSpClock& clock);
@@ -122,8 +122,8 @@ public:
 
 	// Virtual methods
 	float	getValue();
-	void	printASCII(std::ofstream& outStr);
-	bool	verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void	printASCII(sspOutStream& outStr);
+	bool	verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setStartDate(SSpDate& clock);
@@ -157,8 +157,8 @@ public:
 
 	// Virtual methods
 	float	getValue();
-	void	printASCII(std::ofstream& outStr);
-	bool	verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void	printASCII(sspOutStream& outStr);
+	bool	verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setValueIndex(int nIndex) {m_nValueIndex = nIndex;}
@@ -190,8 +190,8 @@ public:
 
 	// Virtual methods
 	float	getValue();
-	void	printASCII(std::ofstream& outStr);
-	bool	verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void	printASCII(sspOutStream& outStr);
+	bool	verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setValueList(const sspIntVec& nValues) {m_nValues = nValues;}
@@ -214,8 +214,8 @@ public:
 
 	// Virtual methods
 	float	getValue();
-	void	printASCII(std::ofstream& outStr);
-	bool	verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void	printASCII(sspOutStream& outStr);
+	bool	verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setValueList(const sspIntVec& nValues) {m_nValues = nValues;}
@@ -240,8 +240,8 @@ public:
 
 	// Virtual methods
 	float	getValue();
-	void	printASCII(std::ofstream& outStr);
-	bool	verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void	printASCII(sspOutStream& outStr);
+	bool	verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setDefaultValue(int nValIndex) {m_nDefaultValue = nValIndex;}
@@ -270,8 +270,8 @@ public:
 
 	// Virtual methods
 	float	getValue();
-	void	printASCII(std::ofstream& outStr);
-	bool	verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void	printASCII(sspOutStream& outStr);
+	bool	verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setValueLow(int nValIndex) {m_nValueLow = nValIndex;}
@@ -296,8 +296,8 @@ public:
 
 	// Virtual methods
 	float	getValue();
-	void	printASCII(std::ofstream& outStr);
-	bool	verify(std::ofstream& outStr, int& nErrors, int& nWarnings) {return true;}
+	void	printASCII(sspOutStream& outStr);
+	bool	verify(sspOutStream& outStr, int& nErrors, int& nWarnings) {return true;}
 };
 
 #endif // !defined(AFX_SSPVALUES_H__9576A660_9118_11D3_901C_B11BC2A3FAB6__INCLUDED_)

@@ -21,7 +21,7 @@ IMPLEMENT_SERIAL( sspClockMsgList, CObject, 1 )
 
 sspMsgList::sspMsgList()
 {
-	m_strName = "ml";
+	m_strName = _T("ml");
 }
 
 sspMsgList::sspMsgList(const sspMsgList& msgs) : sspIObase(msgs)
@@ -69,7 +69,7 @@ void sspMsgList::Serialize(CArchive& ar)
 	}
 }
 
-void sspMsgList::printASCII(std::ofstream& outStr)
+void sspMsgList::printASCII(sspOutStream& outStr)
 {
   int i;
   iterator iter;
@@ -79,7 +79,7 @@ void sspMsgList::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool sspMsgList::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspMsgList::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
   int i;
@@ -127,7 +127,7 @@ void sspMsgList::send(sspMsgHandler* pStream, sspMsgHandler* pTask, int nTag)
 
 sspCondMsgList::sspCondMsgList()
 {
-	m_strName = "cml";
+	m_strName = _T("cml");
 }
 
 sspCondMsgList::sspCondMsgList(const sspCondMsgList& msgs)  : sspIObase(msgs)
@@ -176,7 +176,7 @@ void sspCondMsgList::Serialize(CArchive& ar)
 	}
 }
 
-void sspCondMsgList::printASCII(std::ofstream& outStr)
+void sspCondMsgList::printASCII(sspOutStream& outStr)
 {
   iterator iter;
   for (iter = begin(); iter != end(); ++iter) {
@@ -185,7 +185,7 @@ void sspCondMsgList::printASCII(std::ofstream& outStr)
   }
 }
 
-bool sspCondMsgList::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspCondMsgList::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	int i;
 	bool bRet = true;
@@ -193,7 +193,7 @@ bool sspCondMsgList::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
   iterator iter;
   for (iter = begin(), i=1; iter != end(); ++iter, ++i) {
 		if ((*iter).first < 0 || (*iter).first > (int) sspPool::Instance().conditionals.GetSize()) {
-			printError(outStr, "(sspCondMsgList): a conditional index is not valid", nErrors);
+			printError(outStr, _T("(sspCondMsgList): a conditional index is not valid"), nErrors);
 			bRet = false;
 		}
 		if (!(*iter).second->verify(outStr, nErrors, nWarnings)) {
@@ -252,7 +252,7 @@ void sspCondMsgList::send(sspMsgHandler* pStream, sspMsgHandler* pTask, int nTag
 
 sspTriggerMsgList::sspTriggerMsgList()
 {
-	m_strName = "tml";
+	m_strName = _T("tml");
 }
 
 sspTriggerMsgList::sspTriggerMsgList(const sspTriggerMsgList& msgs) : sspIObase(msgs)
@@ -301,7 +301,7 @@ void sspTriggerMsgList::Serialize(CArchive& ar)
 	}
 }
 
-void sspTriggerMsgList::printASCII(std::ofstream& outStr)
+void sspTriggerMsgList::printASCII(sspOutStream& outStr)
 {
   iterator iter;
   for (iter = begin(); iter != end(); ++iter) {
@@ -310,7 +310,7 @@ void sspTriggerMsgList::printASCII(std::ofstream& outStr)
   }
 }
 
-bool sspTriggerMsgList::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspTriggerMsgList::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	int i;
 	bool bRet = true;
@@ -391,7 +391,7 @@ void sspTriggerMsgList::testAndSend()
 
 sspClockMsgList::sspClockMsgList()
 {
-	m_strName = "clml";
+	m_strName = _T("clml");
   m_pos = end();
 }
 
@@ -446,7 +446,7 @@ void sspClockMsgList::Serialize(CArchive& ar)
 	}
 }
 
-void sspClockMsgList::printASCII(std::ofstream& outStr)
+void sspClockMsgList::printASCII(sspOutStream& outStr)
 {
   iterator iter;
   for (iter = begin(); iter != end(); ++iter) {
@@ -455,7 +455,7 @@ void sspClockMsgList::printASCII(std::ofstream& outStr)
   }
 }
 
-bool sspClockMsgList::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspClockMsgList::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	int i;
 	bool bRet = true;

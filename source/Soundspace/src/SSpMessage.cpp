@@ -26,7 +26,7 @@ IMPLEMENT_SERIAL( SSpStreamMsg, CObject, 1 )
 SSpMessage::SSpMessage()
 {
 	m_nType = SSP_NO_MESSAGE;
-	m_strName = "msg";
+	m_strName = _T("msg");
 	m_para[0].Clean();
 	m_para[1].Clean();
 }
@@ -60,7 +60,7 @@ void SSpMessage::Serialize(CArchive& ar)
 		ar >> m_nType >> m_para[0].iVal >> m_para[1].iVal;
 }
 
-void SSpMessage::printASCII(std::ofstream& outStr)
+void SSpMessage::printASCII(sspOutStream& outStr)
 {
 	switch (m_nType) {
 		case SSP_LOAD_EVENT:
@@ -114,19 +114,19 @@ void SSpMessage::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpMessage::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpMessage::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	switch (m_nType) {
 		case SSP_LOAD_EVENT:
 			if (m_para[0].iVal < 0 || m_para[0].iVal > (int) sspPool::Instance().values.GetSize()) {
-				printError(outStr, "(SSpMessage - load): delay is not valid", nErrors);
+				printError(outStr, _T("(SSpMessage - load): delay is not valid"), nErrors);
 				bRet = false;
 			}
 			if (m_para[1].iVal != USE_SEND_PARAMETER) {
 				if (m_para[1].iVal < 0 || m_para[1].iVal > (int) sspPool::Instance().tasks.GetSize()) {
-					printError(outStr, "(SSpMessage - load): task is not valid", nErrors);
+					printError(outStr, _T("(SSpMessage - load): task is not valid"), nErrors);
 					bRet = false;
 				}
 			}
@@ -136,11 +136,11 @@ bool SSpMessage::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
 		case SSP_UNSOLO:
 		case SSP_UNMUTE:
 			if (m_para[0].iVal < 0) {
-				printError(outStr, "(solo/mute message): negative fade time", nErrors);
+				printError(outStr, _T("(solo/mute message): negative fade time"), nErrors);
 				bRet = false;
 			}
 			if (m_para[0].iVal > 60) {
-				printWarning(outStr, "(solo/mute message): fade time exceeds a minute", nWarnings);
+				printWarning(outStr, _T("(solo/mute message): fade time exceeds a minute"), nWarnings);
 				bRet = false;
 			}
 			break;			
@@ -150,18 +150,18 @@ bool SSpMessage::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
 		case SSP_SET_VOLUME:
 		case SSP_ADJUST_VOLUME:
 			if (m_para[1].iVal < 0) {
-				printError(outStr, "(volume message): negative fade time", nErrors);
+				printError(outStr, _T("(volume message): negative fade time"), nErrors);
 				bRet = false;
 			}
 			if (m_para[1].iVal > 60) {
-				printWarning(outStr, "(volume message): fade time exceeds a minute", nWarnings);
+				printWarning(outStr, _T("(volume message): fade time exceeds a minute"), nWarnings);
 				bRet = false;
 			}
 			break;			
 		case SSP_NO_MESSAGE:
 		case SSP_IS_DONE:
 		default:
-			printError(outStr, "(SSpMessage): undefined message", nErrors);
+			printError(outStr, _T("(SSpMessage): undefined message"), nErrors);
 			bRet = false;
 			break;
 	}
@@ -197,7 +197,7 @@ sspMsgHandler::~sspMsgHandler()
 SSpStreamMsg::SSpStreamMsg()
 {
 	m_nStream = USE_SEND_PARAMETER;
-	m_strName = "strmsg";
+	m_strName = _T("strmsg");
 }
 
 SSpStreamMsg::SSpStreamMsg(const SSpStreamMsg& msg) : sspIObase(msg)
@@ -228,7 +228,7 @@ void SSpStreamMsg::Serialize(CArchive& ar)
 		ar >> m_nStream;
 }
 
-void SSpStreamMsg::printASCII(std::ofstream& outStr)
+void SSpStreamMsg::printASCII(sspOutStream& outStr)
 {
 	if (m_nStream == USE_SEND_PARAMETER) {
     outStr << "message to current stream: ";
@@ -239,17 +239,17 @@ void SSpStreamMsg::printASCII(std::ofstream& outStr)
 	m_msg.printASCII(outStr);
 }
 
-bool SSpStreamMsg::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpStreamMsg::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (m_nStream != USE_SEND_PARAMETER) {
 		if (m_nStream < 0 || m_nStream > (int) sspPool::Instance().streams.GetSize()) {
-			printError(outStr, "(SSpStreamMsg): stream is not valid", nErrors);
+			printError(outStr, _T("(SSpStreamMsg): stream is not valid"), nErrors);
 			bRet = false;
 		}
 		if (m_nStream == 0) {
-			printWarning(outStr, "(SSpStreamMsg): message to application stream", nWarnings);
+			printWarning(outStr, _T("(SSpStreamMsg): message to application stream"), nWarnings);
 			bRet = false;
 		}
 		if (!m_msg.verify(outStr, nErrors, nWarnings)) {

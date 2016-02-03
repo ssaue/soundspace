@@ -35,8 +35,8 @@ public:
 	virtual ~SSpMessage();
 	void Serialize(CArchive& ar);
 
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	void SetMsgData(int nType, SSpMsgPara para1, SSpMsgPara para2);
 	void SetMsgType(int nType) {m_nType = nType;}
@@ -75,8 +75,8 @@ public:
 	virtual ~SSpStreamMsg();
 	void Serialize(CArchive& ar);
 
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	void SetMsgData(int nStream, const SSpMessage& msg);
 	void SetStream(int nStream) {m_nStream = nStream;}

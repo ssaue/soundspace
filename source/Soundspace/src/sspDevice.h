@@ -33,8 +33,8 @@ public:
 	virtual sspString	getDeviceName(int nDevice) = 0;
 
 	// Initialization and termination
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	bool initialize(LPVOID hWnd);
 	bool begin();

@@ -65,7 +65,7 @@ void sspDateTimeManager::Serialize(CArchive& ar)
 	}
 }
 
-void sspDateTimeManager::printASCII(std::ofstream& outStr)
+void sspDateTimeManager::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << "sspDateTimeManager";
   outStr << endl << m_bInterval ? "   - using play interval" : "   - not using play interval";
@@ -73,16 +73,16 @@ void sspDateTimeManager::printASCII(std::ofstream& outStr)
 	outStr << endl << "   - m_endTime: " << m_endTime.hour() << ":" << m_endTime.min() << ":" << m_endTime.sec();
 }
 
-bool sspDateTimeManager::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspDateTimeManager::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (m_bInterval && !m_startTime.isValid()) {
-		printError(outStr, "(sspDateTimeManager): m_startTime is not valid", nErrors);
+		printError(outStr, _T("(sspDateTimeManager): m_startTime is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_bInterval && !m_endTime.isValid()) {
-		printError(outStr, "(sspDateTimeManager): m_endTime is not valid", nErrors);
+		printError(outStr, _T("(sspDateTimeManager): m_endTime is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;

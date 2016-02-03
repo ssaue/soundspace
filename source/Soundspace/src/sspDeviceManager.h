@@ -23,8 +23,8 @@ public:
 	sspDeviceGroup* getGroup(SSP_DEVICES nType) {return m_pGroups[nType];}
 	sspDeviceGroup* operator[](SSP_DEVICES nType) {return getGroup(nType);}
 
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	bool initialize(LPVOID hWnd);
 	bool start();

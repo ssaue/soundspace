@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "sspObject.h"
+
 using namespace std;
 
 //////////////////////////////////////////////////////////////////////
@@ -21,13 +22,13 @@ sspIObase& sspIObase::operator= (const sspIObase& iob)
 	return *this;
 }
 
-void sspIObase::printError(std::ofstream& outStr, const sspString& txt, int& nCount)
+void sspIObase::printError(sspOutStream& outStr, const sspString& txt, int& nCount)
 {
 	outStr << endl << "ERROR: " << m_strName << txt;
 	nCount++;
 }
 
-void sspIObase::printWarning(std::ofstream& outStr, const sspString& txt, int& nCount)
+void sspIObase::printWarning(sspOutStream& outStr, const sspString& txt, int& nCount)
 {
 	outStr << endl << "WARNING: " << m_strName << txt;
 	nCount++;

@@ -23,8 +23,8 @@ public:
 
 	// Virtual methods
 	sspString	getString() { return m_str; }
-	void	printASCII(std::ofstream& outStr);
-  bool	verify(std::ofstream& outStr, int& nErrors, int& nWarnings) {return true;}
+	void	printASCII(sspOutStream& outStr);
+  bool	verify(sspOutStream& outStr, int& nErrors, int& nWarnings) {return true;}
 
 	// Accessors
 	void setString(const sspString& str) { m_str = str; }
@@ -47,8 +47,8 @@ public:
 
 	// Virtual methods
 	sspString	getString();
-	void	printASCII(std::ofstream& outStr);
-	bool	verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void	printASCII(sspOutStream& outStr);
+	bool	verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setStrings(const sspStrVec& strVec) { m_strVec = strVec; }
@@ -74,8 +74,8 @@ public:
 
 	// Virtual methods
 	sspString	getString();
-	void	printASCII(std::ofstream& outStr);
-	bool	verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void	printASCII(sspOutStream& outStr);
+	bool	verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	// Accessors
 	void setStringList(const sspIntVec& nStrings) {m_strIndices = nStrings;}

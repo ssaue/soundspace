@@ -124,7 +124,7 @@ void SSpPlayTask::Serialize(CArchive& ar)
 		m_messages[i].Serialize(ar);
 }
 
-void SSpPlayTask::printASCII(std::ofstream& outStr)
+void SSpPlayTask::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpPlayTask " << m_strName;
 	outStr << endl << "   - m_nPlayObject: " << sspPool::Instance().objects.GetName(m_nPlayObject);
@@ -157,24 +157,24 @@ void SSpPlayTask::printASCII(std::ofstream& outStr)
 	m_messages[EVENT_EXIT].printASCII(outStr);
 }
 
-bool SSpPlayTask::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpPlayTask::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (m_nPlayObject < 0 || m_nPlayObject > (int) sspPool::Instance().objects.GetSize()) {
-		printError(outStr, "(SSpPlayTask): m_nPlayObject is not valid", nErrors);
+		printError(outStr, _T("(SSpPlayTask): m_nPlayObject is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nCondIndex < 0 || m_nCondIndex > (int) sspPool::Instance().conditionals.GetSize()) {
-		printError(outStr, "(SSpPlayTask): m_nCondIndex is not valid", nErrors);
+		printError(outStr, _T("(SSpPlayTask): m_nCondIndex is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nVolumeFactor < 0 || m_nVolumeFactor > (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(SSpPlayTask): m_nVolumeFactor is not valid", nErrors);
+		printError(outStr, _T("(SSpPlayTask): m_nVolumeFactor is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nPriority < 0 || m_nPriority > LOAD_ALWAYS) {
-		printError(outStr, "(SSpPlayTask): m_nPriority is not valid", nErrors);
+		printError(outStr, _T("(SSpPlayTask): m_nPriority is not valid"), nErrors);
 		bRet = false;
 	}
 	for (int i=0; i<TASK_EVENT_TYPES; ++i) {
@@ -184,11 +184,11 @@ bool SSpPlayTask::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
 		}
 	}
 	if (m_messages[EVENT_START].size() != m_messages[EVENT_END].size()) {
-		printWarning(outStr, "(SSpPlayTask): start and end messages do not match", nWarnings);
+		printWarning(outStr, _T("(SSpPlayTask): start and end messages do not match"), nWarnings);
 		bRet = false;
 	}
 	if (m_messages[EVENT_ENTER].size() == 0 && m_messages[EVENT_EXIT].size() == 0) {
-		printWarning(outStr, "(SSpPlayTask): no enter or exit messages", nWarnings);
+		printWarning(outStr, _T("(SSpPlayTask): no enter or exit messages"), nWarnings);
 		bRet = false;
 	}
 	return bRet;

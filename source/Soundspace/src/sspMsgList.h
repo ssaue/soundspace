@@ -30,8 +30,8 @@ public:
 
 	void Serialize(CArchive& ar);
 
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
   void add(SSpStreamMsg* pMessage) {push_back(pMessage);}
   void remove(SSpStreamMsg* pMessage);
@@ -53,8 +53,8 @@ public:
 	virtual ~sspCondMsgList();
 	void Serialize(CArchive& ar);
 
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	void add(int nConditional, sspMsgList* pMessage);
 	bool remove(int nCondition);
@@ -76,8 +76,8 @@ public:
 	virtual ~sspTriggerMsgList();
 	void Serialize(CArchive& ar);
 
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	void add(SSpTrigger* pTrigger, sspCondMsgList* pMessage);
 	bool remove(SSpTrigger* pTrigger);
@@ -102,8 +102,8 @@ public:
 	virtual ~sspClockMsgList();
 	void Serialize(CArchive& ar);
 
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	void add(const SSpClock& clock, sspCondMsgList* pMessage);
 	bool remove(const SSpClock& clock);
