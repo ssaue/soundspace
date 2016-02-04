@@ -10,6 +10,7 @@
 #include "sspResetManager.h"
 #include <sspTimer.h>
 
+#include <algorithm>
 using namespace std;
 
 sspExecutiveManager* sspExecutiveManager::m_pInstance = NULL;
@@ -66,13 +67,13 @@ void sspExecutiveManager::Serialize(CArchive& ar)
 	}
 }
 
-void sspExecutiveManager::printASCII(std::ofstream& outStr)
+void sspExecutiveManager::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << "sspExecutiveManager";
 	outStr << endl << "   - m_nStartProc: " << m_nStartProc << ", m_nStopProc: " << m_nStopProc;
 }
 
-bool sspExecutiveManager::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspExecutiveManager::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
   // Nothing to verify so far

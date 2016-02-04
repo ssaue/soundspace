@@ -86,23 +86,23 @@ void sspICPinput::Serialize(CArchive& ar)
   }
 }
 
-void sspICPinput::printASCII(std::ofstream& outStr)
+void sspICPinput::printASCII(sspOutStream& outStr)
 {
 	sspInput::printASCII(outStr);
 	outStr << endl << "   - m_nPort: " << m_nPort << ", m_nAddress: " << m_nAddress << ", m_nChannel: " << m_nChannel;
 }
 
-bool sspICPinput::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspICPinput::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 	if (!sspInput::verify(outStr, nErrors, nWarnings))
 		bRet = false;
 	if (m_nPort != DEFAULT_PORT) {
-		printWarning(outStr, "(sspICPinput): m_nPort is non-standard", nWarnings);
+		printWarning(outStr, _T("(sspICPinput): m_nPort is non-standard"), nWarnings);
 		bRet = false;
 	}
 	if (m_nChannel > 15) {
-		printError(outStr, "(sspICPinput): m_nChannel is larger than 15", nErrors);
+		printError(outStr, _T("(sspICPinput): m_nChannel is larger than 15"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -157,24 +157,24 @@ void sspICPanalogInput::Serialize(CArchive& ar)
 		ar >> m_nValueIndex;
 }
 
-void sspICPanalogInput::printASCII(std::ofstream& outStr)
+void sspICPanalogInput::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << ": sspICPanalogInput " << m_strName;
 	sspICPinput::printASCII(outStr);
 	outStr << endl << "   - m_nValueIndex: " << sspPool::Instance().values.GetName(m_nValueIndex);
 }
 
-bool sspICPanalogInput::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspICPanalogInput::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 	if (!sspICPinput::verify(outStr, nErrors, nWarnings))
 		bRet = false;
 	if (m_nValueIndex < 0 || m_nValueIndex >= (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(sspICPanalogInput): m_nValueIndex is not valid", nErrors);
+		printError(outStr, _T("(sspICPanalogInput): m_nValueIndex is not valid"), nErrors);
 		bRet = false;
 	}
 	else if (sspPool::Instance().values.getValue(m_nValueIndex)->getType() != SSP_VALUE_SINGLE) {
-		printError(outStr, "(sspICPanalogInput): m_nValueIndex must be of basic type", nErrors);
+		printError(outStr, _T("(sspICPanalogInput): m_nValueIndex must be of basic type"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -238,24 +238,24 @@ void sspICPdigitalInput::Serialize(CArchive& ar)
 		ar >> m_nCondIndex;
 }
 
-void sspICPdigitalInput::printASCII(std::ofstream& outStr)
+void sspICPdigitalInput::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << ": sspICPdigitalInput " << m_strName;
 	sspICPinput::printASCII(outStr);
 	outStr << endl << "   - m_nCondIndex: " << sspPool::Instance().conditionals.GetName(m_nCondIndex);
 }
 
-bool sspICPdigitalInput::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspICPdigitalInput::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 	if (!sspICPinput::verify(outStr, nErrors, nWarnings))
 		bRet = false;
 	if (m_nCondIndex < 0 || m_nCondIndex >= (int) sspPool::Instance().conditionals.GetSize()) {
-		printError(outStr, "(sspICPdigitalInput): m_nCondIndex is not valid", nErrors);
+		printError(outStr, _T("(sspICPdigitalInput): m_nCondIndex is not valid"), nErrors);
 		bRet = false;
 	}
 	else if (sspPool::Instance().conditionals.GetConditional(m_nCondIndex)->getType() != SSP_COND_BOOLEAN) {
-		printError(outStr, "(sspICPdigitalInput): m_nCondIndex must be of basic type", nErrors);
+		printError(outStr, _T("(sspICPdigitalInput): m_nCondIndex must be of basic type"), nErrors);
 		bRet = false;
 	}
 	return bRet;

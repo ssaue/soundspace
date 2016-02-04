@@ -45,16 +45,16 @@ void sspInput::Serialize(CArchive& ar)
 	}
 }
 
-void sspInput::printASCII(std::ofstream& outStr)
+void sspInput::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << "   - m_fUpdateInterval: " << m_fUpdateInterval;
 }
 
-bool sspInput::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspInput::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 	if (m_fUpdateInterval <= 0.0f) {
-		printError(outStr, "(sspInput): m_fUpdateInterval is too small", nErrors);
+		printError(outStr, _T("(sspInput): m_fUpdateInterval is too small"), nErrors);
 		bRet = false;
 	}
 	return bRet;

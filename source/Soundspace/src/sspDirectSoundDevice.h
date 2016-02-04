@@ -49,9 +49,9 @@ private:
 	void setBufferFormat(int nChannels);
 
 	// Getting device information
-	void addInfo(LPGUID lpGuid, LPCSTR lpDesc);
+	void addInfo(LPGUID lpGuid, LPCWSTR lpDesc);
 	void clearInfo();
-	static BOOL CALLBACK enumCallback(LPGUID lpGuid, LPCSTR lpDesc, LPCSTR lpModule, LPVOID lpContext);
+	static BOOL CALLBACK enumCallback(LPGUID lpGuid, LPCWSTR lpDesc, LPCWSTR lpModule, LPVOID lpContext);
 };
 
 #endif

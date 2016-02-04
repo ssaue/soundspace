@@ -123,7 +123,7 @@ void CSoundSpaceView::OnChangeExtValue(unsigned int nID)
 		if (pExt != NULL) {
 			CString text;
 			GetDlgItem(nID)->GetWindowText(text);
-			pExt->setValue((float) atof(text));
+			pExt->setValue((float) _wtof(text));
 		}
 	}
 }
@@ -200,10 +200,10 @@ void CSoundSpaceView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		int nMax = pDoc->m_nDisplaySelection.size() > VALUE_MAX 
 			? VALUE_MAX : pDoc->m_nDisplaySelection.size();
 		for (int i=0; i<nMax; i++) {
-			text.Format("%.2f", sspPool::Instance().values.getValue(pDoc->m_nDisplaySelection[i])->getValue());
+			text.Format(_T("%.2f"), sspPool::Instance().values.getValue(pDoc->m_nDisplaySelection[i])->getValue());
 			GetDlgItem(IDC_EXT_VALUE1+i)->SetWindowText(text);
 		}
-    char buffer[20];
+    wchar_t buffer[20];
     GetDlgItem(IDC_DATE)->SetWindowText(sspDateTimeManager::Instance().current().dateAsString(buffer, 19));
 		GetDlgItem(IDC_TIME)->SetWindowText(sspDateTimeManager::Instance().current().clockAsString(buffer, 19));
 		break;

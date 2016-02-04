@@ -31,8 +31,8 @@ public:
 	static sspExecutiveManager& Instance();
 
  	void Serialize(CArchive& ar);
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
   void clearContents();
 
 	bool initialize(LPVOID hWnd);

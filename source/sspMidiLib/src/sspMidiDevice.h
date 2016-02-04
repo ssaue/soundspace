@@ -38,7 +38,7 @@ public:
 	void sendMidi(sspMidiMessage dBytes) const {midiOutShortMsg(m_MidiHandle, dBytes);}
 
 	static UINT getNumDevices() {return midiOutGetNumDevs();}
-	static std::string getDeviceName(int nDevice);
+	static std::wstring getDeviceName(int nDevice);
 };
 
 /****************************************************************************
@@ -80,7 +80,7 @@ public:
 	void addHandler(sspMidiInHandler* pHandler);
 
 	static UINT getNumDevices() {return midiInGetNumDevs();}
-	static std::string getDeviceName(int nDevice);
+	static std::wstring getDeviceName(int nDevice);
 };
 
 #endif

@@ -210,7 +210,8 @@ public:
     return m_nMon >= 1 && m_nMon <= 12 && m_nDay >= 1 && m_nDay <= m_nMonths[m_nMon-1];
   }
 
-  const char* dateAsString(char *buffer, int nMaxSize) const;
+	const char* dateAsString(char *buffer, int nMaxSize) const;
+	const wchar_t* dateAsString(wchar_t *buffer, int nMaxSize) const;
 };
 
 class sspClock
@@ -270,6 +271,7 @@ public:
   }
 
   const char* clockAsString(char *buffer, int nMaxSize) const;
+	const wchar_t* clockAsString(wchar_t *buffer, int nMaxSize) const;
 };
 
 class sspLocalTime : public sspTime, public sspDate, public sspClock

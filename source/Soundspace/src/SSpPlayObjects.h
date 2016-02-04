@@ -28,7 +28,7 @@ private:
   int     m_nFilterIndex;
 
   // Local variables
-  std::string m_previous;
+  sspString		m_previous;
   int         m_nDuration;
 
   DECLARE_SERIAL( SSpWavFile )
@@ -46,8 +46,8 @@ public:
 	void end();
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	int  estimateDuration();
 
 	void setFileName(LPCTSTR strName) {m_strFileName = strName;}
@@ -59,7 +59,7 @@ public:
   int   getFilterIndex() const {return m_nFilterIndex;}
 	
 private:
-  bool findFiles(std::vector<std::string>& names);
+	bool findFiles(sspStrVec& names);
 };
 
 class sspMidiScheduler;
@@ -87,8 +87,8 @@ public:
 	bool begin(sspDSbuffer* pBuf, sspMsgHandler* pOwner);
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	int  estimateDuration();
 
 	void setFileName(LPCTSTR strName) {m_strFileName = strName;}
@@ -126,8 +126,8 @@ public:
 	bool begin(sspDSbuffer* pBuf, sspMsgHandler* pOwner);
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	int  estimateDuration();
 
 	void setFileName(LPCTSTR strName) {m_strFileName = strName;}
@@ -162,8 +162,8 @@ public:
 	bool begin(sspDSbuffer* pBuf, sspMsgHandler* pOwner);
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	int  estimateDuration();
 
 	void setMidiDevice(int nDevice) {m_nMidiDevice = nDevice;}
@@ -206,8 +206,8 @@ public:
 	void end();
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	int  estimateDuration();
 
 	void setFileName(LPCTSTR strName) {m_strFileName = strName;}
@@ -247,8 +247,8 @@ public:
 	bool begin(sspDSbuffer* pBuf, sspMsgHandler* pOwner);
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	int  estimateDuration();
 
 	void setLengthValue(int nIndex) {m_nValueIndex = nIndex;}
@@ -278,8 +278,8 @@ public:
 	void end();
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	int  estimateDuration();
 
 	void setPlayObjects(const sspIntVec& nObjects) {m_nObjects = nObjects;}
@@ -310,8 +310,8 @@ public:
 	void end();
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	int  estimateDuration();
 
 	void setPlayObjects(const sspIntVec& nObjects) {m_nObjects = nObjects;}
@@ -339,8 +339,8 @@ public:
 	void end();
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	int	 estimateDuration();
 	bool isPlaying();
 
@@ -376,8 +376,8 @@ public:
 	void end();
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	int  estimateDuration();
 	bool isPlaying();
 
@@ -414,8 +414,8 @@ public:
 	void end();
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	int  estimateDuration();
 	bool isPlaying();
 
@@ -451,8 +451,8 @@ public:
 	void end();
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	int  estimateDuration();
 	bool isPlaying();
 
@@ -498,8 +498,8 @@ public:
 	void end();
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	int estimateDuration();
 
 	void setPlayObject(int nObject) {m_nObject = nObject;}
@@ -539,8 +539,8 @@ public:
 	bool begin(sspDSbuffer* pBuf, sspMsgHandler* pOwner);
 
 	// Virtual methods
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 	int	 estimateDuration();
 
 	void setMode(int nMode) {m_nMode = nMode;}

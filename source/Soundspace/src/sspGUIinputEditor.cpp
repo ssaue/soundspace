@@ -245,7 +245,7 @@ BOOL CInputParallelDialog::OnInitDialog()
 	CDialog::OnInitDialog();
 	SetWindowText(m_strTitle);
 	CString txt;
-	txt.Format("0x%x", m_editInput.getPort());	// Hex notation
+	txt.Format(_T("0x%x"), m_editInput.getPort());	// Hex notation
 	GetDlgItem(IDC_PORT)->SetWindowText(txt);
 	for (int i=0; i<sspParallelInput::PARALLEL_INPUTS; ++i) {
 		CButton* pOnBtn = (CButton*) GetDlgItem(IDC_ON1+i);
@@ -256,7 +256,7 @@ BOOL CInputParallelDialog::OnInitDialog()
 		}
 		else {
 			pOnBtn->SetCheck(BST_UNCHECKED);
-			pCondBtn->SetWindowText("<< Select conditional >>");
+			pCondBtn->SetWindowText(_T("<< Select conditional >>"));
 			pCondBtn->EnableWindow(FALSE);
 		}
 	}			
@@ -273,7 +273,7 @@ void CInputParallelDialog::OnInput(unsigned int nID)
 		GetDlgItem(IDC_COND1+nInput)->EnableWindow(TRUE);
 	}
 	else {
-		GetDlgItem(IDC_COND1+nInput)->SetWindowText("<< Select conditional >>");
+		GetDlgItem(IDC_COND1 + nInput)->SetWindowText(_T("<< Select conditional >>"));
 		GetDlgItem(IDC_COND1+nInput)->EnableWindow(FALSE);
 		m_editInput.setConditional(nInput, -1);
 	}
@@ -316,10 +316,10 @@ void CInputParallelDialog::OnOK()
 	m_editInput.setName((LPCTSTR) m_strName);
 
 	// Reading port as hex number
-	char buffer[10];
+	wchar_t buffer[10];
 	GetDlgItem(IDC_PORT)->GetWindowText(buffer, 10);
-	char* stop;
-	unsigned short nPort = (unsigned short) strtoul(buffer, &stop, 0);
+	wchar_t* stop;
+	unsigned short nPort = (unsigned short) wcstoul(buffer, &stop, 0);
 	m_editInput.setPort(nPort);
 
 	m_editInput.setUpdateInterval(m_fUpdateInterval);

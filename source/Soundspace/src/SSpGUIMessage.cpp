@@ -25,46 +25,46 @@ CString SSpGUIMessage::GetMessageText(SSpStreamMsg* pMessage)
 		text = sspPool::Instance().streams.GetName(pMessage->GetStream());
 	switch (pMessage->GetMessage().GetMsgType()) {
 	case SSP_LOAD_EVENT:
-		text += "  LoadTask  " + CString(sspPool::Instance().values.GetName(pMessage->GetMsgPara(0).iVal));
+		text += _T("  LoadTask  ") + CString(sspPool::Instance().values.GetName(pMessage->GetMsgPara(0).iVal));
 		if (pMessage->GetMsgPara(1).iVal == USE_SEND_PARAMETER)
-			text += "  This task";
+			text += _T("  This task");
 		else
-			text += "  " + CString(sspPool::Instance().tasks.GetName(pMessage->GetMsgPara(1).iVal));
+			text += _T("  ") + CString(sspPool::Instance().tasks.GetName(pMessage->GetMsgPara(1).iVal));
 		return text;
 	case SSP_SOLO:
-		add.Format("  SoloTask  %d sec", pMessage->GetMsgPara(0).iVal);
+		add.Format(_T("  SoloTask  %d sec"), pMessage->GetMsgPara(0).iVal);
 		text += add;
 		return text;
 	case SSP_MUTE:
-		add.Format("  MuteStream  %d sec", pMessage->GetMsgPara(0).iVal);
+		add.Format(_T("  MuteStream  %d sec"), pMessage->GetMsgPara(0).iVal);
 		text += add;
 		return text;
 	case SSP_UNSOLO:
-		add.Format("  EndSolo  %d sec", pMessage->GetMsgPara(0).iVal);
+		add.Format(_T("  EndSolo  %d sec"), pMessage->GetMsgPara(0).iVal);
 		text += add;
 		return text;
 	case SSP_UNMUTE:
-		add.Format("  EndMute  %d sec", pMessage->GetMsgPara(0).iVal);
+		add.Format(_T("  EndMute  %d sec"), pMessage->GetMsgPara(0).iVal);
 		text += add;
 		return text;
 	case SSP_START:
-		text += "  StartStream";
+		text += _T("  StartStream");
 		return text;
 	case SSP_STOP:
-		text += "  StopStream";
+		text += _T("  StopStream");
 		return text;
 	case SSP_SET_VOLUME:
-		add.Format(" SetVolume  %s  %d sec", 
+		add.Format(_T(" SetVolume  %s  %d sec"),
 			sspPool::Instance().values.GetName(pMessage->GetMsgPara(0).iVal), pMessage->GetMsgPara(1).iVal);
 		text += add;
 		return text;
 	case SSP_ADJUST_VOLUME:
-		add.Format(" AdjustVolume  %s  %d sec", 
+		add.Format(_T(" AdjustVolume  %s  %d sec"),
 			sspPool::Instance().values.GetName(pMessage->GetMsgPara(0).iVal), pMessage->GetMsgPara(1).iVal);
 		text += add;
 		return text;
 	default:
-		return "";
+		return _T("");
 	}
 }
 

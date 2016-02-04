@@ -17,6 +17,8 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
+#include <algorithm>
+
 using namespace std;
 
 //////////////////////////////////////////////////////////////////////

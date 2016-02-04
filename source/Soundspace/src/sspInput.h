@@ -25,8 +25,8 @@ public:
 	virtual ~sspInput();
 	void Serialize(CArchive& ar);
 
-	void printASCII(std::ofstream& outStr);
-	bool verify(std::ofstream& outStr, int& nErrors, int& nWarnings);
+	void printASCII(sspOutStream& outStr);
+	bool verify(sspOutStream& outStr, int& nErrors, int& nWarnings);
 
 	virtual bool initialize(LPVOID pWnd);
 	virtual bool begin() = 0;

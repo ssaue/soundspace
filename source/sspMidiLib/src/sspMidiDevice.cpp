@@ -72,13 +72,13 @@ int sspMidiOutDevice::getNotes() const
 		return m_MidiCaps.wNotes;
 }
 
-std::string	sspMidiOutDevice::getDeviceName(int nDevice)
+std::wstring	sspMidiOutDevice::getDeviceName(int nDevice)
 {
 	MIDIOUTCAPS midiDevice;
 	if (midiOutGetDevCaps(nDevice, (LPMIDIOUTCAPS) &midiDevice, sizeof(MIDIOUTCAPS)) == MMSYSERR_NOERROR)
 		return midiDevice.szPname;
 	else
-		return "";
+		return L"";
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -170,12 +170,12 @@ void sspMidiInDevice::handleMsg(HMIDIIN handle, UINT wMsg, sspMidiMessage msg)
 	}
 }
 
-std::string sspMidiInDevice::getDeviceName(int nDevice)
+std::wstring sspMidiInDevice::getDeviceName(int nDevice)
 {
 	MIDIINCAPS midiDevice;
 	if (midiInGetDevCaps(nDevice, (LPMIDIINCAPS) &midiDevice, sizeof(MIDIINCAPS)) == MMSYSERR_NOERROR)
 		return midiDevice.szPname;
 	else
-		return "";
+		return L"";
 }
 

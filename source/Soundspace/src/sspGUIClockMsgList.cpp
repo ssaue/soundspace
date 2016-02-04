@@ -69,7 +69,7 @@ void sspGUIClockMsgList::OnAddClock()
     m_list.add(newClock, pNew);
     m_pos = m_list.find(newClock);
     if (validClock()) {
-      char buffer[20];
+      wchar_t buffer[20];
       int nSelect = m_clockList.InsertString(-1, newClock.clockAsString(buffer, 19));
       m_clockList.SetItemData(nSelect, newClock.secondsInDay());
 		  m_clockList.SetCurSel(nSelect);
@@ -101,7 +101,7 @@ void sspGUIClockMsgList::OnEditClock()
     m_list.add(newClock, pNew);
     m_pos = m_list.find(newClock);
     if (validClock()) {
-      char buffer[20];
+			wchar_t buffer[20];
 		  m_clockList.InsertString(nSelect, newClock.clockAsString(buffer, 19));
       m_clockList.SetItemData(nSelect, newClock.secondsInDay());
 		  m_clockList.SetCurSel(nSelect);
@@ -252,7 +252,7 @@ void sspGUIClockMsgList::OnSelectMessageType()
 
 void sspGUIClockMsgList::updateList()
 {
-  char buffer[20];
+	wchar_t buffer[20];
 	m_clockList.ResetContent();
   sspClockMsgList::iterator iter;
   for (iter=m_list.begin(); iter != m_list.end(); ++iter) {

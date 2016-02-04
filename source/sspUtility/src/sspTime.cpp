@@ -99,6 +99,12 @@ const char* sspDate::dateAsString(char *buffer, int nMaxSize) const
   return buffer;
 }
 
+const wchar_t* sspDate::dateAsString(wchar_t *buffer, int nMaxSize) const
+{
+	_snwprintf_s(buffer, nMaxSize, _TRUNCATE, L"%02d/%02d", m_nDay, m_nMon);
+	return buffer;
+}
+
 //////////////////////////////////////////////////////////////////////
 // sspClock Class
 //////////////////////////////////////////////////////////////////////
@@ -117,6 +123,12 @@ const char* sspClock::clockAsString(char *buffer, int nMaxSize) const
   return buffer;
 }
 
+
+const wchar_t* sspClock::clockAsString(wchar_t *buffer, int nMaxSize) const
+{
+	_snwprintf_s(buffer, nMaxSize, _TRUNCATE, L"%02d:%02d:%02d", m_nHour, m_nMin, m_nSec);
+	return buffer;
+}
 
 //////////////////////////////////////////////////////////////////////
 // sspLocalTime Class

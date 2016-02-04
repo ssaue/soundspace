@@ -11,7 +11,7 @@
 
 sspDSDeviceGroup::sspDSDeviceGroup()
 {
-	m_strName = "Direct Sound";
+	m_strName = _T("Direct Sound");
     // Initialize member data
     m_hApp = NULL;
 }
@@ -41,7 +41,7 @@ unsigned int sspDSDeviceGroup::getDeviceCount()
 
 sspString sspDSDeviceGroup::getDeviceName(int nDevice)
 {
-	return (nDevice < (int) m_dsInfo.size()) ? m_dsInfo[nDevice]->strDesc : "";
+	return (nDevice < (int) m_dsInfo.size()) ? m_dsInfo[nDevice]->strDesc : _T("");
 }
 
 // initialize
@@ -52,7 +52,7 @@ bool sspDSDeviceGroup::initializeImpl(LPVOID hWnd)
     if (hWnd == NULL)
     {
         // Error, invalid hwnd
-        DOUT ("ERROR: Invalid parameters, unable to initialize services\n\r");
+        DOUT (_T("ERROR: Invalid parameters, unable to initialize services\n\r"));
         return FALSE;
     }
 	m_hApp = (HWND) hWnd;
@@ -71,28 +71,28 @@ bool sspDSDeviceGroup::initializeImpl(LPVOID hWnd)
 				if (nResult == DS_OK) {
 					nResult = dsbuf->SetFormat(&m_pcmWf);
 					if (nResult == DS_OK) {
-						DOUT ("SUCCESS: DirectSound created and formatted\n\r");
+						DOUT (_T("SUCCESS: DirectSound created and formatted\n\r"));
 					}
 					else {
-						DOUT ("ERROR: Unable to set DirectSound format\n\r");
+						DOUT(_T("ERROR: Unable to set DirectSound format\n\r"));
 						return FALSE;
 					}
 				m_pDSBuf.push_back(dsbuf);
 				}
 				else {
-					DOUT ("ERROR: Unable to create DirectSound buffer\n\r");
+					DOUT(_T("ERROR: Unable to create DirectSound buffer\n\r"));
 					return FALSE;
 				}
 			}
 			else {
-				DOUT ("ERROR: Unable to set DirectSound cooperative level\n\r");
+				DOUT(_T("ERROR: Unable to set DirectSound cooperative level\n\r"));
 				return FALSE;
 			}
 			m_pDS.push_back(ds);
 		}
 		else {
 			// Error
-			DOUT ("ERROR: Unable to create DirectSound object\n\r");
+			DOUT(_T("ERROR: Unable to create DirectSound object\n\r"));
 			return FALSE;
 		}
 	}
@@ -105,7 +105,7 @@ bool sspDSDeviceGroup::beginImpl()
 	for (unsigned int i=0; i<m_pDSBuf.size(); i++)  {
 		HRESULT nResult = m_pDSBuf[i]->Play (0, 0, DSBPLAY_LOOPING);
 		if (nResult != DS_OK) {
-	        DOUT ("Error, play failed\n\r");
+			DOUT(_T("Error, play failed\n\r"));
 			bRet = false;
 		}
 	}
@@ -152,7 +152,7 @@ void sspDSDeviceGroup::setBufferFormat(int nChannels)
 	m_dsBufDesc.dwFlags = DSBCAPS_PRIMARYBUFFER;
 }
 
-void sspDSDeviceGroup::addInfo(LPGUID lpGuid, LPCSTR lpDesc)
+void sspDSDeviceGroup::addInfo(LPGUID lpGuid, LPCWSTR lpDesc)
 {
 	dsInfoStruct* pInfo = new dsInfoStruct;
 	if (lpGuid != NULL) {
@@ -174,7 +174,7 @@ void sspDSDeviceGroup::clearInfo()
 	m_dsInfo.clear();
 }
 
-BOOL CALLBACK sspDSDeviceGroup::enumCallback(LPGUID lpGuid, LPCSTR lpDesc, LPCSTR lpModule, LPVOID lpContext)
+BOOL CALLBACK sspDSDeviceGroup::enumCallback(LPGUID lpGuid, LPCWSTR lpDesc, LPCWSTR lpModule, LPVOID lpContext)
 {	
 	sspDSDeviceGroup* pDSDG = (sspDSDeviceGroup*) lpContext;
 	pDSDG->addInfo(lpGuid, lpDesc);

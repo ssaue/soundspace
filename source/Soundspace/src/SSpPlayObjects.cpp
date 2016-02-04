@@ -23,6 +23,8 @@
 #include <direct.h>
 #include "debug.h"
 
+#include <algorithm>
+
 using namespace std;
 
 #ifdef _DEBUG
@@ -91,7 +93,7 @@ void SSpWavFile::Serialize(CArchive& ar)
 		ar >> m_strFileName >> m_bFolder >> m_nFilterIndex;
 }
 
-void SSpWavFile::printASCII(std::ofstream& outStr)
+void SSpWavFile::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpWavFile " << m_strName;
 	if (m_bFolder) outStr << endl << "   - is folder";
@@ -99,28 +101,28 @@ void SSpWavFile::printASCII(std::ofstream& outStr)
 	outStr << endl << "   - m_nFilterIndex " << sspPool::Instance().strings.GetName(m_nFilterIndex);
 }
 
-bool SSpWavFile::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpWavFile::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (m_strFileName.IsEmpty()) {
-		printError(outStr, "(SSpWavFile): no file path", nErrors);
+		printError(outStr, _T("(SSpWavFile): no file path"), nErrors);
 		bRet = false;
 	}
 	if (m_nFilterIndex < 0 || m_nFilterIndex >= (int) sspPool::Instance().strings.GetSize()) {
-		printError(outStr, "(SSpWavFile): m_nFilterIndex is not valid", nErrors);
+		printError(outStr, _T("(SSpWavFile): m_nFilterIndex is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_bFolder) {
-		if (_chdir((LPCTSTR)m_strFileName) != 0) {
-			printError(outStr, "(SSpWavFile): the folder does not exist", nErrors);
+		if (_wchdir((LPCTSTR)m_strFileName) != 0) {
+			printError(outStr, _T("(SSpWavFile): the folder does not exist"), nErrors);
 			bRet = false;
 		}
 	}
 	else {
 		ifstream test((LPCTSTR)m_strFileName);
 		if (!test) {
-			printError(outStr, "(SSpWavFile): unable to open file", nErrors);
+			printError(outStr, _T("(SSpWavFile): unable to open file"), nErrors);
 			bRet = false;
 		}
 	}
@@ -137,7 +139,7 @@ bool SSpWavFile::begin(sspDSbuffer* pBuf, sspMsgHandler* pOwner)
 {
   bool bRet = false;
 
-  std::vector<std::string> filenames;
+	sspStrVec filenames;
   if (findFiles(filenames)) {
     m_pOwner = pOwner;
     if (filenames.size() == 1) {
@@ -150,14 +152,14 @@ bool SSpWavFile::begin(sspDSbuffer* pBuf, sspMsgHandler* pOwner)
     }
     sspAudioFile* pFile = new sspAudioFile(m_previous);
     if (pBuf->loadAudioFile(pFile, this) && sspPlayManager::Instance().getScheduler().addObject(pBuf)) {
-      DOUT1 ("SSpWavFile begin %s success\n", m_previous.c_str());
+			DOUT1(_T("SSpWavFile begin %s success\n"), m_previous.c_str());
       int nDuration = static_cast<int>(pFile->getDuration());
       if (m_nPlayCount) m_nDuration = std::max(nDuration, m_nDuration);
       m_nPlayCount++;
       bRet = true;
     }
     else {
-      DOUT1 ("SSpWavFile begin %s failed\n", m_previous.c_str());
+			DOUT1(_T("SSpWavFile begin %s failed\n"), m_previous.c_str());
       delete pFile;
     }
   }
@@ -166,14 +168,14 @@ bool SSpWavFile::begin(sspDSbuffer* pBuf, sspMsgHandler* pOwner)
 
 bool SSpWavFile::update()
 {
-  DOUT1 ("SSpWavFile update %s\n", m_previous.c_str());
+	DOUT1(_T("SSpWavFile update %s\n"), m_previous.c_str());
   m_nPlayCount--;
   return false;
 }
 
 void SSpWavFile::end()
 {
-  DOUT1 ("SSpWavFile end %s\n", m_previous.c_str());
+	DOUT1(_T("SSpWavFile end %s\n"), m_previous.c_str());
   m_nPlayCount--;
 }
 
@@ -182,20 +184,20 @@ int SSpWavFile::estimateDuration()
 	return m_nDuration;
 }
 
-bool SSpWavFile::findFiles(std::vector<std::string>& names)
+bool SSpWavFile::findFiles(sspStrVec& names)
 {
   names.clear();
 
   if (m_strFileName.GetLength() > 0) {
 		if (m_bFolder) {
-			if (_chdir((LPCTSTR)m_strFileName) == 0) {
+			if (_wchdir((LPCTSTR)m_strFileName) == 0) {
 				CFileFind finder;
         bool bFoundPrevious = false;
-        const std::string strFilter = sspPool::Instance().strings.getString(m_nFilterIndex)->getString();
+        const sspString strFilter = sspPool::Instance().strings.getString(m_nFilterIndex)->getString();
         BOOL bSearching = finder.FindFile(strFilter.c_str());
 				while (bSearching) {
 					bSearching = finder.FindNextFile();
-          std::string strName = finder.GetFilePath().GetBuffer();
+					sspString strName = finder.GetFilePath().GetBuffer();
           if (sspAudioFile::verifyValidExtension(strName)) {
             if (strName == m_previous) // The previous file should not be selected again
               bFoundPrevious = true;
@@ -268,7 +270,7 @@ void SSpMidiFile::Serialize(CArchive& ar)
 	}
 }
 
-void SSpMidiFile::printASCII(std::ofstream& outStr)
+void SSpMidiFile::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpMidiFile " << m_strName;
 	if (m_bFolder) outStr << endl << "   - is folder";
@@ -277,7 +279,7 @@ void SSpMidiFile::printASCII(std::ofstream& outStr)
 	outStr << endl << "   - m_nTempoFactor " << sspPool::Instance().values.GetName(m_nTempoFactor);
 }
 
-bool SSpMidiFile::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpMidiFile::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -286,7 +288,7 @@ bool SSpMidiFile::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
 		bRet = false;
 	}
 	if (m_bFolder) {
-		if (_chdir((LPCTSTR)m_strFileName) != 0) {
+		if (_wchdir((LPCTSTR)m_strFileName) != 0) {
 			printError(outStr, "(SSpMidiFile): the folder does not exist", nErrors);
 			bRet = false;
 		}
@@ -315,7 +317,7 @@ bool SSpMidiFile::initialize()
 	clearSequences();
 	if (m_strFileName.GetLength() > 0) {
 		if (m_bFolder) {
-			if (_chdir((LPCTSTR)m_strFileName) == 0) {
+			if (_wchdir((LPCTSTR)m_strFileName) == 0) {
 				CFileFind finder;
 				BOOL bSearching = finder.FindFile("*.mid");
 				while (bSearching)
@@ -467,14 +469,14 @@ void SSpDSFile::Serialize(CArchive& ar)
 		ar >> m_strFileName >> m_bFolder;
 }
 
-void SSpDSFile::printASCII(std::ofstream& outStr)
+void SSpDSFile::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpDSFile " << m_strName;
 	if (m_bFolder) outStr << endl << "   - is folder";
 	outStr << endl << "   - m_strFileName " << (LPCTSTR)m_strFileName;
 }
 
-bool SSpDSFile::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpDSFile::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -483,7 +485,7 @@ bool SSpDSFile::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
 		bRet = false;
 	}
 	if (m_bFolder) {
-		if (_chdir((LPCTSTR)m_strFileName) != 0) {
+		if (_wchdir((LPCTSTR)m_strFileName) != 0) {
 			printError(outStr, "(SSpDSFile): the folder does not exist", nErrors);
 			bRet = false;
 		}
@@ -504,7 +506,7 @@ bool SSpDSFile::initialize()
 	clearFiles();
 	if (m_strFileName.GetLength() > 0) {
 		if (m_bFolder) {
-			if (_chdir((LPCTSTR)m_strFileName) == 0) {
+			if (_wchdir((LPCTSTR)m_strFileName) == 0) {
 				CFileFind finder;
 				BOOL bSearching = finder.FindFile("*.dsc");
 				while (bSearching)
@@ -642,7 +644,7 @@ void SSpMidiEventList::Serialize(CArchive& ar)
 		ar >> m_strFileName >> m_nMidiDevice >> m_bFolder;
 }
 
-void SSpMidiEventList::printASCII(std::ofstream& outStr)
+void SSpMidiEventList::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpMidiEventList " << m_strName;
 	if (m_bFolder) outStr << endl << "   - is folder";
@@ -650,7 +652,7 @@ void SSpMidiEventList::printASCII(std::ofstream& outStr)
 	outStr << endl << "   - m_nMidiDevice " << sspDeviceManager::Instance()[SSP_DEVICE_MIDIOUT]->getSubsetName(m_nMidiDevice);
 }
 
-bool SSpMidiEventList::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpMidiEventList::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -659,7 +661,7 @@ bool SSpMidiEventList::verify(std::ofstream& outStr, int& nErrors, int& nWarning
 		bRet = false;
 	}
 	if (m_bFolder) {
-		if (_chdir((LPCTSTR)m_strFileName) != 0) {
+		if (_wchdir((LPCTSTR)m_strFileName) != 0) {
 			printError(outStr, "(SSpMidiEventList): the folder does not exist", nErrors);
 			bRet = false;
 		}
@@ -684,7 +686,7 @@ bool SSpMidiEventList::initialize()
 	clearSequences();
 	if (m_strFileName.GetLength() > 0) {
 		if (m_bFolder) {
-			if (_chdir((LPCTSTR)m_strFileName) == 0) {
+			if (_wchdir((LPCTSTR)m_strFileName) == 0) {
 				CFileFind finder;
 				BOOL bSearching = finder.FindFile("*.evt");
 				while (bSearching)
@@ -842,7 +844,7 @@ void SSpDmxLivePlayer::Serialize(CArchive& ar)
 	}
 }
 
-void SSpDmxLivePlayer::printASCII(std::ofstream& outStr)
+void SSpDmxLivePlayer::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpDmxLivePlayer " << m_strName;
 	if (m_bFolder) outStr << endl << "   - is folder";
@@ -852,7 +854,7 @@ void SSpDmxLivePlayer::printASCII(std::ofstream& outStr)
 	outStr << endl << "   - m_nSelectIndex " << sspPool::Instance().values.GetName(m_nSelectIndex);
 }
 
-bool SSpDmxLivePlayer::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpDmxLivePlayer::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -861,7 +863,7 @@ bool SSpDmxLivePlayer::verify(std::ofstream& outStr, int& nErrors, int& nWarning
 		bRet = false;
 	}
 	if (m_bFolder) {
-		if (_chdir((LPCTSTR)m_strFileName) != 0) {
+		if (_wchdir((LPCTSTR)m_strFileName) != 0) {
 			printError(outStr, "(SSpDmxLivePlayer): the folder does not exist", nErrors);
 			bRet = false;
 		}
@@ -902,7 +904,7 @@ bool SSpDmxLivePlayer::initialize()
 	clearFiles();
 	if (m_strFileName.GetLength() > 0) {
 		if (m_bFolder) {
-			if (_chdir((LPCTSTR)m_strFileName) == 0) {
+			if (_wchdir((LPCTSTR)m_strFileName) == 0) {
 				CFileFind finder;
 				BOOL bSearching = finder.FindFile("*.dmx");
 				while (bSearching)
@@ -1044,13 +1046,13 @@ void SSpSilence::Serialize(CArchive& ar)
 		ar >> m_nValueIndex;
 }
 
-void SSpSilence::printASCII(std::ofstream& outStr)
+void SSpSilence::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpSilence " << m_strName;
 	outStr << endl << "   - m_nValueIndex " << sspPool::Instance().values.GetName(m_nValueIndex);
 }
 
-bool SSpSilence::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpSilence::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -1136,7 +1138,7 @@ void SSpSimultaneousGroup::Serialize(CArchive& ar)
 	}
 }
 
-void SSpSimultaneousGroup::printASCII(std::ofstream& outStr)
+void SSpSimultaneousGroup::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpSimultaneousGroup " << m_strName;
 	for (unsigned int i=0; i<m_nObjects.size(); i++) {
@@ -1144,7 +1146,7 @@ void SSpSimultaneousGroup::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpSimultaneousGroup::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpSimultaneousGroup::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -1269,7 +1271,7 @@ void SSpSequentialGroup::Serialize(CArchive& ar)
 	}
 }
 
-void SSpSequentialGroup::printASCII(std::ofstream& outStr)
+void SSpSequentialGroup::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpSequentialGroup " << m_strName;
 	for (unsigned int i=0; i<m_nObjects.size(); i++) {
@@ -1277,7 +1279,7 @@ void SSpSequentialGroup::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpSequentialGroup::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpSequentialGroup::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -1398,7 +1400,7 @@ void SSpLinearSelectGroup::Serialize(CArchive& ar)
 	}
 }
 
-void SSpLinearSelectGroup::printASCII(std::ofstream& outStr)
+void SSpLinearSelectGroup::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpLinearSelectGroup " << m_strName;
 	outStr << endl << "   - m_nValue: " << sspPool::Instance().values.GetName(m_nValue);
@@ -1407,7 +1409,7 @@ void SSpLinearSelectGroup::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpLinearSelectGroup::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpLinearSelectGroup::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -1538,7 +1540,7 @@ void SSpRandomGroup::Serialize(CArchive& ar)
 	}
 }
 
-void SSpRandomGroup::printASCII(std::ofstream& outStr)
+void SSpRandomGroup::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpRandomGroup " << m_strName;
 	for (unsigned int i=0; i<m_nObjects.size(); i++) {
@@ -1551,7 +1553,7 @@ void SSpRandomGroup::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpRandomGroup::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpRandomGroup::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -1696,7 +1698,7 @@ void SSpChainGroup::Serialize(CArchive& ar)
 	}
 }
 
-void SSpChainGroup::printASCII(std::ofstream& outStr)
+void SSpChainGroup::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpChainGroup " << m_strName;
 	outStr << endl << "   - m_nCircleLength: " << m_nCircleLength;
@@ -1706,7 +1708,7 @@ void SSpChainGroup::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpChainGroup::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpChainGroup::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -1845,7 +1847,7 @@ void SSpConditionalGroup::Serialize(CArchive& ar)
 	}
 }
 
-void SSpConditionalGroup::printASCII(std::ofstream& outStr)
+void SSpConditionalGroup::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpConditionalGroup " << m_strName;
 	for (unsigned int i=0; i<m_nObjects.size(); i++) {
@@ -1858,7 +1860,7 @@ void SSpConditionalGroup::printASCII(std::ofstream& outStr)
 		outStr << endl << "   - m_nDefaultObject: none";
 }
 
-bool SSpConditionalGroup::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpConditionalGroup::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -2003,7 +2005,7 @@ void SSpDistributionObject::Serialize(CArchive& ar)
 	}
 }
 
-void SSpDistributionObject::printASCII(std::ofstream& outStr)
+void SSpDistributionObject::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpDistributionObject " << m_strName;
 	outStr << endl << "   - m_nObject: " << sspPool::Instance().objects.GetName(m_nObject);
@@ -2029,7 +2031,7 @@ void SSpDistributionObject::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool SSpDistributionObject::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpDistributionObject::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
@@ -2191,7 +2193,7 @@ void SSpStateObject::Serialize(CArchive& ar)
 		ar >> m_nGlobalState >> m_nInputValue >> m_nMode;
 }
 
-void SSpStateObject::printASCII(std::ofstream& outStr)
+void SSpStateObject::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << m_nIndex << ": SSpStateObject " << m_strName;
   outStr << "m_nGlobalState: " << sspPool::Instance().values.GetName(m_nGlobalState);
@@ -2211,7 +2213,7 @@ void SSpStateObject::printASCII(std::ofstream& outStr)
   }
 }
 
-bool SSpStateObject::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool SSpStateObject::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 

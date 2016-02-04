@@ -12,6 +12,7 @@
 #include "sspDSchannelControl.h"
 
 #include <sspAudioFile.h>
+#include <algorithm>
 
 //
 // sspDSbuffer class implementation
@@ -77,7 +78,7 @@ bool sspDSbuffer::createMono()
 		}
 		else {
 			// Error, unable to create DirectSound buffer
-			DOUT ("ERROR: unable to create DirectSound buffer\n\r");
+			DOUT (_T("ERROR: unable to create DirectSound buffer\n\r"));
 			return false;
 		}
 	}
@@ -123,7 +124,7 @@ bool sspDSbuffer::createStereo()
 		}
 		else {
 			// Error, unable to create DirectSound buffer
-			DOUT ("ERROR: unable to create DirectSound buffer\n\r");
+			DOUT(_T("ERROR: unable to create DirectSound buffer\n\r"));
 			return false;
 		}
 	}
@@ -173,19 +174,19 @@ bool sspDSbuffer::loadAudioFile(sspAudioFile* pFile, sspMsgHandler* pOwner)
 			  return createStereo();
     }
     else {
-      DOUT1 ("sspDSbuffer::loadAudioFile: %s\n", sspAudioFile::getErrorMessage(nErrorNo).c_str());
+			DOUT1(_T("sspDSbuffer::loadAudioFile: %s\n"), sspAudioFile::getErrorMessage(nErrorNo).c_str());
       m_pAudioFile->close();
     }
 	}
   else {
     if (m_pAudioFile) {
-      DOUT ("sspDSbuffer::loadAudioFile failed: Audio file exists\n");
+			DOUT(_T("sspDSbuffer::loadAudioFile failed: Audio file exists\n"));
     }
     else if (!pFile) {
-      DOUT ("sspDSbuffer::loadAudioFile failed: empty file parameter\n");
+			DOUT(_T("sspDSbuffer::loadAudioFile failed: empty file parameter\n"));
     }
     else {
-      DOUT ("sspDSbuffer::loadAudioFile failed: no given reason\n");
+			DOUT(_T("sspDSbuffer::loadAudioFile failed: no given reason\n"));
     }
   }
 	m_bLoaded  = false;
@@ -198,7 +199,7 @@ bool sspDSbuffer::begin()
   m_nNextTime = sspSetting::audio.update;
 
   if (m_pAudioFile == NULL) {
-    DOUT ("sspDSbuffer::begin failed (audiofile is NULL)\n");
+		DOUT(_T("sspDSbuffer::begin failed (audiofile is NULL)\n"));
 		m_cbBufOffset = 0;
 		// Reset DirectSound buffer
 		for (unsigned int i=0; i<m_pDSBuf.size(); i++)
@@ -214,7 +215,7 @@ bool sspDSbuffer::begin()
 		// Reset file ptr, etc
 		m_pAudioFile->cue();
     m_nBytesRemaining = m_pAudioFile->getFileInfo().frames * m_dsBufDesc.lpwfxFormat->nChannels * sizeof(short);
-    DOUT1 ("sspDSbuffer::begin - remaining %d bytes\n", m_nBytesRemaining);   
+		DOUT1(_T("sspDSbuffer::begin - remaining %d bytes\n"), m_nBytesRemaining);
 
 		// Reset DirectSound buffer
 		for (unsigned int i=0; i<m_pDSBuf.size(); i++)
@@ -234,7 +235,7 @@ bool sspDSbuffer::begin()
 			HRESULT nResult = m_pDSBuf[i]->Play (0, 0, DSBPLAY_LOOPING);
 			if (nResult != DS_OK) {
 				end();
-        DOUT ("Error, play failed\n\r");
+				DOUT(_T("Error, play failed\n\r"));
 				return false;
 			}
 		}
@@ -284,7 +285,7 @@ bool sspDSbuffer::update()
       if (writeSilence(nFreeBytes) < nFreeBytes) {
 	      // Error writing silence data
 			  ASSERT (0);
-				DOUT ("writeSilence failed\n\r");
+				DOUT(_T("writeSilence failed\n\r"));
 			}
 		}
 		else if (m_nBytesRemaining >= nFreeBytes) {
@@ -293,7 +294,7 @@ bool sspDSbuffer::update()
       if ((nWritten = writeWaveData(nFreeBytes)) < nFreeBytes) {
 	      // Error writing silence data
 			  ASSERT (0);
-				DOUT ("writeWaveData failed\n\r");
+				DOUT(_T("writeWaveData failed\n\r"));
 			}
 		}
 		else {
@@ -305,13 +306,13 @@ bool sspDSbuffer::update()
         if (writeSilence(nRest) != nRest) {
           // Error writing silence data
 					ASSERT (0);
-					DOUT ("writeSilence failed\n\r");
+					DOUT(_T("writeSilence failed\n\r"));
 				}
 			}
 			else {
         // Error writing wave data
 				ASSERT (0);
-				DOUT ("writeWaveData failed\n\r");
+				DOUT(_T("writeWaveData failed\n\r"));
 			}
 		}
 	}
@@ -324,7 +325,7 @@ void sspDSbuffer::end()
 	m_bLoaded  = false;
   m_nBytesRemaining = 0;
 
-	DOUT ("sspDSbuffer::end\n");
+	DOUT(_T("sspDSbuffer::end\n"));
 	for (size_t i=0; i<m_pDSBuf.size(); ++i) {
 		m_pDSBuf[i]->Stop();
 		m_pDSBuf[i]->Release();
@@ -363,7 +364,7 @@ unsigned int sspDSbuffer::writeWaveData(unsigned int nBytes)
 	  hr = m_pDSBuf[i]->Lock(m_cbBufOffset, nBytes, (LPVOID*)&m_primary[i], &m_readSizes[i].first, (LPVOID*)&m_secondary[i], &m_readSizes[i].second, 0);
 	  if (hr != DS_OK) {
 		  // Error locking sound buffer
-		  DOUT1 ("Error, unable to lock sound buffer %d\n\r", i);
+			DOUT1(_T("Error, unable to lock sound buffer %d\n\r"), i);
 		  return 0;
 	  }
   }
@@ -382,14 +383,14 @@ unsigned int sspDSbuffer::writeWaveData(unsigned int nBytes)
       else {
 
         // Error, didn't read wave data completely
-  		  DOUT1 ("Error, read failure - only %d\n\r", nSamplesRead2);
+				DOUT1(_T("Error, read failure - only %d\n\r"), nSamplesRead2);
         nReturn = 0;
       }
     }
   }
   else {
     // Error, didn't read wave data completely
-	  DOUT1 ("Error, read failure - only %d\n\r", nSamplesRead1);
+		DOUT1(_T("Error, read failure - only %d\n\r"), nSamplesRead1);
     nReturn = 0;
   }
 
@@ -436,7 +437,7 @@ inline unsigned int sspDSbuffer::writeSilence(unsigned int nBytes)
 		}
 		else {
 			// Error locking sound buffer
-			DOUT1 ("Error, unable to lock sound buffer %d\n\r", i);
+			DOUT1(_T("Error, unable to lock sound buffer %d\n\r"), i);
 			return 0;
 		}
 	}       

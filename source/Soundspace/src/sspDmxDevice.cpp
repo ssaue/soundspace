@@ -55,7 +55,7 @@ void sspDmxDevice::initializeData(DMXFrame& frame, int nChannels)
 
 sspDmxDeviceGroup::sspDmxDeviceGroup()
 {
-	m_strName = "DMX";
+	m_strName = _T("DMX");
 }
 
 sspDmxDeviceGroup::~sspDmxDeviceGroup()
@@ -82,14 +82,10 @@ unsigned int sspDmxDeviceGroup::getAllDevices(void)
 sspString sspDmxDeviceGroup::getDeviceName(int nDevice)
 {
 	if (nDevice < (int) m_info.size()) {
-		// Needs to convert from wchar_t before returning
-    size_t converted;
-		char str[DMXLIB_MAX_PATH*2];
-		wcstombs_s(&converted, str, DMXLIB_MAX_PATH*2, m_info[nDevice]->deviceName, _TRUNCATE);
-		return str;
+		return m_info[nDevice]->deviceName;
 	}
 	else
-		return "";
+		return _T("");
 }
 
 bool sspDmxDeviceGroup::initializeImpl(LPVOID hWnd)
