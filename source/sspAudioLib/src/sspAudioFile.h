@@ -6,6 +6,7 @@
 #define SSP_AUDIOFILE_H
 
 #include "sspAudio.h"
+
 #include <string>
 #include <vector>
 
@@ -17,7 +18,7 @@ public:
    *
    * @param strFilename File name of audio file
    */
-  sspAudioFile(std::string strFilename);
+  sspAudioFile(std::wstring strFilename);
 
   /*
    * Destructor
@@ -97,7 +98,7 @@ public:
    *
    * @return Error text string
    */
-  static std::string getErrorMessage(int nErrorNo);
+  static std::wstring getErrorMessage(int nErrorNo);
 
   /*
    * Verify that a filename has a valid extension (supported by the library)
@@ -106,10 +107,10 @@ public:
    *
    * @return True if the extension is valid and supported
    */
-  static bool verifyValidExtension(const std::string& strFilename);
+  static bool verifyValidExtension(const std::wstring& strFilename);
 
 protected:
-  std::string     m_strName;
+  std::wstring		m_strName;
 	SNDFILE*        m_sndFile;
 	sspAudioInfo 	  m_fileInfo;
 	sspAudioInfo 	  m_playInfo;
@@ -117,7 +118,7 @@ protected:
 
 private:
   std::vector<short>  m_workBuffer;
-  static std::vector<std::string> s_extensions;
+  static std::vector<std::wstring> s_extensions;
 };
 
 #endif

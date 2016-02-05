@@ -1,11 +1,13 @@
 // sspAudioFile.cpp
 
 #include "sspAudioFile.h"
+#include <tchar.h>
 #include <algorithm>
-
 using namespace std;
 
-sspAudioFile::sspAudioFile(string strFilename)
+#define MAX_BUFFER 260
+
+sspAudioFile::sspAudioFile(wstring strFilename)
 : m_strName(strFilename)
 , m_sndFile(NULL)
 {
@@ -25,7 +27,14 @@ int sspAudioFile::open(int nMode)
   if (m_strName.empty()) 
     return false;
 
-  m_sndFile = sf_open(m_strName.c_str(), nMode, &m_fileInfo);
+	// Convert Unicode string to multibyte string
+	size_t converted;
+	char str[MAX_BUFFER];
+	wcstombs_s(&converted, str, MAX_BUFFER, m_strName.c_str(), _TRUNCATE);
+	if (converted < m_strName.size())
+		return false;
+
+  m_sndFile = sf_open(str, nMode, &m_fileInfo);
   return m_sndFile == NULL ? sf_error(NULL) : 0;
 }
 
@@ -88,7 +97,7 @@ unsigned int sspAudioFile::read(std::vector<short*>& bufs, unsigned int nSamples
         short* pSource = &m_workBuffer[0];
         nRead = static_cast<unsigned int>(sf_read_short(m_sndFile, pSource, nSamples * nFac) / nFac);
         int nOffset = 0;
-        size_t nNumBufs = std::min(bufs.size(), nFac);
+        size_t nNumBufs = min(bufs.size(), nFac);
         for (unsigned int i=0; i < nRead / m_playInfo.channels; ++i) {
           for (size_t j=0; j < nNumBufs; ++j) {
             memcpy(bufs[j]+nOffset, pSource + j * m_playInfo.channels, m_playInfo.channels * sizeof(short));
@@ -118,30 +127,37 @@ double sspAudioFile::getDuration() const
   return dDuration;
 }
 
-std::string sspAudioFile::getErrorMessage(int nErrorNo)
+std::wstring sspAudioFile::getErrorMessage(int nErrorNo)
 {
-  if (nErrorNo <= SSP_AUDIO_ERR_MAX_SNDFILE_ERROR)  // libsndfile error
-    return sf_error_number(nErrorNo);
+	if (nErrorNo <= SSP_AUDIO_ERR_MAX_SNDFILE_ERROR) { // libsndfile error
+
+		// Convert Unicode string to multibyte string
+		const char* error = sf_error_number(nErrorNo);
+		size_t converted;
+		wchar_t str[MAX_BUFFER];
+		mbstowcs_s(&converted, str, MAX_BUFFER, error, _TRUNCATE);
+		return str;
+	}
 
   switch (nErrorNo) {
     case SSP_AUDIO_ERR_INVALID_PLAYINFO:
-      return "Invalid play information";
+      return _T("Invalid play information");
       break;
     case SSP_AUDIO_ERR_INCOMPATIBLE_FORMATS:
-      return "File and play information are incompatible";
+      return _T("File and play information are incompatible");
       break;
     case SSP_AUDIO_ERR_UNKNOWN_FILE_ERROR:
-      return "Unspecified error in file access";
+      return _T("Unspecified error in file access");
       break;
     default:
-      return "Invalid error number";
+      return _T("Invalid error number");
       break;
   }
 }
 
-std::vector<std::string> sspAudioFile::s_extensions;
+std::vector<std::wstring> sspAudioFile::s_extensions;
 
-bool sspAudioFile::verifyValidExtension(const std::string& strFilename)
+bool sspAudioFile::verifyValidExtension(const std::wstring& strFilename)
 {
   if (s_extensions.empty()) {
     int nMajorCount;
@@ -151,13 +167,19 @@ bool sspAudioFile::verifyValidExtension(const std::string& strFilename)
     for (int i=0; i<nMajorCount; ++i) {
       info.format = i;
   		sf_command (NULL, SFC_GET_FORMAT_MAJOR, &info, sizeof (info));
-      s_extensions.push_back(info.extension);
-      if (strcmp(info.extension, "aiff") == 0) s_extensions.push_back("aif");  // Hack to support Windows short form
+
+			// Concert to Unibyte string
+			size_t converted;
+			wchar_t str[10];
+			mbstowcs_s(&converted, str, 10, info.extension, _TRUNCATE);
+      s_extensions.push_back(str);
+
+      if (strcmp(info.extension, "aiff") == 0) s_extensions.push_back(_T("aif"));  // Hack to support Windows short form
     }
   }
 
-  size_t nPos = strFilename.find_last_of(".");
-  std::string ext = strFilename.substr(nPos+1, strFilename.length() - nPos);
-  std::vector<std::string>::iterator finder = find(s_extensions.begin(), s_extensions.end(), ext);
+  size_t nPos = strFilename.find_last_of(L".");
+  std::wstring ext = strFilename.substr(nPos+1, strFilename.length() - nPos);
+  std::vector<std::wstring>::iterator finder = find(s_extensions.begin(), s_extensions.end(), ext);
   return finder != s_extensions.end();
 }

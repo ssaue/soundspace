@@ -212,7 +212,7 @@ bool SSpWavFile::findFiles(sspStrVec& names)
 			}
     }
     else {
-      std::string strName = m_strFileName.GetBuffer();
+      sspString strName = m_strFileName.GetBuffer();
       if (sspAudioFile::verifyValidExtension(strName)) {
         names.push_back(strName);
       }
@@ -284,28 +284,28 @@ bool SSpMidiFile::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 	bool bRet = true;
 
 	if (m_strFileName.IsEmpty()) {
-		printError(outStr, "(SSpMidiFile): no file path", nErrors);
+		printError(outStr, _T("(SSpMidiFile): no file path"), nErrors);
 		bRet = false;
 	}
 	if (m_bFolder) {
 		if (_wchdir((LPCTSTR)m_strFileName) != 0) {
-			printError(outStr, "(SSpMidiFile): the folder does not exist", nErrors);
+			printError(outStr, _T("(SSpMidiFile): the folder does not exist"), nErrors);
 			bRet = false;
 		}
 	}
 	else {
 		ifstream test((LPCTSTR)m_strFileName);
 		if (!test) {
-			printError(outStr, "(SSpMidiFile): unable to open file", nErrors);
+			printError(outStr, _T("(SSpMidiFile): unable to open file"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nTempoFactor < 0 || m_nTempoFactor >= (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(SSpMidiFile): m_nTempoFactor is not valid", nErrors);
+		printError(outStr, _T("(SSpMidiFile): m_nTempoFactor is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nMidiDevice < 0 || m_nMidiDevice >= (int) sspDeviceManager::Instance()[SSP_DEVICE_MIDIOUT]->getSubsetSize()) {
-		printError(outStr, "(SSpMidiFile): m_nMidiDevice is not valid", nErrors);
+		printError(outStr, _T("(SSpMidiFile): m_nMidiDevice is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -319,7 +319,7 @@ bool SSpMidiFile::initialize()
 		if (m_bFolder) {
 			if (_wchdir((LPCTSTR)m_strFileName) == 0) {
 				CFileFind finder;
-				BOOL bSearching = finder.FindFile("*.mid");
+				BOOL bSearching = finder.FindFile(_T("*.mid"));
 				while (bSearching)
 				{
 					bSearching = finder.FindNextFile();
