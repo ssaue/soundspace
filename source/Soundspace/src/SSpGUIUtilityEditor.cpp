@@ -130,12 +130,12 @@ BOOL CEditClock::OnInitDialog()
 /////////////////////////////////////////////////////////////////////////////
 // sspGUIfileDialogs namespace
 
-bool sspGUIfileDialogs::SelectFolder(HWND hOwner, const char* strTitle, CString& strFolder)
+bool sspGUIfileDialogs::SelectFolder(HWND hOwner, const wchar_t* strTitle, CString& strFolder)
 {
 	bool bRet = false;
 
 	BROWSEINFO brws = {0};
-	char szName[260];       // buffer for file name
+	wchar_t szName[260];       // buffer for file name
 	szName[0] = 0;
 
 	LPMALLOC pMalloc = NULL;
@@ -157,10 +157,10 @@ bool sspGUIfileDialogs::SelectFolder(HWND hOwner, const char* strTitle, CString&
 	return bRet;
 }
 
-bool sspGUIfileDialogs::SelectFile(HWND hOwner, const char* strTitle, const char* strFilter, CString& strFile)
+bool sspGUIfileDialogs::SelectFile(HWND hOwner, const wchar_t* strTitle, const wchar_t* strFilter, CString& strFile)
 {
 	OPENFILENAME ofn;		// common dialog box structure
-	char strBuf[260];
+	wchar_t strBuf[260];
 	strBuf[0] = 0;
 
 	// Initialize OPENFILENAME
@@ -186,10 +186,10 @@ bool sspGUIfileDialogs::SelectFile(HWND hOwner, const char* strTitle, const char
 	return false;
 }
 
-bool sspGUIfileDialogs::SelectMultipleFiles(HWND hOwner, const char* strTitle, const char* strFilter, CStringArray& strNames)
+bool sspGUIfileDialogs::SelectMultipleFiles(HWND hOwner, const wchar_t* strTitle, const wchar_t* strFilter, CStringArray& strNames)
 {
 	OPENFILENAME ofn;		// common dialog box structure
-	char strBuf[MAXBUFFER];
+	wchar_t strBuf[MAXBUFFER];
 	strBuf[0] = 0;
 
 	// Initialize OPENFILENAME
@@ -211,17 +211,17 @@ bool sspGUIfileDialogs::SelectMultipleFiles(HWND hOwner, const char* strTitle, c
 
 	if (::GetOpenFileName(&ofn) == TRUE) {
 		strNames.RemoveAll();
-		char strPath[260];
-		char strFile[260];
-		strncpy_s(strPath, 260, ofn.lpstrFile, ofn.nFileOffset);
+		wchar_t strPath[260];
+		wchar_t strFile[260];
+		wcsncpy_s(strPath, 260, ofn.lpstrFile, ofn.nFileOffset);
 		strPath[ofn.nFileOffset-1] = '\\';
 		strPath[ofn.nFileOffset] = 0;
-		char* strPos = ofn.lpstrFile + ofn.nFileOffset;
+		wchar_t* strPos = ofn.lpstrFile + ofn.nFileOffset;
 		while (*strPos != '\0') {
-			strcpy_s<260>(strFile, strPath);
-			strcat_s(strFile, 260, strPos);
+			wcscpy_s<260>(strFile, strPath);
+			wcscat_s(strFile, 260, strPos);
 			strNames.Add(strFile);
-			strPos += strlen(strPos) + 1;
+			strPos += wcslen(strPos) + 1;
 		}
 		return true;
 	}
@@ -253,6 +253,6 @@ END_MESSAGE_MAP()
 BOOL sspSaveDialog::OnInitDialog() 
 {
 	BOOL bRet = CFileDialog::OnInitDialog();
-	SetControlText(IDOK, "Select");
+	SetControlText(IDOK, _T("Select"));
 	return bRet;
 }

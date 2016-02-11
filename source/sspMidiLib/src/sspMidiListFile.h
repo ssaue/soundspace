@@ -17,7 +17,7 @@ public:
   sspMidiListFile() {}
   virtual ~sspMidiListFile() {}
 
-	bool open(const char* pFileName);
+	bool open(const wchar_t* pFileName);
 	bool read(sspMidiSequence& seq);
 	void close();
 };

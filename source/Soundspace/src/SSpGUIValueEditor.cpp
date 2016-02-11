@@ -8,6 +8,8 @@
 #include "ValueDialog.h"
 #include "ConditionalDialog.h"
 
+#include <algorithm>
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -668,8 +670,8 @@ BOOL CValueConditionalDialog::OnInitDialog()
 
 	CRect ctrlRect;
 	m_lcCondValueList.GetClientRect(ctrlRect);
-	m_lcCondValueList.InsertColumn(0, "Conditional", LVCFMT_LEFT, ctrlRect.Width() / 2, 0);
-	m_lcCondValueList.InsertColumn(1, "Value", LVCFMT_LEFT, ctrlRect.Width() / 2, 1);
+	m_lcCondValueList.InsertColumn(0, _T("Conditional"), LVCFMT_LEFT, ctrlRect.Width() / 2, 0);
+	m_lcCondValueList.InsertColumn(1, _T("Value"), LVCFMT_LEFT, ctrlRect.Width() / 2, 1);
 
 	m_nValues = m_editVal.getValueList();
 	m_nConditionals = m_editVal.getConditionals();
@@ -748,9 +750,9 @@ void CValueConditionalDialog::OnAdd()
 	m_nValues.push_back(-1);
 
 	m_lcCondValueList.SetItemState(m_nSelected, 0, LVIS_SELECTED|LVIS_FOCUSED);
-	m_lcCondValueList.InsertItem(LVIF_TEXT|LVIF_STATE, m_nSize, "<< Select conditional >>", 
+	m_lcCondValueList.InsertItem(LVIF_TEXT | LVIF_STATE, m_nSize, _T("<< Select conditional >>"),
 		LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED, 0, 0);
-	m_lcCondValueList.SetItemText(m_nSize, 1, "<< Select value >>");
+	m_lcCondValueList.SetItemText(m_nSize, 1, _T("<< Select value >>"));
 
 	m_nSelected = m_nSize;
 	m_nSize++;

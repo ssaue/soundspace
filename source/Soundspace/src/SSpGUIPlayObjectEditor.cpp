@@ -13,6 +13,8 @@
 #include "sspGUIStringDialog.h"
 #include "sspDeviceManager.h"
 
+#include <algorithm>
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -80,7 +82,7 @@ void CObjectWavDialog::OnCheckFolder()
 	}
 	else {
 		m_strFileName.RemoveAll();
-		GetDlgItem(IDC_FILENAME)->SetWindowText("");
+		GetDlgItem(IDC_FILENAME)->SetWindowText(_T(""));
 	}
 }
 
@@ -99,7 +101,7 @@ void CObjectWavDialog::OnBrowse()
 		CString strFolder;
 		if (sspGUIfileDialogs::SelectFolder(
 				GetSafeHwnd(), 
-				"Select an audio folder", 
+				_T("Select an audio folder"), 
 				strFolder)) {
 			m_strFileName.SetSize(1);
 			m_strFileName.SetAt(0, strFolder);
@@ -111,8 +113,8 @@ void CObjectWavDialog::OnBrowse()
 		if (m_bMultipleSelect) {
 			if (!sspGUIfileDialogs::SelectMultipleFiles(
 					GetSafeHwnd(), 
-					"Select one or more audio files", 
-					"All Files (*.*)\0*.*\0WAV files (*.wav)\0*.wav\0AIFF files (*.aiff)\0*.aiff\0AU files (*.au)\0*.au\0RAW files (*.raw)\0*.raw\0", 
+					_T("Select one or more audio files"),
+					_T("All Files (*.*)\0*.*\0WAV files (*.wav)\0*.wav\0AIFF files (*.aiff)\0*.aiff\0AU files (*.au)\0*.au\0RAW files (*.raw)\0*.raw\0"),
 					m_strFileName)) {
 				return;
 			}
@@ -121,8 +123,8 @@ void CObjectWavDialog::OnBrowse()
 			CString strFile;
 			if (sspGUIfileDialogs::SelectFile(
 					GetSafeHwnd(), 
-					"Select an audio file", 
-					"All Files (*.*)\0*.*\0WAV files (*.wav)\0*.wav\0AIFF files (*.aiff)\0*.aiff\0AU files (*.au)\0*.au\0RAW files (*.raw)\0*.raw\0", 
+					_T("Select an audio file"),
+					_T("All Files (*.*)\0*.*\0WAV files (*.wav)\0*.wav\0AIFF files (*.aiff)\0*.aiff\0AU files (*.au)\0*.au\0RAW files (*.raw)\0*.raw\0"),
 					strFile)) {
 				m_strFileName.SetSize(1);
 				m_strFileName.SetAt(0, strFile);				
@@ -137,7 +139,7 @@ void CObjectWavDialog::OnBrowse()
 	}
 	else {
 		CString text;
-		text.Format("%d files selected", m_strFileName.GetSize());
+		text.Format(_T("%d files selected"), m_strFileName.GetSize());
 		GetDlgItem(IDC_FILENAME)->SetWindowText(text);
 	}
 }
@@ -145,7 +147,7 @@ void CObjectWavDialog::OnBrowse()
 void CObjectWavDialog::OnOK()
 {
 	if (m_strFileName.IsEmpty()) {
-		AfxMessageBox(L"Please select at least one file or folder.");
+		AfxMessageBox(_T("Please select at least one file or folder."));
 		return;
 	}
 	CDialog::OnOK();
@@ -244,7 +246,7 @@ void CObjectMidiDialog::OnCheckFolder()
 	}
 	else {
 		m_strFileName.RemoveAll();
-		GetDlgItem(IDC_FILENAME)->SetWindowText("");
+		GetDlgItem(IDC_FILENAME)->SetWindowText(_T(""));
 	}
 }
 
@@ -254,7 +256,7 @@ void CObjectMidiDialog::OnBrowse()
 		CString strFolder;
 		if (sspGUIfileDialogs::SelectFolder(
 				GetSafeHwnd(), 
-				"Select a Midi folder", 
+				_T("Select a Midi folder"),
 				strFolder)) {
 			m_strFileName.SetSize(1);
 			m_strFileName.SetAt(0, strFolder);
@@ -266,8 +268,8 @@ void CObjectMidiDialog::OnBrowse()
 		if (m_bMultipleSelect) {
 			if (!sspGUIfileDialogs::SelectMultipleFiles(
 					GetSafeHwnd(), 
-					"Select one or more MIDI files", 
-					"Midi Files (*.mid)\0*.mid\0", 
+					_T("Select one or more MIDI files"),
+					_T("Midi Files (*.mid)\0*.mid\0"),
 					m_strFileName)) {
 				return;
 			}
@@ -276,8 +278,8 @@ void CObjectMidiDialog::OnBrowse()
 			CString strFile;
 			if (sspGUIfileDialogs::SelectFile(
 					GetSafeHwnd(), 
-					"Specify a MIDI file", 
-					"Midi Files (*.mid)\0*.mid\0", 
+					_T("Specify a MIDI file"),
+					_T("Midi Files (*.mid)\0*.mid\0"),
 					strFile)) {
 				m_strFileName.SetSize(1);
 				m_strFileName.SetAt(0, strFile);				
@@ -292,7 +294,7 @@ void CObjectMidiDialog::OnBrowse()
 	}
 	else {
 		CString text;
-		text.Format("%d files selected", m_strFileName.GetSize());
+		text.Format(_T("%d files selected"), m_strFileName.GetSize());
 		GetDlgItem(IDC_FILENAME)->SetWindowText(text);
 	}
 }
@@ -403,7 +405,7 @@ void CObjectDSControlDialog::OnCheckFolder()
 	}
 	else {
 		m_strFileName.RemoveAll();
-		GetDlgItem(IDC_FILENAME)->SetWindowText("");
+		GetDlgItem(IDC_FILENAME)->SetWindowText(_T(""));
 	}
 }
 
@@ -413,7 +415,7 @@ void CObjectDSControlDialog::OnBrowse()
 		CString strFolder;
 		if (sspGUIfileDialogs::SelectFolder(
 				GetSafeHwnd(), 
-				"Select a DirectSound control folder", 
+				_T("Select a DirectSound control folder"),
 				strFolder)) {
 			m_strFileName.SetSize(1);
 			m_strFileName.SetAt(0, strFolder);
@@ -425,8 +427,8 @@ void CObjectDSControlDialog::OnBrowse()
 		if (m_bMultipleSelect) {
 			if (!sspGUIfileDialogs::SelectMultipleFiles(
 					GetSafeHwnd(), 
-					"Select one or more DirectSound control files", 
-					"DirectSound Control Files (*.dsc)\0*.dsc\0", 
+					_T("Select one or more DirectSound control files"),
+					_T("DirectSound Control Files (*.dsc)\0*.dsc\0"),
 					m_strFileName)) {
 				return;
 			}
@@ -435,8 +437,8 @@ void CObjectDSControlDialog::OnBrowse()
 			CString strFile;
 			if (sspGUIfileDialogs::SelectFile(
 					GetSafeHwnd(), 
-					"Select a DirectSound control file", 
-					"DirectSound Control Files (*.dsc)\0*.dsc\0", 
+					_T("Select a DirectSound control file"),
+					_T("DirectSound Control Files (*.dsc)\0*.dsc\0"),
 					strFile)) {
 				m_strFileName.SetSize(1);
 				m_strFileName.SetAt(0, strFile);				
@@ -451,7 +453,7 @@ void CObjectDSControlDialog::OnBrowse()
 	}
 	else {
 		CString text;
-		text.Format("%d files selected", m_strFileName.GetSize());
+		text.Format(_T("%d files selected"), m_strFileName.GetSize());
 		GetDlgItem(IDC_FILENAME)->SetWindowText(text);
 	}
 }
@@ -459,7 +461,7 @@ void CObjectDSControlDialog::OnBrowse()
 void CObjectDSControlDialog::OnOK()
 {
 	if (m_strFileName.IsEmpty()) {
-		AfxMessageBox(L"Please select at least one file.");
+		AfxMessageBox(_T("Please select at least one file."));
 		return;
 	}
 	CDialog::OnOK();
@@ -553,7 +555,7 @@ void CObjectMidiListDialog::OnCheckFolder()
 	}
 	else {
 		m_strFileName.RemoveAll();
-		GetDlgItem(IDC_FILENAME)->SetWindowText("");
+		GetDlgItem(IDC_FILENAME)->SetWindowText(_T(""));
 	}
 }
 
@@ -563,7 +565,7 @@ void CObjectMidiListDialog::OnBrowse()
 		CString strFolder;
 		if (sspGUIfileDialogs::SelectFolder(
 				GetSafeHwnd(), 
-				"Select a MIDI event folder", 
+				_T("Select a MIDI event folder"),
 				strFolder)) {
 			m_strFileName.SetSize(1);
 			m_strFileName.SetAt(0, strFolder);
@@ -575,8 +577,8 @@ void CObjectMidiListDialog::OnBrowse()
 		if (m_bMultipleSelect) {
 			if (!sspGUIfileDialogs::SelectMultipleFiles(
 					GetSafeHwnd(), 
-					"Select one or more MIDI event files", 
-					"Midi Event Files (*.evt)\0*.evt\0", 
+					_T("Select one or more MIDI event files"),
+					_T("Midi Event Files (*.evt)\0*.evt\0"),
 					m_strFileName)) {
 				return;
 			}
@@ -585,8 +587,8 @@ void CObjectMidiListDialog::OnBrowse()
 			CString strFile;
 			if (sspGUIfileDialogs::SelectFile(
 					GetSafeHwnd(), 
-					"Select a MIDI event file", 
-					"Midi Event Files (*.evt)\0*.evt\0", 
+					_T("Select a MIDI event file"),
+					_T("Midi Event Files (*.evt)\0*.evt\0"),
 					strFile)) {
 				m_strFileName.SetSize(1);
 				m_strFileName.SetAt(0, strFile);				
@@ -601,7 +603,7 @@ void CObjectMidiListDialog::OnBrowse()
 	}
 	else {
 		CString text;
-		text.Format("%d files selected", m_strFileName.GetSize());
+		text.Format(_T("%d files selected"), m_strFileName.GetSize());
 		GetDlgItem(IDC_FILENAME)->SetWindowText(text);
 	}
 }
@@ -720,7 +722,7 @@ void CObjectDMXDialog::OnCheckFolder()
 	}
 	else {
 		m_strFileName.RemoveAll();
-		GetDlgItem(IDC_FILENAME)->SetWindowText("");
+		GetDlgItem(IDC_FILENAME)->SetWindowText(_T(""));
 	}
 }
 
@@ -730,7 +732,7 @@ void CObjectDMXDialog::OnBrowse()
 		CString strFolder;
 		if (sspGUIfileDialogs::SelectFolder(
 				GetSafeHwnd(), 
-				"Select a DMX control folder", 
+				_T("Select a DMX control folder"),
 				strFolder)) {
 			m_strFileName.SetSize(1);
 			m_strFileName.SetAt(0, strFolder);
@@ -742,8 +744,8 @@ void CObjectDMXDialog::OnBrowse()
 		if (m_bMultipleSelect) {
 			if (!sspGUIfileDialogs::SelectMultipleFiles(
 					GetSafeHwnd(), 
-					"Select one or more DMX control files", 
-					"DMX Files (*.dmx)\0*.dmx\0", 
+					_T("Select one or more DMX control files"),
+					_T("DMX Files (*.dmx)\0*.dmx\0"),
 					m_strFileName)) {
 				return;
 			}
@@ -752,8 +754,8 @@ void CObjectDMXDialog::OnBrowse()
 			CString strFile;
 			if (sspGUIfileDialogs::SelectFile(
 					GetSafeHwnd(), 
-					"Select a DMX control file", 
-					"DMX Files (*.dmx)\0*.dmx\0", 
+					_T("Select a DMX control file"),
+					_T("DMX Files (*.dmx)\0*.dmx\0"),
 					strFile)) {
 				m_strFileName.SetSize(1);
 				m_strFileName.SetAt(0, strFile);				
@@ -768,7 +770,7 @@ void CObjectDMXDialog::OnBrowse()
 	}
 	else {
 		CString text;
-		text.Format("%d files selected", m_strFileName.GetSize());
+		text.Format(_T("%d files selected"), m_strFileName.GetSize());
 		GetDlgItem(IDC_FILENAME)->SetWindowText(text);
 	}
 }
@@ -782,7 +784,7 @@ void CObjectDMXDialog::OnDuration()
 	}
 	else {
 		m_editObj.setDuration(-1);
-		GetDlgItem(IDC_BTN_DURATION)->SetWindowText("Unlimited duration");
+		GetDlgItem(IDC_BTN_DURATION)->SetWindowText(_T("Unlimited duration"));
 	}
 }
 
@@ -1408,20 +1410,20 @@ BOOL CObjectRandomDialog::OnInitDialog()
 	int nRectWidth = ctrlRect.Width();
 	int nConstWidth = nRectWidth / 10;
 	nRectWidth = (nRectWidth - nConstWidth) / 2;
-	m_lbWeights.InsertColumn(0, "Object", LVCFMT_LEFT, nRectWidth, 0);
-	m_lbWeights.InsertColumn(1, "Base", LVCFMT_LEFT, nConstWidth, 1);
-	m_lbWeights.InsertColumn(2, "Variable", LVCFMT_LEFT, nRectWidth, 2);
+	m_lbWeights.InsertColumn(0, _T("Object"), LVCFMT_LEFT, nRectWidth, 0);
+	m_lbWeights.InsertColumn(1, _T("Base"), LVCFMT_LEFT, nConstWidth, 1);
+	m_lbWeights.InsertColumn(2, _T("Variable"), LVCFMT_LEFT, nRectWidth, 2);
 	m_nSelected = -1;
 
   m_nSize = std::min(m_nObjects.size(), std::min(m_nConstWeight.size(),m_nVarWeight.size()));
 	m_nObjects.resize(m_nSize);
 	m_nConstWeight.resize(m_nSize);
 	m_nVarWeight.resize(m_nSize);
-	char number[10];
+	wchar_t number[10];
 	for (unsigned int i=0; i<m_nSize; i++) {
 		m_lbWeights.InsertItem(LVIF_TEXT|LVIF_STATE, i, 
 		   sspPool::Instance().objects.GetName(m_nObjects[i]), 0, LVIS_SELECTED, 0, 0);
-    _itoa_s(m_nConstWeight[i],number,10,10);
+    _itow_s(m_nConstWeight[i],number,10,10);
 		m_lbWeights.SetItemText(i, 1, number);
 		if (m_nVarWeight[i] >= 0)
 			m_lbWeights.SetItemText(i, 2, sspPool::Instance().values.GetName(m_nVarWeight[i]));
@@ -1473,9 +1475,9 @@ void CObjectRandomDialog::OnNMDblclkWeightList(NMHDR *pNMHDR, LRESULT *pResult)
     CEditValue dlg(rItem);
 		dlg.m_nValue = m_nConstWeight[m_nSelected];
 		if (dlg.DoModal() == IDOK) {
-			char number[10];
+			wchar_t number[10];
 			m_nConstWeight[m_nSelected] = dlg.m_nValue; 
-      _itoa_s(m_nConstWeight[m_nSelected],number,10,10);
+      _itow_s(m_nConstWeight[m_nSelected],number,10,10);
 			m_lbWeights.SetItemText(m_nSelected, 1, number);
 		}
 	}
@@ -1488,7 +1490,7 @@ void CObjectRandomDialog::OnNMDblclkWeightList(NMHDR *pNMHDR, LRESULT *pResult)
 			}
 			else {
 				m_nVarWeight[m_nSelected] = -1; 
-				m_lbWeights.SetItemText(m_nSelected, 2, "");
+				m_lbWeights.SetItemText(m_nSelected, 2, _T(""));
 			}
 		}
 	}
@@ -1501,14 +1503,14 @@ void CObjectRandomDialog::OnAdd()
 		m_nObjects.insert(m_nObjects.end(), dlg.m_nSelection.begin(), dlg.m_nSelection.end());
 		m_nConstWeight.reserve(m_nObjects.size());
 		m_nVarWeight.reserve(m_nObjects.size());
-		char number[10];
+		wchar_t number[10];
 		for (unsigned int i=0; i<dlg.m_nSelection.size(); i++) {
 			m_nConstWeight.push_back(1);
 			m_nVarWeight.push_back(-1);
 			m_lbWeights.SetItemState(m_nSelected, 0, LVIS_SELECTED|LVIS_FOCUSED);
 			m_lbWeights.InsertItem(LVIF_TEXT|LVIF_STATE, m_nSize, sspPool::Instance().objects.GetName(m_nObjects[m_nSize]),
 				LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED, 0, 0);
-      _itoa_s(m_nConstWeight[m_nSize],number,10,10);
+      _itow_s(m_nConstWeight[m_nSize],number,10,10);
 			m_lbWeights.SetItemText(m_nSize, 1, number);
 			if (m_nVarWeight[m_nSize] >= 0)
 				m_lbWeights.SetItemText(m_nSize, 2, sspPool::Instance().values.GetName(m_nVarWeight[m_nSize]));
@@ -1623,8 +1625,8 @@ BOOL CObjectChainDialog::OnInitDialog()
 	CRect ctrlRect;
 	m_lcChainList.GetClientRect(ctrlRect);
 	int nRectWidth = ctrlRect.Width() / 2;
-	m_lcChainList.InsertColumn(0, "Object", LVCFMT_LEFT, nRectWidth, 0);
-	m_lcChainList.InsertColumn(1, "Follower", LVCFMT_LEFT, nRectWidth, 1);
+	m_lcChainList.InsertColumn(0, _T("Object"), LVCFMT_LEFT, nRectWidth, 0);
+	m_lcChainList.InsertColumn(1, _T("Follower"), LVCFMT_LEFT, nRectWidth, 1);
 	m_nSelected = -1;
 
   m_nSize = std::min(m_nObjects.size(), m_nFollowers.size());
@@ -1810,8 +1812,8 @@ BOOL CObjectConditionalDialog::OnInitDialog()
 	CRect ctrlRect;
 	m_lcCondObject.GetClientRect(ctrlRect);
 	int nRectWidth = ctrlRect.Width() / 2;
-	m_lcCondObject.InsertColumn(0, "Condition", LVCFMT_LEFT, nRectWidth, 0);
-	m_lcCondObject.InsertColumn(1, "Play Object", LVCFMT_LEFT, nRectWidth, 1);
+	m_lcCondObject.InsertColumn(0, _T("Condition"), LVCFMT_LEFT, nRectWidth, 0);
+	m_lcCondObject.InsertColumn(1, _T("Play Object"), LVCFMT_LEFT, nRectWidth, 1);
 	m_nSelected = -1;
 
   m_nSize = std::min(m_nObjects.size(), m_nConds.size());
@@ -1884,9 +1886,9 @@ void CObjectConditionalDialog::OnAdd()
 	m_nObjects.push_back(-1);
 
 	m_lcCondObject.SetItemState(m_nSelected, 0, LVIS_SELECTED|LVIS_FOCUSED);
-	m_lcCondObject.InsertItem(LVIF_TEXT|LVIF_STATE, m_nSize, "<< Select conditional >>", 
+	m_lcCondObject.InsertItem(LVIF_TEXT | LVIF_STATE, m_nSize, _T("<< Select conditional >>"),
 		LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED, 0, 0);
-	m_lcCondObject.SetItemText(m_nSize, 1, "<< Select object >>");
+	m_lcCondObject.SetItemText(m_nSize, 1, _T("<< Select object >>"));
 
 	m_nSelected = m_nSize;
 	m_nSize++;
@@ -2085,11 +2087,11 @@ BOOL CObjectDistributionDialog::OnInitDialog()
 	if (m_nLoopMode == SSpDistributionObject::LOOP_DURATION && m_editObj.getLoopDuration() >= 0)
 		GetDlgItem(IDC_SELECT_DURATION)->SetWindowText(sspPool::Instance().values.GetName(m_editObj.getLoopDuration()));
 	else
-		GetDlgItem(IDC_SELECT_DURATION)->SetWindowText("<< Select duration >>");
+		GetDlgItem(IDC_SELECT_DURATION)->SetWindowText(_T("<< Select duration >>"));
 	if (m_nLoopMode == SSpDistributionObject::LOOP_COUNT && m_editObj.getLoopDuration() >= 0)
 		GetDlgItem(IDC_SELECT_COUNT)->SetWindowText(sspPool::Instance().values.GetName(m_editObj.getLoopDuration()));
 	else
-		GetDlgItem(IDC_SELECT_COUNT)->SetWindowText("<< Select count >>");
+		GetDlgItem(IDC_SELECT_COUNT)->SetWindowText(_T("<< Select count >>"));
 	return TRUE;
 }
 
@@ -2154,11 +2156,11 @@ void CObjectDistributionDialog::OnChangeMode()
 	if (m_nLoopMode == SSpDistributionObject::LOOP_DURATION && m_editObj.getLoopDuration() >= 0)
 		GetDlgItem(IDC_SELECT_DURATION)->SetWindowText(sspPool::Instance().values.GetName(m_editObj.getLoopDuration()));
 	else
-		GetDlgItem(IDC_SELECT_DURATION)->SetWindowText("<< Select duration >>");
+		GetDlgItem(IDC_SELECT_DURATION)->SetWindowText(_T("<< Select duration >>"));
 	if (m_nLoopMode == SSpDistributionObject::LOOP_COUNT && m_editObj.getLoopDuration() >= 0)
 		GetDlgItem(IDC_SELECT_COUNT)->SetWindowText(sspPool::Instance().values.GetName(m_editObj.getLoopDuration()));
 	else
-		GetDlgItem(IDC_SELECT_COUNT)->SetWindowText("<< Select count >>");
+		GetDlgItem(IDC_SELECT_COUNT)->SetWindowText(_T("<< Select count >>"));
 	updateModeButtons();
 }
 

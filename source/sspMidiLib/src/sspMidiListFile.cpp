@@ -6,7 +6,7 @@
 
 using namespace std;
 
-bool sspMidiListFile::open(const char* pFileName)
+bool sspMidiListFile::open(const wchar_t* pFileName)
 {
 	m_file.open(pFileName);
   return !m_file.fail();

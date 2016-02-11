@@ -14,28 +14,28 @@ class sspSetting
 public:
 	enum {MAX_SLIDERS = 9, MAX_FILEPATH_SIZE = 255};
 
-	static const char strProfileAudio[];
-	static const char strAudioFrequency[];
-	static const char strAudioBuffer[];
-	static const char strAudioUpdate[];
+	static const wchar_t strProfileAudio[];
+	static const wchar_t strAudioFrequency[];
+	static const wchar_t strAudioBuffer[];
+	static const wchar_t strAudioUpdate[];
 
-	static const char strProfileResolution[];
-	static const char strResolutionTimer[];
-	static const char strResolutionEnvelope[];
-	static const char strResolutionEvent[];
+	static const wchar_t strProfileResolution[];
+	static const wchar_t strResolutionTimer[];
+	static const wchar_t strResolutionEnvelope[];
+	static const wchar_t strResolutionEvent[];
 
-	static const char strProfileUpdates[];
-	static const char strTimingEvent[];
-	static const char strTimingClock[];
-	static const char strTimingGUI[];
+	static const wchar_t strProfileUpdates[];
+	static const wchar_t strTimingEvent[];
+	static const wchar_t strTimingClock[];
+	static const wchar_t strTimingGUI[];
 
-  static const char strProfileFades[];
-  static const char strTimingFadeIn[];
-	static const char strTimingFadeOut[];
-	static const char strTimingVolume[];
+	static const wchar_t strProfileFades[];
+	static const wchar_t strTimingFadeIn[];
+	static const wchar_t strTimingFadeOut[];
+	static const wchar_t strTimingVolume[];
 
-	static const char strProfileSlider[];
-	static const char strSlider[];
+	static const wchar_t strProfileSlider[];
+	static const wchar_t strSlider[];
 
 public:
 	// Audio settings

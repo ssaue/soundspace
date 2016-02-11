@@ -99,7 +99,7 @@ void sspResetManager::Serialize(CArchive& ar)
 	}
 }
 
-void sspResetManager::printASCII(std::ofstream& outStr)
+void sspResetManager::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << "sspResetManager";
   outStr << endl << m_bWatchdog ? "   - enabled" : "   - disabled";
@@ -109,20 +109,20 @@ void sspResetManager::printASCII(std::ofstream& outStr)
   outStr << endl << "   - reset condition: " << sspPool::Instance().conditionals.GetName(m_nCondition);
 }
 
-bool sspResetManager::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspResetManager::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 
 	if (m_bWatchdog && m_nTimeOut <= 1) {
-		printError(outStr, "(sspResetManager): m_nTimeOut is too small", nErrors);
+		printError(outStr, _T("(sspResetManager): m_nTimeOut is too small"), nErrors);
 		bRet = false;
 	}
 	if (!m_timeOfDay.isValid()) {
-		printError(outStr, "(sspResetManager): m_timeOfDay is not valid", nErrors);
+		printError(outStr, _T("(sspResetManager): m_timeOfDay is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nCondition < 0 || m_nCondition > (int) sspPool::Instance().conditionals.GetSize()) {
-		printError(outStr, "(sspResetManager): reset condition index is not valid", nErrors);
+		printError(outStr, _T("(sspResetManager): reset condition index is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;

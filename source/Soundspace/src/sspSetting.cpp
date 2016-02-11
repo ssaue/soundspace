@@ -15,28 +15,28 @@ static char THIS_FILE[]=__FILE__;
 // Static declarations
 /////////////////////////////////
 
-const char sspSetting::strProfileAudio[] = "Audio";
-const char sspSetting::strAudioFrequency[] = "frequency";
-const char sspSetting::strAudioBuffer[] = "buffer";
-const char sspSetting::strAudioUpdate[] = "update";
+const wchar_t sspSetting::strProfileAudio[] = _T("Audio");
+const wchar_t sspSetting::strAudioFrequency[] = _T("frequency");
+const wchar_t sspSetting::strAudioBuffer[] = _T("buffer");
+const wchar_t sspSetting::strAudioUpdate[] = _T("update");
 
-const char sspSetting::strProfileResolution[] = "Resolution";
-const char sspSetting::strResolutionTimer[] = "timer";
-const char sspSetting::strResolutionEnvelope[] = "envelope";
-const char sspSetting::strResolutionEvent[] = "event";
+const wchar_t sspSetting::strProfileResolution[] = _T("Resolution");
+const wchar_t sspSetting::strResolutionTimer[] = _T("timer");
+const wchar_t sspSetting::strResolutionEnvelope[] = _T("envelope");
+const wchar_t sspSetting::strResolutionEvent[] = _T("event");
 
-const char sspSetting::strProfileUpdates[] = "Updates";
-const char sspSetting::strTimingEvent[] = "event";
-const char sspSetting::strTimingClock[] = "clock";
-const char sspSetting::strTimingGUI[] = "GUI";
+const wchar_t sspSetting::strProfileUpdates[] = _T("Updates");
+const wchar_t sspSetting::strTimingEvent[] = _T("event");
+const wchar_t sspSetting::strTimingClock[] = _T("clock");
+const wchar_t sspSetting::strTimingGUI[] = _T("GUI");
 
-const char sspSetting::strProfileFades[] = "Fade times";
-const char sspSetting::strTimingFadeIn[] = "fade in";
-const char sspSetting::strTimingFadeOut[] = "fade out";
-const char sspSetting::strTimingVolume[] = "volume change";
+const wchar_t sspSetting::strProfileFades[] = _T("Fade times");
+const wchar_t sspSetting::strTimingFadeIn[] = _T("fade in");
+const wchar_t sspSetting::strTimingFadeOut[] = _T("fade out");
+const wchar_t sspSetting::strTimingVolume[] = _T("volume change");
 
-const char sspSetting::strProfileSlider[] = "Slider";
-const char sspSetting::strSlider[] = "value";
+const wchar_t sspSetting::strProfileSlider[] = _T("Slider");
+const wchar_t sspSetting::strSlider[] = _T("value");
 
 sspSetting::Audio		    sspSetting::audio = {44100, 2000, 500};
 sspSetting::Resolution  sspSetting::res = {1, 10, 100};
@@ -63,11 +63,11 @@ void sspSetting::Updates::ReadRegistry()
 {
 	CString dataStr;
 	dataStr = AfxGetApp()->GetProfileString(strProfileUpdates, strTimingEvent);
-	sscanf_s(dataStr, "%f", &event);
+	swscanf_s(dataStr, _T("%f"), &event);
 	dataStr = AfxGetApp()->GetProfileString(strProfileUpdates, strTimingClock);
-	sscanf_s(dataStr, "%f", &clock);
+	swscanf_s(dataStr, _T("%f"), &clock);
 	dataStr = AfxGetApp()->GetProfileString(strProfileUpdates, strTimingGUI);
-	sscanf_s(dataStr, "%f", &gui);
+	swscanf_s(dataStr, _T("%f"), &gui);
 }
 
 void sspSetting::FadeTimes::ReadRegistry()
@@ -81,7 +81,7 @@ void sspSetting::ReadSliderRegistry()
 {
 	CString dataStr;
 	dataStr = AfxGetApp()->GetProfileString(strProfileSlider, strSlider);
-	sscanf_s(dataStr, "%f %f %f %f %f %f %f %f %f", &sliderValue[0], &sliderValue[1], &sliderValue[2], &sliderValue[3],
+	swscanf_s(dataStr, _T("%f %f %f %f %f %f %f %f %f"), &sliderValue[0], &sliderValue[1], &sliderValue[2], &sliderValue[3],
 		&sliderValue[4], &sliderValue[5], &sliderValue[6], &sliderValue[7], &sliderValue[8]);
 }
 
@@ -111,11 +111,11 @@ void sspSetting::Resolution::WriteRegistry()
 void sspSetting::Updates::WriteRegistry()
 {
 	CString dataStr;
-	dataStr.Format("%.2f", event);
+	dataStr.Format(_T("%.2f"), event);
 	AfxGetApp()->WriteProfileString(strProfileUpdates, strTimingEvent, dataStr);
-	dataStr.Format("%.2f", clock);
+	dataStr.Format(_T("%.2f"), clock);
 	AfxGetApp()->WriteProfileString(strProfileUpdates, strTimingClock, dataStr);
-	dataStr.Format("%.2f", gui);
+	dataStr.Format(_T("%.2f"), gui);
 	AfxGetApp()->WriteProfileString(strProfileUpdates, strTimingGUI, dataStr);
 }
 
@@ -129,7 +129,7 @@ void sspSetting::FadeTimes::WriteRegistry()
 void sspSetting::WriteSliderRegistry()
 {
 	CString dataStr;
-	dataStr.Format("%.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f", sliderValue[0], sliderValue[1], sliderValue[2],
+	dataStr.Format(_T("%.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f"), sliderValue[0], sliderValue[1], sliderValue[2],
 		sliderValue[3], sliderValue[4], sliderValue[5], sliderValue[6], sliderValue[7], sliderValue[8]);
 	AfxGetApp()->WriteProfileString(strProfileSlider, strSlider, dataStr);
 }

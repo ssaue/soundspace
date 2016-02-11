@@ -97,14 +97,14 @@ void sspInputManager::Serialize(CArchive& ar)
 	}
 }
 
-void sspInputManager::printASCII(std::ofstream& outStr)
+void sspInputManager::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << "sspInputManager";
 	for (size_t i=0; i<m_inputs.size(); ++i)
 		m_inputs[i]->printASCII(outStr);
 }
 
-bool sspInputManager::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspInputManager::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 

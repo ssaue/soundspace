@@ -63,8 +63,8 @@ BOOL sspGUITriggerMsgList::OnInitDialog()
   CRect ctrlRect;
 	m_trigList.GetClientRect(ctrlRect);
 	int nHalfWidth = ctrlRect.Width() / 2;
-	m_trigList.InsertColumn(0, "Condition", LVCFMT_LEFT, nHalfWidth, 0);
-	m_trigList.InsertColumn(1, "Trigger mode", LVCFMT_LEFT, nHalfWidth, 1);
+	m_trigList.InsertColumn(0, _T("Condition"), LVCFMT_LEFT, nHalfWidth, 0);
+	m_trigList.InsertColumn(1, _T("Trigger mode"), LVCFMT_LEFT, nHalfWidth, 1);
 	m_trigList.SetExtendedStyle(m_trigList.GetExtendedStyle()|LVS_EX_FULLROWSELECT|LVS_EX_GRIDLINES);
 
   updateList();

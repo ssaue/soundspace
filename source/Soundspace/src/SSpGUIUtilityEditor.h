@@ -95,9 +95,9 @@ namespace sspGUIfileDialogs
 {
 	enum {MAXBUFFER = 2562};	// Strange buffer limitation (possible Win BUG)
 
-	bool SelectFolder(HWND hOwner, const char* strTitle, CString& strFolder);
-	bool SelectFile(HWND hOwner, const char* strTitle, const char* strFilter, CString& strFile);
-	bool SelectMultipleFiles(HWND hOwner, const char* strTitle, const char* strFilter, CStringArray& strNames);
+	bool SelectFolder(HWND hOwner, const wchar_t* strTitle, CString& strFolder);
+	bool SelectFile(HWND hOwner, const wchar_t* strTitle, const wchar_t* strFilter, CString& strFile);
+	bool SelectMultipleFiles(HWND hOwner, const wchar_t* strTitle, const wchar_t* strFilter, CStringArray& strNames);
 };
 
 /////////////////////////////////////////////////////////////////////////////

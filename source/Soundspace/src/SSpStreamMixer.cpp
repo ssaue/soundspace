@@ -45,11 +45,11 @@ bool SSpStreamMixer::begin(SSpPlayTask* pTask, float fTime)
 			fTime);
 	bool bExecuteOK = pTask->execute(true, m_pStream, pBuf);
 	if (bExecuteOK && pTask->getResourceUsage(SSP_WAV) > 0) {
-    DOUT1 ("SSpStreamMixer begin %s successfully\n", pTask->getName().c_str());
+		DOUT1(_T("SSpStreamMixer begin %s successfully\n"), pTask->getName().c_str());
 		m_pBuffers.push_back(pBuf);
 	}
 	else {
-    DOUT1 ("SSpStreamMixer begin %s failed\n", pTask->getName().c_str());
+		DOUT1(_T("SSpStreamMixer begin %s failed\n"), pTask->getName().c_str());
 		pTask->clearBuffer();
 		delete pBuf;
 	}
@@ -59,7 +59,7 @@ bool SSpStreamMixer::begin(SSpPlayTask* pTask, float fTime)
 void SSpStreamMixer::end()
 {
 	sspAutoLock autolock(m_synch);
-  DOUT1 ("SSpStreamMixer end - current size: %d\n", m_pBuffers.size());
+	DOUT1(_T("SSpStreamMixer end - current size: %d\n"), m_pBuffers.size());
 	for (sspDSbufferElem i = m_pBuffers.begin(); i != m_pBuffers.end(); ++i) {
 		if (!(*i)->isPlaying()) {
 			delete (*i);

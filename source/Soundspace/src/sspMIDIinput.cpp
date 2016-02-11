@@ -51,19 +51,19 @@ void sspMIDIinput::Serialize(CArchive& ar)
 		ar >> m_nMidiDevice;
 }
 
-void sspMIDIinput::printASCII(std::ofstream& outStr)
+void sspMIDIinput::printASCII(sspOutStream& outStr)
 {
 	sspInput::printASCII(outStr);
 	outStr << endl << "   - m_nMidiDevice: " << m_nMidiDevice;
 }
 
-bool sspMIDIinput::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspMIDIinput::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 	if (!sspInput::verify(outStr, nErrors, nWarnings))
 		bRet = false;
 	if (m_nMidiDevice < 0 || m_nMidiDevice >= (int) sspDeviceManager::Instance()[SSP_DEVICE_MIDIOUT]->getSubsetSize()) {
-		printError(outStr, "(sspMIDIinput): m_nMidiDevice is not valid", nErrors);
+		printError(outStr, _T("(sspMIDIinput): m_nMidiDevice is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -142,7 +142,7 @@ void sspMIDIeventInput::Serialize(CArchive& ar)
 	}
 }
 
-void sspMIDIeventInput::printASCII(std::ofstream& outStr)
+void sspMIDIeventInput::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << ": sspMIDIeventInput " << m_strName;
 	sspMIDIinput::printASCII(outStr);
@@ -153,29 +153,29 @@ void sspMIDIeventInput::printASCII(std::ofstream& outStr)
 	outStr << endl << "   - m_nMsgData2: " << m_nMsgData2[0] << ", " << m_nMsgData2[1];
 }
 
-bool sspMIDIeventInput::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspMIDIeventInput::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 	if (!sspMIDIinput::verify(outStr, nErrors, nWarnings))
 		bRet = false;
 	if (m_nMsgChannel[0] >= 0 && m_nMsgChannel[0] < m_nMsgChannel[1]) {
-		printError(outStr, "(sspMIDIeventInput): m_nMsgChannel range is not valid", nErrors);
+		printError(outStr, _T("(sspMIDIeventInput): m_nMsgChannel range is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nMsgData1[0] >= 0 && m_nMsgData1[0] < m_nMsgData1[1]) {
-		printError(outStr, "(sspMIDIeventInput): m_nMsgData1 range is not valid", nErrors);
+		printError(outStr, _T("(sspMIDIeventInput): m_nMsgData1 range is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nMsgData2[0] >= 0 && m_nMsgData2[0] < m_nMsgData2[1]) {
-		printError(outStr, "(sspMIDIeventInput): m_nMsgData2 range is not valid", nErrors);
+		printError(outStr, _T("(sspMIDIeventInput): m_nMsgData2 range is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nConditional < 0 || m_nConditional >= (int) sspPool::Instance().conditionals.GetSize()) {
-		printError(outStr, "(sspMIDIeventInput): m_nConditional is not valid", nErrors);
+		printError(outStr, _T("(sspMIDIeventInput): m_nConditional is not valid"), nErrors);
 		bRet = false;
 	}
 	else if (sspPool::Instance().conditionals.GetConditional(m_nConditional)->getType() != SSP_COND_BOOLEAN) {
-		printError(outStr, "(sspMIDIeventInput): m_nConditional must be of basic type", nErrors);
+		printError(outStr, _T("(sspMIDIeventInput): m_nConditional must be of basic type"), nErrors);
 		bRet = false;
 	}
 	return bRet;

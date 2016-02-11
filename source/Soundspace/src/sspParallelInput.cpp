@@ -75,7 +75,7 @@ void sspParallelInput::Serialize(CArchive& ar)
 	}
 }
 
-void sspParallelInput::printASCII(std::ofstream& outStr)
+void sspParallelInput::printASCII(sspOutStream& outStr)
 {
 	outStr << endl << ": sspParallelInput " << m_strName;
 	sspInput::printASCII(outStr);
@@ -87,23 +87,23 @@ void sspParallelInput::printASCII(std::ofstream& outStr)
 	}
 }
 
-bool sspParallelInput::verify(std::ofstream& outStr, int& nErrors, int& nWarnings)
+bool sspParallelInput::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 {
 	bool bRet = true;
 	if (!sspInput::verify(outStr, nErrors, nWarnings))
 		bRet = false;
 	if (m_nPort != DEFAULT_PORT) {
-		printWarning(outStr, "(sspParallelInput): m_nPort is non-standard", nWarnings);
+		printWarning(outStr, _T("(sspParallelInput): m_nPort is non-standard"), nWarnings);
 		bRet = false;
 	}
 	for (int i=0; i<PARALLEL_INPUTS; ++i) {
 		if (m_nConds[i] >= 0) {
 			if (m_nConds[i] < 0 || m_nConds[i] > (int) sspPool::Instance().conditionals.GetSize()) {
-				printError(outStr, "(sspParallelInput): a conditional index is not valid", nErrors);
+				printError(outStr, _T("(sspParallelInput): a conditional index is not valid"), nErrors);
 				bRet = false;
 			}
 			else if (sspPool::Instance().conditionals.GetConditional(m_nConds[i])->getType() != SSP_COND_BOOLEAN) {
-				printError(outStr, "(sspParallelInput): conditionals must be of boolean type", nErrors);
+				printError(outStr, _T("(sspParallelInput): conditionals must be of boolean type"), nErrors);
 				bRet = false;
 			}
 		}

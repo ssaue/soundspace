@@ -380,7 +380,7 @@ bool SSpMidiFile::initialize()
 	}
 	if (m_pSequences.empty()) {
 		CString txt;
-		txt.Format("There are no valid midi files in %s", m_strFileName);
+		txt.Format(_T("There are no valid midi files in %s"), m_strFileName);
 		AfxMessageBox(txt);
 		return false;
 	}
@@ -481,19 +481,19 @@ bool SSpDSFile::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 	bool bRet = true;
 
 	if (m_strFileName.IsEmpty()) {
-		printError(outStr, "(SSpDSFile): no file path", nErrors);
+		printError(outStr, _T("(SSpDSFile): no file path"), nErrors);
 		bRet = false;
 	}
 	if (m_bFolder) {
 		if (_wchdir((LPCTSTR)m_strFileName) != 0) {
-			printError(outStr, "(SSpDSFile): the folder does not exist", nErrors);
+			printError(outStr, _T("(SSpDSFile): the folder does not exist"), nErrors);
 			bRet = false;
 		}
 	}
 	else {
 		ifstream test((LPCTSTR)m_strFileName);
 		if (!test) {
-			printError(outStr, "(SSpDSFile): unable to open file", nErrors);
+			printError(outStr, _T("(SSpDSFile): unable to open file"), nErrors);
 			bRet = false;
 		}
 	}
@@ -508,7 +508,7 @@ bool SSpDSFile::initialize()
 		if (m_bFolder) {
 			if (_wchdir((LPCTSTR)m_strFileName) == 0) {
 				CFileFind finder;
-				BOOL bSearching = finder.FindFile("*.dsc");
+				BOOL bSearching = finder.FindFile(_T("*.dsc"));
 				while (bSearching)
 				{
 					bSearching = finder.FindNextFile();
@@ -550,7 +550,7 @@ bool SSpDSFile::initialize()
 	}
 	if (m_pFiles.empty()) {
 		CString txt;
-		txt.Format("There are no valid dsc files in %s", m_strFileName);
+		txt.Format(_T("There are no valid dsc files in %s"), m_strFileName);
 		AfxMessageBox(txt);
 		return false;
 	}
@@ -657,24 +657,24 @@ bool SSpMidiEventList::verify(sspOutStream& outStr, int& nErrors, int& nWarnings
 	bool bRet = true;
 
 	if (m_strFileName.IsEmpty()) {
-		printError(outStr, "(SSpMidiEventList): no file path", nErrors);
+		printError(outStr, _T("(SSpMidiEventList): no file path"), nErrors);
 		bRet = false;
 	}
 	if (m_bFolder) {
 		if (_wchdir((LPCTSTR)m_strFileName) != 0) {
-			printError(outStr, "(SSpMidiEventList): the folder does not exist", nErrors);
+			printError(outStr, _T("(SSpMidiEventList): the folder does not exist"), nErrors);
 			bRet = false;
 		}
 	}
 	else {
 		ifstream test((LPCTSTR)m_strFileName);
 		if (!test) {
-			printError(outStr, "(SSpMidiEventList): unable to open file", nErrors);
+			printError(outStr, _T("(SSpMidiEventList): unable to open file"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nMidiDevice < 0 || m_nMidiDevice >= (int) sspDeviceManager::Instance()[SSP_DEVICE_MIDIOUT]->getSubsetSize()) {
-		printError(outStr, "(SSpMidiEventList): m_nMidiDevice is not valid", nErrors);
+		printError(outStr, _T("(SSpMidiEventList): m_nMidiDevice is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -688,7 +688,7 @@ bool SSpMidiEventList::initialize()
 		if (m_bFolder) {
 			if (_wchdir((LPCTSTR)m_strFileName) == 0) {
 				CFileFind finder;
-				BOOL bSearching = finder.FindFile("*.evt");
+				BOOL bSearching = finder.FindFile(_T("*.evt"));
 				while (bSearching)
 				{
 					bSearching = finder.FindNextFile();
@@ -741,7 +741,7 @@ bool SSpMidiEventList::initialize()
 	}
 	if (m_pSequences.empty()) {
 		CString txt;
-		txt.Format("There are no valid midi event files in %s", m_strFileName);
+		txt.Format(_T("There are no valid midi event files in %s"), m_strFileName);
 		AfxMessageBox(txt);
 		return false;
 	}
@@ -859,40 +859,40 @@ bool SSpDmxLivePlayer::verify(sspOutStream& outStr, int& nErrors, int& nWarnings
 	bool bRet = true;
 
 	if (m_strFileName.IsEmpty()) {
-		printError(outStr, "(SSpDmxLivePlayer): no file path", nErrors);
+		printError(outStr, _T("(SSpDmxLivePlayer): no file path"), nErrors);
 		bRet = false;
 	}
 	if (m_bFolder) {
 		if (_wchdir((LPCTSTR)m_strFileName) != 0) {
-			printError(outStr, "(SSpDmxLivePlayer): the folder does not exist", nErrors);
+			printError(outStr, _T("(SSpDmxLivePlayer): the folder does not exist"), nErrors);
 			bRet = false;
 		}
 	}
 	else {
 		ifstream test((LPCTSTR)m_strFileName);
 		if (!test) {
-			printError(outStr, "(SSpDmxLivePlayer): unable to open file", nErrors);
+			printError(outStr, _T("(SSpDmxLivePlayer): unable to open file"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nDevice < 0 || m_nDevice >= (int) sspDeviceManager::Instance()[SSP_DEVICE_DMX]->getSubsetSize()) {
-		printError(outStr, "(SSpDmxLivePlayer): m_nDevice is not valid", nErrors);
+		printError(outStr, _T("(SSpDmxLivePlayer): m_nDevice is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nDurIndex < 0 || m_nDurIndex >= (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(SSpDmxLivePlayer): m_nDurIndex is not valid", nErrors);
+		printError(outStr, _T("(SSpDmxLivePlayer): m_nDurIndex is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nSelectIndex < 0 || m_nSelectIndex >= (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(SSpDmxLivePlayer): m_nSelectIndex is not valid", nErrors);
+		printError(outStr, _T("(SSpDmxLivePlayer): m_nSelectIndex is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nRefreshRate <= 0 ) {
-		printError(outStr, "(SSpDmxLivePlayer): m_nRefreshRate is not valid", nErrors);
+		printError(outStr, _T("(SSpDmxLivePlayer): m_nRefreshRate is not valid"), nErrors);
 		bRet = false;
 	}
 	else if (m_nRefreshRate < 10 || m_nRefreshRate > 1000 ) {
-		printWarning(outStr, "(SSpDmxLivePlayer): m_nRefreshRate is outside recommended range", nWarnings);
+		printWarning(outStr, _T("(SSpDmxLivePlayer): m_nRefreshRate is outside recommended range"), nWarnings);
 		bRet = false;
 	}
 	return bRet;
@@ -906,7 +906,7 @@ bool SSpDmxLivePlayer::initialize()
 		if (m_bFolder) {
 			if (_wchdir((LPCTSTR)m_strFileName) == 0) {
 				CFileFind finder;
-				BOOL bSearching = finder.FindFile("*.dmx");
+				BOOL bSearching = finder.FindFile(_T("*.dmx"));
 				while (bSearching)
 				{
 					bSearching = finder.FindNextFile();
@@ -954,7 +954,7 @@ bool SSpDmxLivePlayer::initialize()
 	}
 	if (m_pFiles.empty()) {
 		CString txt;
-		txt.Format("There are no valid dmx files in %s", m_strFileName);
+		txt.Format(_T("There are no valid dmx files in %s"), m_strFileName);
 		AfxMessageBox(txt);
 		return false;
 	}
@@ -1057,7 +1057,7 @@ bool SSpSilence::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 	bool bRet = true;
 
 	if (m_nValueIndex < 0 || m_nValueIndex >= (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(SSpSilence): m_nValueIndex is not valid", nErrors);
+		printError(outStr, _T("(SSpSilence): m_nValueIndex is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -1153,16 +1153,16 @@ bool SSpSimultaneousGroup::verify(sspOutStream& outStr, int& nErrors, int& nWarn
 	for (unsigned int i=0; i<m_nObjects.size(); ++i) {
 		if (m_nObjects[i] == m_nIndex || m_nObjects[i] < 0 
 			|| m_nObjects[i] >= (int) sspPool::Instance().objects.GetSize()) {
-			printError(outStr, "(SSpSimultaneousGroup): a play object index is not valid", nErrors);
+			printError(outStr, _T("(SSpSimultaneousGroup): a play object index is not valid"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nObjects.size() == 0) {
-		printError(outStr, "(SSpSimultaneousGroup): there are no play objects", nErrors);
+		printError(outStr, _T("(SSpSimultaneousGroup): there are no play objects"), nErrors);
 		bRet = false;
 	}
 	if (m_nObjects.size() == 1) {
-		printWarning(outStr, "(SSpSimultaneousGroup): there is only a single play object", nWarnings);
+		printWarning(outStr, _T("(SSpSimultaneousGroup): there is only a single play object"), nWarnings);
 		bRet = false;
 	}
 	return bRet;
@@ -1286,16 +1286,16 @@ bool SSpSequentialGroup::verify(sspOutStream& outStr, int& nErrors, int& nWarnin
 	for (unsigned int i=0; i<m_nObjects.size(); ++i) {
 		if (m_nObjects[i] == m_nIndex || m_nObjects[i] < 0 
 			|| m_nObjects[i] >= (int) sspPool::Instance().objects.GetSize()) {
-			printError(outStr, "(SSpSequentialGroup): a play object index is not valid", nErrors);
+			printError(outStr, _T("(SSpSequentialGroup): a play object index is not valid"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nObjects.size() == 0) {
-		printError(outStr, "(SSpSequentialGroup): there are no play objects", nErrors);
+		printError(outStr, _T("(SSpSequentialGroup): there are no play objects"), nErrors);
 		bRet = false;
 	}
 	if (m_nObjects.size() == 1) {
-		printWarning(outStr, "(SSpSequentialGroup): there is only a single play object", nWarnings);
+		printWarning(outStr, _T("(SSpSequentialGroup): there is only a single play object"), nWarnings);
 		bRet = false;
 	}
 	return bRet;
@@ -1416,20 +1416,20 @@ bool SSpLinearSelectGroup::verify(sspOutStream& outStr, int& nErrors, int& nWarn
 	for (unsigned int i=0; i<m_nObjects.size(); ++i) {
 		if (m_nObjects[i] == m_nIndex || m_nObjects[i] < 0 
 			|| m_nObjects[i] >= (int) sspPool::Instance().objects.GetSize()) {
-			printError(outStr, "(SSpLinearSelectGroup): a play object index is not valid", nErrors);
+			printError(outStr, _T("(SSpLinearSelectGroup): a play object index is not valid"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nObjects.size() == 0) {
-		printError(outStr, "(SSpLinearSelectGroup): there are no play objects", nErrors);
+		printError(outStr, _T("(SSpLinearSelectGroup): there are no play objects"), nErrors);
 		bRet = false;
 	}
 	if (m_nObjects.size() == 1) {
-		printWarning(outStr, "(SSpLinearSelectGroup): there is only a single play object", nWarnings);
+		printWarning(outStr, _T("(SSpLinearSelectGroup): there is only a single play object"), nWarnings);
 		bRet = false;
 	}
 	if (m_nValue < 0 || m_nValue >= (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(SSpLinearSelectGroup): m_nValue is not valid", nErrors);
+		printError(outStr, _T("(SSpLinearSelectGroup): m_nValue is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -1452,7 +1452,7 @@ bool SSpLinearSelectGroup::initialize()
 	}
 	if (m_nObjects.empty()) {
 		CString txt;
-		txt.Format("There are no elements in %s", m_strName);
+		txt.Format(_T("There are no elements in %s"), m_strName);
 		AfxMessageBox(txt);
 		return false;
 	}
@@ -1560,28 +1560,28 @@ bool SSpRandomGroup::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 	for (unsigned int i=0; i<m_nObjects.size(); ++i) {
 		if (m_nObjects[i] == m_nIndex || m_nObjects[i] < 0 
 			|| m_nObjects[i] >= (int) sspPool::Instance().objects.GetSize()) {
-			printError(outStr, "(SSpRandomGroup): a play object index is not valid", nErrors);
+			printError(outStr, _T("(SSpRandomGroup): a play object index is not valid"), nErrors);
 			bRet = false;
 		}
 		if (m_nVarWeight[i] >= (int) sspPool::Instance().values.GetSize()) {
-			printError(outStr, "(SSpRandomGroup): a value index is not valid", nErrors);
+			printError(outStr, _T("(SSpRandomGroup): a value index is not valid"), nErrors);
 			bRet = false;
 		}
 		if (m_nConstWeight[i] < 0) {
-			printError(outStr, "(SSpRandomGroup): const weight should be positive", nErrors);
+			printError(outStr, _T("(SSpRandomGroup): const weight should be positive"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nObjects.size() == 0) {
-		printError(outStr, "(SSpRandomGroup): there are no play objects", nErrors);
+		printError(outStr, _T("(SSpRandomGroup): there are no play objects"), nErrors);
 		bRet = false;
 	}
 	if (m_nObjects.size() == 1) {
-		printWarning(outStr, "(SSpRandomGroup): there is only a single play object", nWarnings);
+		printWarning(outStr, _T("(SSpRandomGroup): there is only a single play object"), nWarnings);
 		bRet = false;
 	}
 	if (m_nObjects.size() != m_nConstWeight.size() || m_nConstWeight.size() != m_nVarWeight.size()) {
-		printError(outStr, "(SSpRandomGroup): the object and weight sizes do not match", nErrors);
+		printError(outStr, _T("(SSpRandomGroup): the object and weight sizes do not match"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -1715,33 +1715,33 @@ bool SSpChainGroup::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 	for (unsigned int i=0; i<m_nObjects.size(); ++i) {
 		if (m_nObjects[i] == m_nIndex || m_nObjects[i] < 0 
 			|| m_nObjects[i] >= (int) sspPool::Instance().objects.GetSize()) {
-			printError(outStr, "(SSpChainGroup): a play object index is not valid", nErrors);
+			printError(outStr, _T("(SSpChainGroup): a play object index is not valid"), nErrors);
 			bRet = false;
 		}
 		if (m_nFollowers[i] == m_nIndex || m_nFollowers[i] < 0 
 			|| m_nFollowers[i] >= (int) sspPool::Instance().objects.GetSize()) {
-			printError(outStr, "(SSpChainGroup): a follower index is not valid", nErrors);
+			printError(outStr, _T("(SSpChainGroup): a follower index is not valid"), nErrors);
 			bRet = false;
 		}
 		if (m_nObjects[i] == m_nFollowers[i]) {
-			printError(outStr, "(SSpChainGroup): play object and follower is identical", nErrors);
+			printError(outStr, _T("(SSpChainGroup): play object and follower is identical"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nCircleLength <= 1) {
-		printError(outStr, "(SSpChainGroup): the chain has too few elements", nErrors);
+		printError(outStr, _T("(SSpChainGroup): the chain has too few elements"), nErrors);
 		bRet = false;
 	}
 	if (m_nObjects.size() == 1) {
-		printWarning(outStr, "(SSpChainGroup): there is only a single play object", nWarnings);
+		printWarning(outStr, _T("(SSpChainGroup): there is only a single play object"), nWarnings);
 		bRet = false;
 	}
 	if (m_nObjects.size() == 0) {
-		printError(outStr, "(SSpChainGroup): there are no play objects", nErrors);
+		printError(outStr, _T("(SSpChainGroup): there are no play objects"), nErrors);
 		bRet = false;
 	}
 	if (m_nObjects.size() != m_nFollowers.size()) {
-		printError(outStr, "(SSpChainGroup): the object and follower sizes do not match", nErrors);
+		printError(outStr, _T("(SSpChainGroup): the object and follower sizes do not match"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -1867,32 +1867,32 @@ bool SSpConditionalGroup::verify(sspOutStream& outStr, int& nErrors, int& nWarni
 	for (unsigned int i=0; i<m_nObjects.size(); ++i) {
 		if (m_nObjects[i] == m_nIndex || m_nObjects[i] < 0 
 			|| m_nObjects[i] >= (int) sspPool::Instance().objects.GetSize()) {
-			printError(outStr, "(SSpConditionalGroup): a play object index is not valid", nErrors);
+			printError(outStr, _T("(SSpConditionalGroup): a play object index is not valid"), nErrors);
 			bRet = false;
 		}
 		if (m_nConditionals[i] < 0 || m_nConditionals[i] >= (int) sspPool::Instance().conditionals.GetSize()) {
-			printError(outStr, "(SSpConditionalGroup): a conditional index is not valid", nErrors);
+			printError(outStr, _T("(SSpConditionalGroup): a conditional index is not valid"), nErrors);
 			bRet = false;
 		}
 	}
 	if (m_nObjects.size() == 1 && m_nDefaultObject < 0) {
-		printWarning(outStr, "(SSpConditionalGroup): there is only a single play object", nWarnings);
+		printWarning(outStr, _T("(SSpConditionalGroup): there is only a single play object"), nWarnings);
 		bRet = false;
 	}
 	if (m_nObjects.size() == 0) {
-		printError(outStr, "(SSpConditionalGroup): there are no play objects", nErrors);
+		printError(outStr, _T("(SSpConditionalGroup): there are no play objects"), nErrors);
 		bRet = false;
 	}
 	if (m_nObjects.size() != m_nConditionals.size()) {
-		printError(outStr, "(SSpConditionalGroup): the object and conditional sizes do not match", nErrors);
+		printError(outStr, _T("(SSpConditionalGroup): the object and conditional sizes do not match"), nErrors);
 		bRet = false;
 	}
 	if (m_nDefaultObject < 0) {
-		printWarning(outStr, "(SSpConditionalGroup): there is no m_nDefaultObject", nErrors);
+		printWarning(outStr, _T("(SSpConditionalGroup): there is no m_nDefaultObject"), nErrors);
 		bRet = false;
 	}
 	else if (m_nDefaultObject == m_nIndex || m_nDefaultObject >= (int) sspPool::Instance().objects.GetSize()) {
-		printError(outStr, "(SSpDistributionObject): m_nDefaultObject is not valid", nErrors);
+		printError(outStr, _T("(SSpDistributionObject): m_nDefaultObject is not valid"), nErrors);
 		bRet = false;
 	}
 	return bRet;
@@ -2036,24 +2036,24 @@ bool SSpDistributionObject::verify(sspOutStream& outStr, int& nErrors, int& nWar
 	bool bRet = true;
 
 	if (m_nObject == m_nIndex || m_nObject < 0 || m_nObject >= (int) sspPool::Instance().objects.GetSize()) {
-		printError(outStr, "(SSpDistributionObject): m_nObject is not valid", nErrors);
+		printError(outStr, _T("(SSpDistributionObject): m_nObject is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nStartInterval < 0 || m_nStartInterval >= (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(SSpDistributionObject): m_nStartInterval is not valid", nErrors);
+		printError(outStr, _T("(SSpDistributionObject): m_nStartInterval is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nEndInterval >= (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(SSpDistributionObject): m_nEndInterval is not valid", nErrors);
+		printError(outStr, _T("(SSpDistributionObject): m_nEndInterval is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nLoopCondition < 0 || m_nLoopCondition >= (int) sspPool::Instance().conditionals.GetSize()) {
-		printError(outStr, "(SSpDistributionObject): m_nLoopCondition is not valid", nErrors);
+		printError(outStr, _T("(SSpDistributionObject): m_nLoopCondition is not valid"), nErrors);
 		bRet = false;
 	}
 	if (m_nLoopMode == LOOP_COUNT || m_nLoopMode == LOOP_DURATION) {
 		if (m_nLoopDuration < 0 || m_nLoopDuration > (int) sspPool::Instance().values.GetSize()) {
-			printError(outStr, "(SSpDistributionObject): m_nLoopDuration is not valid", nErrors);
+			printError(outStr, _T("(SSpDistributionObject): m_nLoopDuration is not valid"), nErrors);
 			bRet = false;
 		}
 	}
@@ -2218,18 +2218,18 @@ bool SSpStateObject::verify(sspOutStream& outStr, int& nErrors, int& nWarnings)
 	bool bRet = true;
 
 	if (m_nGlobalState < 0 || m_nGlobalState >= (int) sspPool::Instance().values.GetSize()) {
-		printError(outStr, "(SSpStateObject): m_nGlobalState is not valid", nErrors);
+		printError(outStr, _T("(SSpStateObject): m_nGlobalState is not valid"), nErrors);
 		bRet = false;
 	}
 
 	if (m_nMode == STATE_TYPE_SETVALUE && 
     (m_nInputValue < 0 || m_nInputValue >= (int) sspPool::Instance().values.GetSize())) {
-		printError(outStr, "(SSpStateObject): m_nInputValue is not valid", nErrors);
+		printError(outStr, _T("(SSpStateObject): m_nInputValue is not valid"), nErrors);
 		bRet = false;
 	}
 
   if (m_nMode != STATE_TYPE_INCREMENT && m_nMode != STATE_TYPE_DECREMENT && m_nMode != STATE_TYPE_SETVALUE) {
-		printError(outStr, "(SSpStateObject): m_nMode is not valid", nErrors);
+		printError(outStr, _T("(SSpStateObject): m_nMode is not valid"), nErrors);
 		bRet = false;
 	}
 

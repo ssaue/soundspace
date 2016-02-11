@@ -20,7 +20,7 @@ public:
   sspMidiFileReader();
   virtual ~sspMidiFileReader();
 
-	int open(const char* pFileName);
+	int open(const wchar_t* pFileName);
 	int read(sspMidiFileSong& song);
   void close();
 

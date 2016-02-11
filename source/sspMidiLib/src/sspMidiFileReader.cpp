@@ -33,9 +33,9 @@ inline unsigned int sspMidiFileReader::readVarInt()
 	return nVal;
 }
 
-int sspMidiFileReader::open(const char* pFileName)
+int sspMidiFileReader::open(const wchar_t* pFileName)
 {
-  m_file.open(pFileName, ios_base::binary | ios_base::in);
+	m_file.open(pFileName, ios_base::binary | ios_base::in);
   if (m_file.fail()) 
     return ERRMSG_FILEOPEN;
 

@@ -37,7 +37,7 @@ bool sspScheduler::addObject(sspScheduleObject* pObj)
 {
 	sspAutoLock autolock(m_synch);
   if (!pObj->begin() || pObj->isPlaying()) {
-    DOUT ("sspScheduler addObject failed\n");
+		DOUT(_T("sspScheduler addObject failed\n"));
 		return false;
   }
 	else if (m_list.empty()) {
